@@ -36,14 +36,11 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 GOOGLE_REVOKE_URL = "https://oauth2.googleapis.com/revoke"
 GOOGLE_DRIVE_ABOUT_URL = "https://www.googleapis.com/drive/v3/about?fields=user,storageQuota"
 
-# OAuth Scopes
+# OAuth Scopes registered with Google Drive desktop client
 DEFAULT_SCOPES = [
     "https://www.googleapis.com/auth/drive",
     "https://www.googleapis.com/auth/drive.photos.readonly",
-    "https://www.googleapis.com/auth/drive.activity.readonly",
-    "https://www.googleapis.com/auth/userinfo.email",
-    "https://www.googleapis.com/auth/userinfo.profile",
-    "openid"
+    "email"
 ]
 
 def base64url_encode(data: bytes) -> str:
@@ -478,19 +475,60 @@ class OAuthManager:
         return tokens["access_token"]
 
     def fetch_user_profile(self, access_token: str) -> Dict[str, Any]:
-        """Fetches Google userinfo profile."""
-        req = urllib.request.Request(
-            GOOGLE_USERINFO_URL,
-            headers={
-                "Authorization": f"Bearer {access_token}",
-                "User-Agent": "GoogleDriveDesktop/1.0.0 (Linux)"
-            }
-        )
+        """
+        Fetches Google user profile metadata.
+        Queries Drive API v3 'about' endpoint (which returns user.displayName,
+        user.emailAddress, user.photoLink) and complements with userinfo endpoint.
+        Does not require the restricted 'userinfo.profile' scope.
+        """
+        profile = {"email": "", "name": "Google User", "picture": "", "sub": ""}
+
+        # 1. Drive API v3 about endpoint (works with drive scope)
         try:
+            req = urllib.request.Request(
+                GOOGLE_DRIVE_ABOUT_URL,
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "User-Agent": "GoogleDriveDesktop/1.0.0 (Linux)"
+                }
+            )
             with urllib.request.urlopen(req, timeout=15) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except Exception as e:
-            return {"email": "unknown", "name": "Google User", "error": str(e)}
+                data = json.loads(resp.read().decode("utf-8"))
+                user = data.get("user", {})
+                if user.get("emailAddress"):
+                    profile["email"] = user["emailAddress"]
+                if user.get("displayName"):
+                    profile["name"] = user["displayName"]
+                if user.get("photoLink"):
+                    profile["picture"] = user["photoLink"]
+                if user.get("permissionId"):
+                    profile["sub"] = user["permissionId"]
+        except Exception:
+            pass
+
+        # 2. Complement with userinfo endpoint (email scope provides email and sub)
+        try:
+            req = urllib.request.Request(
+                GOOGLE_USERINFO_URL,
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "User-Agent": "GoogleDriveDesktop/1.0.0 (Linux)"
+                }
+            )
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                uinfo = json.loads(resp.read().decode("utf-8"))
+                if not profile.get("email") and uinfo.get("email"):
+                    profile["email"] = uinfo["email"]
+                if not profile.get("sub") and uinfo.get("sub"):
+                    profile["sub"] = uinfo["sub"]
+                if (not profile.get("name") or profile["name"] == "Google User") and uinfo.get("name"):
+                    profile["name"] = uinfo["name"]
+                if not profile.get("picture") and uinfo.get("picture"):
+                    profile["picture"] = uinfo["picture"]
+        except Exception:
+            pass
+
+        return profile
 
     def fetch_storage_quota(self, access_token: str) -> Dict[str, Any]:
         """Fetches Google Drive storage quota info from Drive API v3."""
