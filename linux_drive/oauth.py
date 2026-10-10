@@ -36,10 +36,9 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo"
 GOOGLE_REVOKE_URL = "https://oauth2.googleapis.com/revoke"
 GOOGLE_DRIVE_ABOUT_URL = "https://www.googleapis.com/drive/v3/about?fields=user,storageQuota"
 
-# OAuth Scopes registered with Google Drive desktop client
+# OAuth Scopes for Google Drive desktop client
 DEFAULT_SCOPES = [
     "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/drive.photos.readonly",
     "email"
 ]
 
@@ -252,7 +251,7 @@ class OAuthManager:
         return DEFAULT_CLIENT_ID, DEFAULT_CLIENT_SECRET
 
     def set_custom_client_credentials(self, client_id: str, client_secret: str) -> None:
-        """Saves custom Google Cloud credentials in config.json."""
+        """Saves custom Google Cloud credentials in config.json and client_secrets.json."""
         from linux_drive.config import load_config, save_config
         cfg = load_config()
         if "oauth" not in cfg:
@@ -260,7 +259,30 @@ class OAuthManager:
         cfg["oauth"]["use_custom_credentials"] = True
         cfg["oauth"]["custom_client_id"] = client_id.strip()
         cfg["oauth"]["custom_client_secret"] = client_secret.strip()
+        if "account" not in cfg:
+            cfg["account"] = {}
+        cfg["account"]["client_id"] = client_id.strip()
         save_config(cfg)
+
+        # Also persist to standard client_secrets.json
+        try:
+            CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+            secrets_path = CONFIG_DIR / "client_secrets.json"
+            data = {
+                "installed": {
+                    "client_id": client_id.strip(),
+                    "client_secret": client_secret.strip(),
+                    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                    "token_uri": "https://oauth2.googleapis.com/token",
+                    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                    "redirect_uris": ["http://localhost", "http://127.0.0.1"]
+                }
+            }
+            with open(secrets_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+            os.chmod(secrets_path, 0o600)
+        except Exception:
+            pass
 
     def reset_to_default_credentials(self) -> None:
         """Resets to use the built-in desktop credentials."""
