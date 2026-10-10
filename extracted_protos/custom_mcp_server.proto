@@ -1,0 +1,23 @@
+// Extracted protobuf descriptor: apps/intelligence/gen_ai/proto/agency/custom_mcp_server.proto
+syntax = "editions";
+
+package apps_intelligence.gen_ai.agency;
+
+import "learning/genai/beyond/proto/function_calling.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+
+message CustomMcpServer {
+  message DisplayProperties {
+    string display_name = 1;
+    string logo_uri = 2;
+  }
+  string tool_id = 1;
+  string url = 2;
+  string gal_service_id = 3;
+  DisplayProperties display_properties = 4;
+  repeated FunctionDeclaration function_declarations = 5;
+}
+
+message CustomMcpServers {
+  repeated CustomMcpServer servers = 1;
+}

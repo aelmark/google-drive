@@ -1,0 +1,73 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/syncing_status.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/cello/proto/sync_engine_activity_state.proto";
+import "apps/drive/fs/media/common/slurp_sync_root_status.proto";
+import "apps/drive/fs/proto/root_preference.proto";
+
+message SlurpState {
+  int64 root_id = 1;
+  int64 collapsed_root_id = 2;
+  string media_id = 3;
+  string name = 4;
+  RootDestination destination = 5;
+  int64 time_microseconds = 6;
+  SlurpSyncRootStatus event_status = 7;
+  int64 items_uploaded = 8;
+  int64 total_items = 9;
+  bool finished = 10; [default = false]
+  bool upload_started = 11; [default = false]
+  bool is_encrypted = 12; [default = false]
+}
+
+message StaleUpsyncTracking {
+  int64 last_upload_success_ms = 1;
+  int64 oldest_operation_local_modification_time_ms = 2;
+}
+
+message SyncingStatus {
+  bool backfill_in_progress = 1; [default = false]
+  bool quota_exceeded = 2; [default = false]
+  bool syncing_paused = 3; [default = false]
+  int32 num_items_syncing = 4; [default = 0]
+  bool has_network_connection = 5; [default = true]
+  bool change_ids_up_to_date = 6; [default = false]
+  bool fetching_changes = 7; [default = false]
+  repeated SourcedItemEvent item_event = 8;
+  int32 num_potential_uploads = 9;
+  SlurpRootStateMap root_state_map = 10;
+  uint64 mirror_merge_queue_size = 11; [default = 0]
+  bool quota_almost_full = 12; [default = false]
+  bool has_photos_root = 13; [default = false]
+  StaleUpsyncTracking stale_upsync_tracking = 14;
+  bool has_ransomware_alert = 15; [default = false]
+  uint64 ransomware_alert_timestamp_ms = 16; [default = 0]
+}
+
+message SlurpRootStateMap {
+  message RootStateMapEntry {
+    int64 key = 1;
+    SlurpState value = 2;
+  }
+  repeated RootStateMapEntry root_state_map = 1;
+}
+
+message StackSource {
+  enum Source {
+    SOURCE_UNSPECIFIED = 0;
+    MIRROR = 1;
+    DRIVE_SLURP = 2;
+    STREAM = 3;
+    PHOTOS = 4;
+    LOCAL_DISK = 5;
+  }
+}
+
+message SourcedItemEvent {
+  ItemEvent item_event = 1;
+  Source source = 2;
+  string canceled_upload_path = 3;
+}
+

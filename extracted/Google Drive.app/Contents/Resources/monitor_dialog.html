@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./monitor_dialog.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./monitor_dialog.bin"></script>
+  </head>
+  <body>
+    <div class="column file-provider">
+      <div class="view">
+        <h2>Request volume by type</h2>
+        <div class="row">
+          <canvas class="request-graph"></canvas>
+          <div class="legend request-legend"></div>
+        </div>
+      </div>
+      <div class="column view detail-view">
+        <h2>Detailed events</h2>
+        <div class="toolbar">
+          <label>Total requests: </label><div class="summary-value total-requests">0</div>
+          <label>in-flight: </label><div class="summary-value in-flight-requests">0</div>
+        </div>
+        <div class="column scroll-wrapper">
+          <table class="detail-table">
+            <tr>
+              <th style="width: 16px;"></th> <!-- for expander -->
+              <th style="width: 50px;">Req</th>
+              <th style="width: 100px;">Type</th>
+              <th style="width: 90px;">ID</th>
+              <th style="width: 90px;">Parent</th>
+              <th>Description</th>
+              <th style="width: 60px;">M. ver</th>
+              <th style="width: 60px;">C. ver</th>
+              <th style="width: 60px;">Size</th>
+              <th style="width: 120px;">Mod time</th>
+              <th style="width: 120px;">Used time</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

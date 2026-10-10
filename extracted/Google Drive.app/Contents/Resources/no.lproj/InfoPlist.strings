@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Disk for datamaskiner trenger tilgang til Microsoft Office for å kunne tilby tilstedeværelse i sanntid, slik at du kan se hvem som redigerer en Microsoft-fil";
+"NSDesktopFolderUsageDescription" = "Google Disk for datamaskiner trenger tilgang til filene i Skrivebord-mappen din for å synkronisere filene dine og sikkerhetskopiere bilder og videoer";
+"NSDocumentsFolderUsageDescription" = "Google Disk for datamaskiner trenger tilgang til filene i Dokumenter-mappen din for å synkronisere filene dine og sikkerhetskopiere bilder og videoer";
+"NSNetworkVolumesUsageDescription" = "Google Disk for datamaskiner trenger tilgang til nettverksvolumet ditt for å sikkerhetskopiere bildene og videoene dine";
+"NSRemovableVolumesUsageDescription" = "Google Disk for datamaskiner trenger tilgang til USB-enheten din eller en annen flyttbar medieenhet for å synkronisere filene dine og sikkerhetskopiere bilder og videoer";
+"NSPhotoLibraryUsageDescription" = "Google Disk for datamaskiner trenger tilgang til bildebiblioteket ditt for å synkronisere filene dine og sikkerhetskopiere bilder og videoer";
+"NSBluetoothAlwaysUsageDescription" = "For å logge på Google Disk for datamaskiner med en Bluetooth-sikkerhetsnøkkel må du gi Google Disk tilgang til Bluetooth";

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie „Microsoft Office“, kad galėtų teikti prisijungimo realiuoju laiku duomenis, o jūs galėtumėte matyti, kas redaguoja „Microsoft“ failą";
+"NSDesktopFolderUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie failų, esančių darbalaukio apanke, kad galėtų sinchronizuoti failus ir kurti atsargines nuotraukų ir vaizdo įrašų kopijas";
+"NSDocumentsFolderUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie failų, esančių dokumentų apanke, kad galėtų sinchronizuoti failus ir kurti atsargines nuotraukų ir vaizdo įrašų kopijas";
+"NSNetworkVolumesUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie tinklo laikmenos, kad galėtų kurti atsargines nuotraukų ir vaizdo įrašų kopijas";
+"NSRemovableVolumesUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie USB ar kitos keičiamosios laikmenos, kad galėtų sinchronizuoti failus ir kurti atsargines nuotraukų ir vaizdo įrašų kopijas";
+"NSPhotoLibraryUsageDescription" = "Staliniams kompiuteriams skirtam „Google“ diskui reikalinga prieiga prie nuotraukų mediatekos, kad galėtų sinchronizuoti failus ir kurti atsargines nuotraukų ir vaizdo įrašų kopijas";
+"NSBluetoothAlwaysUsageDescription" = "Jei norite prisijungti prie staliniams kompiuteriams skirto „Google“ disko naudodami „Bluetooth“ saugos raktą, leiskite „Google“ diskui pasiekti „Bluetooth“";

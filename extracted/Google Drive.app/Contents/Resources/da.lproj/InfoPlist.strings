@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drev til computer skal have adgang til Microsoft Office for at levere tilstedeværelse i realtid, så du kan se, hvem der redigerer en Microsoft-fil";
+"NSDesktopFolderUsageDescription" = "Google Drev til computer skal have adgang til filerne i mappen Skrivebord for at synkronisere dine filer og sikkerhedskopiere dine billeder og videoer";
+"NSDocumentsFolderUsageDescription" = "Google Drev til computer skal have adgang til filerne i mappen Dokumenter for at synkronisere dine filer og sikkerhedskopiere dine billeder og videoer";
+"NSNetworkVolumesUsageDescription" = "Google Drev til computer skal have adgang til din netværksvolumen for at sikkerhedskopiere dine billeder og videoer";
+"NSRemovableVolumesUsageDescription" = "Google Drev til computer skal have adgang til din USB-enhed eller dine andre medieenheder, der kan fjernes, for at synkronisere dine filer og sikkerhedskopiere dine billeder og videoer";
+"NSPhotoLibraryUsageDescription" = "Google Drev til computer skal have adgang til din billedsamling for at synkronisere dine filer og sikkerhedskopiere dine billeder og videoer";
+"NSBluetoothAlwaysUsageDescription" = "Giv Google Drev adgang til Bluetooth, så du kan logge ind i Google Drev til computer ved hjælp af en Bluetooth-sikkerhedsnøgle";

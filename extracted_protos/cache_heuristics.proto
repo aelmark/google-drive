@@ -1,0 +1,10 @@
+// Extracted protobuf descriptor: apps/drive/fs/core/stream/cache_heuristics.proto
+syntax = "editions";
+
+package cello.fs;
+
+enum CacheCapacityHeuristic {
+  INCLUDE_ALL = 0;
+  EXCLUDE_NONEVICTABLE = 1;
+}
+

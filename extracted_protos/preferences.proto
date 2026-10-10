@@ -1,0 +1,184 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/preferences.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/fs/common/notifications.proto";
+import "apps/drive/fs/proto/preferences_annotation.proto";
+
+enum UITheme {
+  UNKNOWN_UI_THEME = 0;
+  USE_OS = 1;
+  DARK_MODE = 2;
+  LIGHT_MODE = 3;
+}
+
+enum PhotosUploadQuality {
+  UNKNOWN_PHOTOS_UPLOAD_QUALITY = 0;
+  ORIGINAL_QUALITY = 1;
+  STANDARD_QUALITY = 2;
+}
+
+message DoNotShowDialogs {
+  bool mount_point_changed = 1;
+  bool confirm_shared_folder_move_in = 2;
+  bool confirm_shared_folder_move_out = 3;
+  bool confirm_td_file_move_out = 4;
+  bool confirm_move_to_untrusted_td = 5;
+  bool warning_move_to_untrusted_td = 6;
+  bool warning_td_file_move_out = 7;
+  bool warning_shared_folder_move_in = 8;
+  bool warning_shared_folder_move_out = 9;
+  bool shared_item_deletion = 10;
+  bool owned_shared_item_deletion = 11;
+  bool move_within_shared_drive = 12;
+  bool move_between_sd_members_only_no_outsider = 13;
+  bool move_between_sd_members_only = 14;
+  bool move_between_sd_no_outsider = 15;
+  bool move_between_sd_no_restriction = 16;
+  bool move_into_sd_members_only_no_outsider = 17;
+  bool move_into_sd_members_only = 18;
+  bool move_into_sd_no_outsider = 19;
+  bool move_into_sd_no_restriction = 20;
+  bool move_from_sd_to_shared_folder = 21;
+  bool move_from_sd_to_my_drive = 22;
+  bool move_into_shared_folder = 23;
+  bool move_out_of_shared_folder = 24;
+  bool move_into_sd_members_only_no_outsider_domain_changed = 25;
+  bool move_into_sd_no_outsider_domain_changed = 26;
+  bool move_into_sd_members_only_domain_changed = 27;
+  bool move_into_sd_no_restriction_domain_changed = 28;
+  bool move_between_sd_members_only_no_outsider_domain_changed = 29;
+  bool move_between_sd_no_outsider_domain_changed = 30;
+  bool move_between_sd_members_only_domain_changed = 31;
+  bool move_between_sd_no_restriction_domain_changed = 32;
+  bool move_from_sd_to_my_drive_domain_changed = 33;
+  bool move_from_sd_to_shared_folder_domain_changed = 34;
+  bool move_between_shared_folders = 35;
+  bool copy_link_notification = 36;
+  bool enable_docs_offline = 37;
+  bool install_chrome = 38;
+  bool photos_delete_warning = 39;
+  bool first_auto_purge_warning = 40;
+  bool second_auto_purge_warning = 41;
+  bool private_item_trashed = 42;
+  bool owned_shared_item_trashed = 43;
+  bool photos_files_too_large = 44;
+  bool app_rename_notification = 45;
+  bool preferences_dialog_tour = 46;
+  bool mirror_upload_deleted_notification = 47;
+  bool file_provider_migration_mount_point_changed = 48;
+  bool spork_tour_notification = 49;
+  bool mirror_unparented_shared_delete = 50;
+  bool mirror_unparented_shared_move_out = 51;
+  bool live_photos_missing_video = 52;
+  bool google_drive_tab_onboarding = 53;
+  bool os_unsupported_soon = 54;
+  bool win7_patch_required = 55;
+  bool multi_parented_item_migrated_to_shortcut = 56;
+  bool mirror_download_deleted_notification = 57;
+  bool lost_and_found_items_found_notification = 58;
+  bool storage_almost_full_notification = 59;
+}
+
+message AccountDoNotShowDialogs {
+  bool switched_to_streaming = 1;
+}
+
+message DoNotShowList {
+  message DoNotShowEntry {
+    NotificationType notification_type = 1;
+  }
+  repeated DoNotShowEntry entry = 1;
+}
+
+message AccountPreferences {
+  string mount_point_path = 1;
+  bool disable_realtime_presence = 11;
+  string machine_root_doc_id = 22;
+  PhotosUploadQuality photos_upload_quality = 23;
+  bool photos_upload_screenshots = 29;
+  bool photos_upload_raw_files = 30;
+  string old_mirrored_my_drive_path = 35;
+  string mirrored_my_drive_watch_path = 37;
+  AccountDoNotShowDialogs account_do_not_show_dialogs = 38;
+  bool hide_mount_point = 43;
+  bool show_mount_point_in_sidebar = 44;
+  uint32 mac_smb_port = 46;
+  DoNotShowList account_do_not_show_notifications = 48;
+  bool enable_smb_spotlight = 50;
+  int64 cache_size_limit_kbytes = 59;
+  string file_provider_volume_path = 61;
+}
+
+message GlobalPreferences {
+  string content_cache_base_path = 2;
+  uint32 bandwidth_rx_kbps = 3;
+  uint32 bandwidth_tx_kbps = 4;
+  string trusted_root_certs_file_path = 5;
+  bool disable_ssl_validation = 6;
+  bool disable_crl_check = 7;
+  bool direct_connection = 8;
+  DoNotShowDialogs do_not_show_dialogs = 12;
+  bool autostart_on_login = 13;
+  int64 content_cache_max_kbytes = 14;
+  int64 min_local_free_space_for_writes = 15;
+  bool enable_spotlight = 16;
+  uint32 outlook_attachment_size_threshold_mbytes = 17;
+  bool disable_outlook_plugin = 18;
+  int64 max_connection_idle_time_msec = 19;
+  UITheme ui_theme = 21;
+  bool disable_meet_outlook_plugin = 24;
+  bool disable_onboarding_dialog = 25;
+  bool disable_add_account = 27;
+  string allowed_accounts_pattern = 28;
+  bool disable_spork = 31;
+  int64 stalled_progress_seconds = 32;
+  bool open_office_files_in_docs = 33;
+  bool disable_localized_virtual_folders = 34;
+  bool enable_smb = 36;
+  bool prompt_to_backup_devices = 39;
+  string web_browser_path = 40;
+  bool disable_spamming_app_throttling = 41;
+  bool trust_system_root_certs = 42;
+  bool disable_gpu = 45;
+  int64 search_hot_key = 47;
+  DoNotShowList do_not_show_notifications = 49;
+  bool use_localhost_as_redirect_uri = 51;
+  bool pause_syncing_on_metered_connection = 52;
+  bool disable_mirrored_folders = 54;
+  bool disable_mirrored_my_drive = 55;
+  bool disable_photos = 56;
+  bool disable_slurp = 57;
+  bool strict_crl_check = 58;
+  bool enable_automatic_error_reporting = 62;
+  bool enable_casita_ui = 63;
+  int64 feature_flag_restart_seconds = 64;
+  string current_account_token = 65;
+  string add_account_flow_account_token = 67;
+  bool hide_shared_folders_icons_windows = 68;
+}
+
+message PreferencesRegistry {
+  GlobalAndAccountPreferences all_preferences = 5;
+  AccountPreferences legacy_account_preferences = 6;
+  CorePreferences machine_defaults = 7;
+  CorePreferences machine_overrides = 8;
+}
+
+message GlobalAndAccountPreferences {
+  message AccountPreferencesMap {
+    message PerAccountPreferencesEntry {
+      string key = 1;
+      AccountPreferences value = 2;
+    }
+    repeated PerAccountPreferencesEntry per_account_preferences = 1;
+  }
+  GlobalPreferences global = 1;
+  AccountPreferencesMap account_preferences_map = 2;
+}
+
+message CorePreferences {
+  GlobalPreferences global = 1;
+  AccountPreferences account = 2;
+}

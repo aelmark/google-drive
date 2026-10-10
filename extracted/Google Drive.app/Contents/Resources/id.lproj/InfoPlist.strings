@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive untuk desktop memerlukan akses ke Microsoft Office untuk memberikan kehadiran real-time agar Anda dapat melihat pengguna yang mengedit file Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive untuk desktop membutuhkan akses ke file di folder Desktop Anda agar dapat menyinkronkan file dan mencadangkan foto serta video";
+"NSDocumentsFolderUsageDescription" = "Google Drive untuk desktop memerlukan akses ke file di folder Dokumen Anda agar dapat menyinkronkan file dan mencadangkan foto serta video";
+"NSNetworkVolumesUsageDescription" = "Google Drive untuk desktop memerlukan akses ke volume jaringan Anda agar dapat mencadangkan foto dan video";
+"NSRemovableVolumesUsageDescription" = "Google Drive untuk desktop memerlukan akses ke USB Anda atau perangkat media portabel lainnya agar dapat menyinkronkan file dan mencadangkan foto serta video";
+"NSPhotoLibraryUsageDescription" = "Google Drive untuk desktop memerlukan akses ke galeri foto Anda agar dapat menyinkronkan file dan mencadangkan foto serta video";
+"NSBluetoothAlwaysUsageDescription" = "Agar dapat login ke Google Drive untuk desktop menggunakan kunci keamanan Bluetooth, izinkan Google Drive untuk mengakses Bluetooth";

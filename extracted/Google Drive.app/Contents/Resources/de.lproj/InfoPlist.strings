@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf Microsoft Office, damit die Echtzeit-Anwesenheit angegeben werden kann und Sie sehen, wer eine Microsoft-Datei bearbeitet";
+"NSDesktopFolderUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf die Dateien in Ihrem Desktop-Ordner, um Ihre Dateien zu synchronisieren und Fotos und Videos zu sichern";
+"NSDocumentsFolderUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf die Dateien in Ihrem Dokumentordner, um Ihre Dateien zu synchronisieren und Fotos und Videos zu sichern";
+"NSNetworkVolumesUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf Ihr Netzwerklaufwerk, um Ihre Fotos und Videos zu sichern";
+"NSRemovableVolumesUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf das USB-Laufwerk oder andere Wechselmedien, um Ihre Dateien zu synchronisieren und Fotos und Videos zu sichern";
+"NSPhotoLibraryUsageDescription" = "Google Drive for Desktop benötigt Zugriff auf Ihre Fotogalerie, um Ihre Dateien zu synchronisieren und Fotos und Videos zu sichern";
+"NSBluetoothAlwaysUsageDescription" = "Damit Sie sich über einen Bluetooth-Sicherheitsschlüssel in Google Drive for Desktop anmelden können, müssen Sie Google Drive den Zugriff auf Bluetooth erlauben";

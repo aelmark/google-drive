@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa Microsoft Office para makapagbigay ng real-time na presensya nang sa gayon ay makita mo kung sino ang nag-e-edit ng file sa Microsoft";
+"NSDesktopFolderUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa mga file sa iyong folder na Desktop para ma-sync ang mga file mo at ma-back up ang iyong mga larawan at video";
+"NSDocumentsFolderUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa mga file sa iyong folder na Mga Dokumento para ma-sync ang mga file mo at ma-back up ang iyong mga larawan at video";
+"NSNetworkVolumesUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa volume ng network mo para ma-back up ang iyong mga larawan at video";
+"NSRemovableVolumesUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa iyong USB o iba pang removable media device para ma-sync ang mga file mo at ma-back up ang iyong mga larawan at video";
+"NSPhotoLibraryUsageDescription" = "Kailangan ng Google Drive para sa desktop ng access sa iyong library ng larawan para ma-sync ang mga file mo at ma-back up ang iyong mga larawan at video";
+"NSBluetoothAlwaysUsageDescription" = "Para makapag-sign in sa Google Drive para sa desktop gamit ang Bluetooth security key, payagan ang Google Drive na i-access ang Bluetooth";

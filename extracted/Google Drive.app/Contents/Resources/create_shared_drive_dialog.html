@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./create_shared_drive_dialog.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./create_shared_drive_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <div id="main-container">
+      <div id="header">
+        <img id="drive-logo" src="logo_drive_no_border.svg" alt="Google Drive Logo">
+        <div id="header-text">
+          <h1 tabindex="-1" class="title gmTypographyHeadline5 a11y-focusable-text"></h1>
+          <div class="description gmTypographyCaption"></div>
+        </div>
+      </div>
+      <label class="shared-drive-name-text-field"></label>
+      <div id="error" aria-live="assertive"
+                class="error-message gmTypographyCaption"><!-- Set by the JS. --></div>
+      <div id="footer">
+        <div id="cancel-button"><!--- DFSButton --></div>
+        <div id="create-button"><!--- DFSButton --></div>
+      </div>
+    </div>
+  </body>
+</html>

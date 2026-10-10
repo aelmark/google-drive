@@ -1,0 +1,86 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/mcp_ipc.proto
+syntax = "editions";
+
+package cello.fs;
+
+message GetSyncStatusRequest {
+  string path = 1;
+}
+
+message GetSyncStatusResponse {
+  string status = 1;
+  string description = 2;
+}
+
+message AddFolderToSyncRequest {
+  string path = 1;
+  string account_id = 2;
+}
+
+message AddFolderToSyncResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message GetDriveUrlRequest {
+  string path = 1;
+}
+
+message GetDriveUrlResponse {
+  string drive_url = 1;
+  string error_message = 2;
+}
+
+message ListTrackedFoldersRequest {
+}
+
+message ListTrackedFoldersResponse {
+  repeated string paths = 1;
+  string error_message = 2;
+}
+
+message FixAclRequest {
+  string email = 1;
+  string item_id = 2;
+  string account_id = 3;
+}
+
+message FixAclResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message GetStreamingMountPointsRequest {
+  string account_id = 1;
+}
+
+message StreamingMountPoint {
+  string account_id = 1;
+  string mount_point = 2;
+  string my_drive_path = 3;
+}
+
+message GetStreamingMountPointsResponse {
+  repeated StreamingMountPoint mount_points = 1;
+  string error_message = 2;
+}
+
+message McpIpcRequest {
+  int64 request_id = 1;
+  GetSyncStatusRequest get_sync_status = 2; // oneof request
+  AddFolderToSyncRequest add_folder_to_sync = 3; // oneof request
+  GetDriveUrlRequest get_drive_url = 4; // oneof request
+  ListTrackedFoldersRequest list_tracked_folders = 5; // oneof request
+  FixAclRequest fix_acl = 6; // oneof request
+  GetStreamingMountPointsRequest get_streaming_mount_points = 7; // oneof request
+}
+
+message McpIpcResponse {
+  int64 request_id = 1;
+  GetSyncStatusResponse get_sync_status = 2; // oneof response
+  AddFolderToSyncResponse add_folder_to_sync = 3; // oneof response
+  GetDriveUrlResponse get_drive_url = 4; // oneof response
+  ListTrackedFoldersResponse list_tracked_folders = 5; // oneof response
+  FixAclResponse fix_acl = 6; // oneof response
+  GetStreamingMountPointsResponse get_streaming_mount_points = 7; // oneof response
+}

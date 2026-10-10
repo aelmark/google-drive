@@ -1,0 +1,14 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/user_settings.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/dataservice/proto/account.proto";
+
+message UserSettings {
+  DriveForDesktopSettings admin_settings = 1;
+  SecuritySettings security_settings = 2;
+  EnterpriseSettings enterprise_settings = 3;
+  GenAiSettings gen_ai_settings = 4;
+}
+

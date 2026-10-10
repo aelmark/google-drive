@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "桌面版 Google 云端硬盘需要访问 Microsoft Office 才能提供实时编辑状态，显示谁正在编辑 Microsoft 文件";
+"NSDesktopFolderUsageDescription" = "桌面版 Google 云端硬盘需要访问“桌面”文件夹中的文件，才能同步文件并备份照片和视频";
+"NSDocumentsFolderUsageDescription" = "桌面版 Google 云端硬盘需要访问“文档”文件夹中的文件，才能同步文件并备份照片和视频";
+"NSNetworkVolumesUsageDescription" = "桌面版 Google 云端硬盘需要访问网络卷，才能备份照片和视频";
+"NSRemovableVolumesUsageDescription" = "桌面版 Google 云端硬盘需要访问您的 USB 或其他可移动媒体设备，才能同步文件并备份照片和视频";
+"NSPhotoLibraryUsageDescription" = "桌面版 Google 云端硬盘需要访问您的照片图库，才能同步文件并备份照片和视频";
+"NSBluetoothAlwaysUsageDescription" = "如需使用蓝牙安全密钥登录桌面版 Google 云端硬盘，请允许 Google 云端硬盘访问蓝牙";

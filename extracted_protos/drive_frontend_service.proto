@@ -1,0 +1,410 @@
+// Extracted protobuf descriptor: google/internal/apps/drive/driveway/v1/drive_frontend_service.proto
+syntax = "proto3";
+
+package google.internal.apps.drive.driveway.v1;
+
+import "apiserving/proto/media.proto";
+import "apps/drive/dataservice/proto/account.proto";
+import "apps/drive/dataservice/proto/app.proto";
+import "apps/drive/dataservice/proto/cross_workspace.proto";
+import "apps/drive/dataservice/proto/genai.proto";
+import "apps/drive/dataservice/proto/help_me_organize.proto";
+import "apps/drive/dataservice/proto/homepage.proto";
+import "apps/drive/dataservice/proto/item.proto";
+import "apps/drive/dataservice/proto/item_suggest.proto";
+import "apps/drive/dataservice/proto/label.proto";
+import "apps/drive/dataservice/proto/mutate.proto";
+import "apps/drive/dataservice/proto/revision.proto";
+import "apps/drive/dataservice/proto/user_pref.proto";
+import "apps/framework/logging/proto/logging_annotations.proto";
+import "apps/security/cse/api/oidcidp.proto";
+import "google/api/annotations.proto";
+import "google/internal/apps/drive/driveway/v1/change.proto";
+import "google/internal/apps/drive/driveway/v1/client.proto";
+import "google/internal/apps/drive/driveway/v1/conversation.proto";
+import "google/internal/apps/drive/driveway/v1/help_me_organize.proto";
+import "google/internal/apps/drive/driveway/v1/item.proto";
+import "google/internal/apps/drive/driveway/v1/labels.proto";
+import "google/internal/apps/drive/driveway/v1/query.proto";
+import "google/internal/apps/drive/driveway/v1/rewind.proto";
+import "google/internal/apps/drive/driveway/v1/shared_drive.proto";
+import "google/internal/apps/drive/driveway/v1/suggestions.proto";
+import "google/internal/apps/drive/driveway/v1/workspace.proto";
+import "google/protobuf/duration.proto";
+import "google/rpc/status.proto";
+import "java/com/google/apps/jspb/jspb.proto";
+import "logs/proto/data_access/asr/drive_resource.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+
+message HelpMeOrganizeTreeRequest {
+  repeated SuggestedMove suggested_moves = 1;
+  repeated SuggestedRename suggested_renames = 2;
+  bool include_current_tree = 3; // oneof _include_current_tree
+}
+
+message HelpMeOrganizeTreeResponse {
+  Tree suggested_tree = 1;
+  Tree current_tree = 2;
+}
+
+message HelpMeOrganizeRequest {
+  string folder_id = 1;
+  GenerativeAiEntryPoint entry_point = 2;
+}
+
+message HelpMeOrganizeResponse {
+  Status status = 1; // oneof _status
+  repeated HelpMeOrganizeSuggestion suggestions = 2;
+  string session_id = 3; // oneof _session_id
+}
+
+message ListSourceSuggestionsRequest {
+  string item_id = 1; // oneof _item_id
+  repeated SourceSuggestionDetails included_sources = 2;
+  repeated SourceSuggestionDetails excluded_sources = 3;
+  repeated SourceSuggestionDetails current_suggestions = 4;
+  string previous_suggestion_session_id = 5; // oneof _previous_suggestion_session_id
+  Conversation conversation = 6; // oneof _conversation
+  ClientInfo client_info = 7; // oneof _client_info
+  SuggestionQueryOptions suggestion_query_options = 8; // oneof _suggestion_query_options
+}
+
+message ListSourceSuggestionsResponse {
+  repeated SourceSuggestion suggested_sources = 1;
+}
+
+message UpdateUserSettingsRequest {
+  repeated UserPref user_prefs = 1;
+}
+
+message UpdateUserSettingsResponse {
+  repeated UserPref user_prefs = 1;
+}
+
+message DeleteUserSettingsRequest {
+  repeated Key keys = 1;
+}
+
+message DeleteUserSettingsResponse {
+  repeated Key keys = 1;
+}
+
+message GetAccountRequest {
+}
+
+message GetAccountResponse {
+  Account account = 1; // oneof _account
+}
+
+message ListHomeActivityRequest {
+  enum RequestType {
+    UNKNOWN = 0;
+    ACTIVE = 1;
+    BACKGROUND = 2;
+    DARK_LAUNCH = 3;
+  }
+  RequestType request_type = 1; // oneof _request_type
+  AccessRequestOptions access_request_options = 2; // oneof _access_request_options
+  AwaitingApprovalOptions awaiting_approval_options = 3; // oneof _awaiting_approval_options
+  OpenCommentOptions open_comment_options = 4; // oneof _open_comment_options
+  RecentShareOptions recent_share_options = 5; // oneof _recent_share_options
+}
+
+message AccessRequestOptions {
+  int64 page_size = 1; // oneof _page_size
+  repeated Package label_packages = 2;
+}
+
+message AwaitingApprovalOptions {
+  int64 page_size = 1; // oneof _page_size
+  repeated Package label_packages = 2;
+}
+
+message OpenCommentOptions {
+  int64 page_size = 1; // oneof _page_size
+  repeated Package label_packages = 2;
+}
+
+message RecentShareOptions {
+  int64 page_size = 1; // oneof _page_size
+  PlatformType platform_type = 2; // oneof _platform_type
+  ViewType view_type = 3; // oneof _view_type
+  ScreenDensity screen_density = 4; // oneof _screen_density
+  repeated Package label_packages = 5;
+}
+
+message ListHomeActivityResponse {
+  bool activity_items_present = 1; // oneof _activity_items_present
+  repeated ActivityItem activity_item = 2;
+}
+
+message SearchCrossWorkspaceRequest {
+  enum ProductCorpus {
+    UNDEFINED_CORPUS = 0;
+    CALENDAR_CORPUS = 1;
+    CHAT_CORPUS = 2;
+    GMAIL_CORPUS = 3;
+  }
+  string raw_query = 1; // oneof _raw_query
+  ProductCorpus product_corpus = 2; // oneof _product_corpus
+  int64 page_size = 3; // oneof _page_size
+}
+
+message SearchCrossWorkspaceResponse {
+  repeated CrossWorkspaceResult results = 1;
+}
+
+message ListHomeSuggestionsRequest {
+  ClientInfo suggestion_client_info = 1; // oneof _suggestion_client_info
+  SuggestionQueryOptions suggestion_query_options = 3; // oneof _suggestion_query_options
+}
+
+message ListHomeSuggestionsResponse {
+  repeated ItemSuggestion file_suggestions = 5;
+  repeated ItemSuggestion folder_suggestions = 6;
+  repeated SmartCategorySuggestion smart_category_suggestions = 4;
+  Duration file_suggestions_cache_duration = 7; // oneof _file_suggestions_cache_duration
+  Duration folder_suggestions_cache_duration = 8; // oneof _folder_suggestions_cache_duration
+  Duration smart_category_suggestions_cache_duration = 9; // oneof _smart_category_suggestions_cache_duration
+}
+
+message ListItemAppliedLabelsRequest {
+  string id = 1; // oneof _id
+  repeated Package label_packages = 2;
+  QueryOptions options = 3; // oneof _options
+}
+
+message ListItemAppliedLabelsResponse {
+  repeated Label labels = 1;
+  Status status = 2; // oneof _status
+  string continuation_token = 3; // oneof _continuation_token
+}
+
+message UploadRevisionRequest {
+  ScottyRequestMetadata scotty_request_metadata = 1;
+  UpdateItemRequest update_item_request = 2;
+  ClientEncryptionDetails client_encryption_details = 4; // oneof _client_encryption_details
+  string filename = 5; // oneof _filename
+  string mime_type = 6; // oneof _mime_type
+}
+
+message UploadRevisionResponseWrapper {
+  MediaResponseInfo media_response_info = 1;
+  UploadRevisionResponse response = 2;
+}
+
+message UploadRevisionResponse {
+  Item item = 2; // oneof _item
+  string revision_id = 3; // oneof _revision_id
+}
+
+message RemovePreventSyncUserRestrictionRequest {
+  UserAction user_action = 1;
+}
+
+message RemovePreventSyncUserRestrictionResponse {
+}
+
+message ListAppsRequest {
+  repeated string app_filter_extensions = 1;
+  repeated string app_filter_mimetypes = 2;
+  bool include_hidden = 3; // oneof _include_hidden
+}
+
+message ListAppsResponse {
+  repeated App apps = 1;
+  repeated string default_app_ids = 2;
+}
+
+message GetAppRequest {
+  string app_id = 1; // oneof _app_id
+}
+
+message GetAppResponse {
+  App app = 1; // oneof _app
+}
+
+message DeleteAppRequest {
+  string app_id = 1; // oneof _app_id
+  bool delete_app_data = 2; // oneof _delete_app_data
+}
+
+message DeleteAppResponse {
+}
+
+message ListSuggestedAppsRequest {
+  repeated string app_filter_extensions = 1;
+  repeated string app_filter_mimetypes = 2;
+}
+
+message ListSuggestedAppsResponse {
+  repeated App apps = 1;
+}
+
+message GenerateCseTokenRequest {
+  string item_id = 1; // oneof _item_id
+  string parent_id = 2; // oneof _parent_id
+}
+
+message GenerateCseTokenResponse {
+  string item_id = 1; // oneof _item_id
+  int64 current_kacls_id = 2; // oneof _current_kacls_id
+  string current_kacls_name = 3; // oneof _current_kacls_name
+  string customer_id = 4; // oneof _customer_id
+  string jwt = 5; // oneof _jwt
+  OidcIdp guest_idp = 6; // oneof _guest_idp
+}
+
+message ReportSpamOrAbuseRequest {
+  enum Reason {
+    UNKNOWN = 0;
+    NOT_SPAM = 1;
+    CONFIRMED_SPAM = 2;
+    VIOLENCE = 3;
+    SPAM = 4;
+  }
+  string id = 1; // oneof _id
+  Reason reason = 2; // oneof _reason
+  string source_view_type = 3; // oneof _source_view_type
+  string auth_token = 4; // oneof _auth_token
+}
+
+message ReportSpamOrAbuseResponse {
+}
+
+message PublishActivityEventRequest {
+  string id = 1; // oneof _id
+  string event_type = 2; // oneof _event_type
+  string application = 3; // oneof _application
+  int64 item_version = 4; // oneof _item_version
+}
+
+message PublishActivityEventResponse {
+}
+
+message GetRevisionRequest {
+  string item_id = 1; // oneof _item_id
+  string revision_id = 2; // oneof _revision_id
+}
+
+message GetRevisionResponse {
+  Revision revision = 1; // oneof _revision
+}
+
+message ListRevisionsRequest {
+  string item_id = 1; // oneof _item_id
+}
+
+message ListRevisionsResponse {
+  repeated Revision revisions = 1;
+}
+
+message DeleteRevisionRequest {
+  string item_id = 1; // oneof _item_id
+  string revision_id = 2; // oneof _revision_id
+}
+
+message DeleteRevisionResponse {
+}
+
+message UpdateRevisionRequest {
+  string item_id = 1; // oneof _item_id
+  string revision_id = 2; // oneof _revision_id
+  bool pinned = 3; // oneof _pinned
+}
+
+message UpdateRevisionResponse {
+  Revision revision = 1; // oneof _revision
+}
+
+message GetQueryFamiliarityRequest {
+  string raw_query = 1; // oneof _raw_query
+}
+
+message GetQueryFamiliarityResponse {
+  float familiarity_score = 1; // oneof _familiarity_score
+  bool is_question = 2; // oneof _is_question
+}
+
+message GetUserGenAiEligibilityRequest {
+}
+
+message GetUserGenAiEligibilityResponse {
+  UserGenAiFeatureEligibilityMap eligibility_map = 1; // oneof _eligibility_map
+  Duration cache_ttl = 2; // oneof _cache_ttl
+}
+
+message UserGenAiFeatureEligibilityMap {
+  bool sidekick_enabled = 1; // oneof _sidekick_enabled
+  bool pdfkick_enabled = 2; // oneof _pdfkick_enabled
+  bool videokick_enabled = 3; // oneof _videokick_enabled
+  bool aio_enabled = 4; // oneof _aio_enabled
+  bool hmo_enabled = 5; // oneof _hmo_enabled
+  bool audio_overviews_enabled = 6; // oneof _audio_overviews_enabled
+  bool summary_card_enabled = 7; // oneof _summary_card_enabled
+  bool export_from_sidekick_enabled = 8; // oneof _export_from_sidekick_enabled
+  bool imagekick_enabled = 9; // oneof _imagekick_enabled
+  bool video_chapters_enabled = 10; // oneof _video_chapters_enabled
+  bool doclist_inline_generation_active_enabled = 11; // oneof _doclist_inline_generation_active_enabled
+}
+
+service DriveFrontendService {
+  rpc GetAccount (GetAccountRequest) returns (GetAccountResponse);
+  rpc GetSharedDrives (GetSharedDrivesRequest) returns (GetSharedDrivesResponse);
+  rpc UpdateUserSettings (UpdateUserSettingsRequest) returns (UpdateUserSettingsResponse);
+  rpc DeleteUserSettings (DeleteUserSettingsRequest) returns (DeleteUserSettingsResponse);
+  rpc CreateSharedDrive (CreateSharedDriveRequest) returns (CreateSharedDriveResponse);
+  rpc HideSharedDrives (HideSharedDrivesRequest) returns (HideSharedDrivesResponse);
+  rpc UnhideSharedDrives (UnhideSharedDrivesRequest) returns (UnhideSharedDrivesResponse);
+  rpc UpdateSharedDriveUserSettings (UpdateSharedDriveUserSettingsRequest) returns (UpdateSharedDriveUserSettingsResponse);
+  rpc ListSharedDrives (ListSharedDrivesRequest) returns (ListSharedDrivesResponse);
+  rpc UpdateSharedDrive (UpdateSharedDriveRequest) returns (UpdateSharedDriveResponse);
+  rpc DeleteSharedDrives (DeleteSharedDrivesRequest) returns (DeleteSharedDrivesResponse);
+  rpc GetItems (GetItemsRequest) returns (GetItemsResponse);
+  rpc ListItems (ListItemsRequest) returns (ListItemsResponse);
+  rpc SearchItems (SearchItemsRequest) returns (stream SearchItemsResponse);
+  rpc SearchCrossWorkspace (SearchCrossWorkspaceRequest) returns (SearchCrossWorkspaceResponse);
+  rpc DeleteItems (DeleteItemsRequest) returns (DeleteItemsResponse);
+  rpc EmptyTrash (EmptyTrashRequest) returns (EmptyTrashResponse);
+  rpc ListHomeActivity (ListHomeActivityRequest) returns (ListHomeActivityResponse);
+  rpc ListHomeSuggestions (ListHomeSuggestionsRequest) returns (ListHomeSuggestionsResponse);
+  rpc ListItemAppliedLabels (ListItemAppliedLabelsRequest) returns (ListItemAppliedLabelsResponse);
+  rpc ListChanges (ListChangesRequest) returns (ListChangesResponse);
+  rpc ListSourceSuggestions (ListSourceSuggestionsRequest) returns (ListSourceSuggestionsResponse);
+  rpc DismissSourceSuggestions (DismissSourceSuggestionsRequest) returns (DismissSourceSuggestionsResponse);
+  rpc GetChangesRemainingCount (GetChangesRemainingCountRequest) returns (GetChangesRemainingCountResponse);
+  rpc GetLargestChangeId (GetLargestChangeIdRequest) returns (GetLargestChangeIdResponse);
+  rpc GetItemHashSummary (GetItemHashSummaryRequest) returns (GetItemHashSummaryResponse);
+  rpc CreateItems (CreateItemsRequest) returns (CreateItemsResponse);
+  rpc UpdateItems (UpdateItemsRequest) returns (UpdateItemsResponse);
+  rpc UploadItem (UploadItemRequest) returns (UploadItemResponseWrapper);
+  rpc UploadRevision (UploadRevisionRequest) returns (UploadRevisionResponseWrapper);
+  rpc GetWorkspaces (GetWorkspacesRequest) returns (GetWorkspacesResponse);
+  rpc ListWorkspaces (ListWorkspacesRequest) returns (ListWorkspacesResponse);
+  rpc CreateWorkspaces (CreateWorkspacesRequest) returns (CreateWorkspacesResponse);
+  rpc UpdateWorkspaces (UpdateWorkspacesRequest) returns (UpdateWorkspacesResponse);
+  rpc DeleteWorkspaces (DeleteWorkspacesRequest) returns (DeleteWorkspacesResponse);
+  rpc GetRewindStatus (GetRewindStatusRequest) returns (GetRewindStatusResponse);
+  rpc ListRewindActivityDetails (ListRewindActivityDetailsRequest) returns (ListRewindActivityDetailsResponse);
+  rpc RewindPreflight (RewindPreflightRequest) returns (RewindPreflightResponse);
+  rpc InitiateRewind (InitiateRewindRequest) returns (InitiateRewindResponse);
+  rpc RemovePreventSyncUserRestriction (RemovePreventSyncUserRestrictionRequest) returns (RemovePreventSyncUserRestrictionResponse);
+  rpc ListApps (ListAppsRequest) returns (ListAppsResponse);
+  rpc GetApp (GetAppRequest) returns (GetAppResponse);
+  rpc DeleteApp (DeleteAppRequest) returns (DeleteAppResponse);
+  rpc ListSuggestedApps (ListSuggestedAppsRequest) returns (ListSuggestedAppsResponse);
+  rpc GenerateIds (GenerateIdsRequest) returns (GenerateIdsResponse);
+  rpc ReportSpamOrAbuse (ReportSpamOrAbuseRequest) returns (ReportSpamOrAbuseResponse);
+  rpc MigrateToSharedDrivePreflight (MigrateToSharedDrivePreflightRequest) returns (MigrateToSharedDrivePreflightResponse);
+  rpc MigrateToSharedDrive (MigrateToSharedDriveRequest) returns (MigrateToSharedDriveResponse);
+  rpc PublishActivityEvent (PublishActivityEventRequest) returns (PublishActivityEventResponse);
+  rpc GetRevision (GetRevisionRequest) returns (GetRevisionResponse);
+  rpc ListRevisions (ListRevisionsRequest) returns (ListRevisionsResponse);
+  rpc DeleteRevision (DeleteRevisionRequest) returns (DeleteRevisionResponse);
+  rpc UpdateRevision (UpdateRevisionRequest) returns (UpdateRevisionResponse);
+  rpc HelpMeOrganize (HelpMeOrganizeRequest) returns (stream HelpMeOrganizeResponse);
+  rpc GenerateCseToken (GenerateCseTokenRequest) returns (GenerateCseTokenResponse);
+  rpc HelpMeOrganizeTree (HelpMeOrganizeTreeRequest) returns (HelpMeOrganizeTreeResponse);
+  rpc GetQueryFamiliarity (GetQueryFamiliarityRequest) returns (GetQueryFamiliarityResponse);
+  rpc GetUserGenAiEligibility (GetUserGenAiEligibilityRequest) returns (GetUserGenAiEligibilityResponse);
+}

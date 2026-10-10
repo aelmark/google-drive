@@ -1,0 +1,168 @@
+// Extracted protobuf descriptor: apps/drive/fs/vfs/vfs.proto
+syntax = "editions";
+
+package cello.fs.vfs;
+
+import "apps/drive/dataservice/proto/status.proto";
+import "apps/drive/fs/file_provider/file_provider.proto";
+
+enum FileType {
+  FILE_TYPE_UNSET = 0;
+  FILE_TYPE_REGULAR = 1;
+  FILE_TYPE_FOLDER = 2;
+  FILE_TYPE_SYMLINK = 3;
+  FILE_TYPE_ALIAS = 4;
+  FILE_TYPE_GDOC = 5;
+  FILE_TYPE_NON_DOWNLOAD = 8;
+}
+
+enum FileFlag {
+  FILE_FLAG_UNSET = 0;
+  FILE_FLAG_ALLOW_READ = 1;
+  FILE_FLAG_ALLOW_WRITE = 2;
+  FILE_FLAG_ALLOW_EXECUTE = 4;
+  FILE_FLAG_ALLOW_MOVE = 8;
+  FILE_FLAG_ALLOW_RENAME = 16;
+  FILE_FLAG_ALLOW_TRASH = 32;
+  FILE_FLAG_ALLOW_EVICT = 64;
+  FILE_FLAG_HIDDEN = 128;
+  FILE_FLAG_ENCRYPTED = 256;
+  FILE_FLAG_ALLOW_MOVE_IGNORING_PARENTS = 512;
+  FILE_FLAG_ALLOW_RENAME_IGNORING_PARENTS = 1024;
+  FILE_FLAG_ALLOW_CREATE_CHILDREN = 2048;
+  FILE_FLAG_ALLOW_TRASH_CHILDREN = 4096;
+  FILE_FLAG_ALLOW_REMOVE_CHILDREN = 8192;
+  FILE_FLAG_ALLOW_MANAGE_MEMBERS = 16384;
+  FILE_FLAG_ALLOW_COPY = 32768;
+  FILE_FLAG_ALLOW_MOVE_CHILDREN_OUT = 65536;
+  FILE_FLAG_ALLOW_MOVE_CHILDREN_WITHIN = 131072;
+}
+
+enum UpdateField {
+  UPDATE_FIELD_UNSET = 0;
+  UPDATE_FIELD_CONTENT = 1;
+  UPDATE_FIELD_NAME = 2;
+  UPDATE_FIELD_PARENT = 4;
+  UPDATE_FIELD_MODIFICATION_TIME = 8;
+  UPDATE_FIELD_CREATION_TIME = 16;
+  UPDATE_FIELD_LAST_USED_TIME = 32;
+  UPDATE_FIELD_FILE_FLAGS = 64;
+  UPDATE_FIELD_SYMLINK_TARGET = 128;
+}
+
+message FileId {
+}
+
+message FileVersion {
+}
+
+message FileInfo {
+  FileId file_id = 1;
+  FileId parent_id = 2;
+  string name = 3;
+  FileType file_type = 4;
+  int64 size = 5;
+  FileVersion content_version = 6;
+  FileVersion metadata_version = 7;
+  int64 creation_time_ms = 8;
+  int64 modification_time_ms = 9;
+  int64 last_used_time_ms = 10;
+  FileId target_id = 11;
+  string external_target_path = 12;
+  uint64 flags = 13;
+  bool materialized_from_target = 14;
+}
+
+message RequestorInfo {
+  bool is_known_system_request = 1;
+  bool is_known_file_viewer_request = 2;
+  int64 pid = 3;
+  uint64 caller_request_id = 4;
+}
+
+message ParentAndName {
+  FileId parent_id = 1;
+  string name = 2;
+}
+
+message GetInfoArgs {
+  RequestorInfo requestor_info = 1;
+  FileId file_id = 2;
+  ParentAndName parent_and_name = 3;
+}
+
+message ListArgs {
+  RequestorInfo requestor_info = 1;
+  FileId file_id = 2;
+}
+
+message ListResult {
+  repeated FileInfo items = 1;
+}
+
+message FetchArgs {
+  RequestorInfo requestor_info = 1;
+  FileId file_id = 2;
+  string dest_path = 3;
+  FileVersion content_version = 4;
+  int64 offset = 5;
+  int64 length = 6;
+}
+
+message FetchTraceInfo {
+  bool used_vfs = 1; [default = true]
+  bool reused_handle = 2;
+  bool strict_content_version = 3;
+}
+
+message FetchResult {
+  FileInfo info = 1;
+  int64 actual_length = 2;
+  int64 requested_length = 3;
+  int64 offset = 4;
+  FetchTraceInfo trace_info = 5;
+}
+
+message UpdateDetails {
+  uint64 field_mask = 1;
+  FileInfo info = 2;
+  string content_path = 3;
+}
+
+message CreateArgs {
+  RequestorInfo requestor_info = 1;
+  UpdateDetails details = 2;
+  bool include_all_id_types_in_result = 3; [default = false]
+}
+
+message UpdateArgs {
+  RequestorInfo requestor_info = 1;
+  FileId file_id = 2;
+  FileVersion base_metadata_version = 3;
+  FileVersion base_content_version = 4;
+  UpdateDetails details = 5;
+}
+
+message UpdateResultPart {
+  uint64 fields = 1;
+  Status status = 2;
+}
+
+message UpdateTraceInfo {
+  bool used_vfs = 1; [default = true]
+}
+
+message UpdateResult {
+  FileInfo info = 1;
+  repeated UpdateResultPart parts = 2;
+  UpdateTraceInfo trace_info = 3;
+}
+
+message ChangeNotification {
+  FileId deleted_item_id = 1;
+  FileInfo updated_info = 2;
+  FileVersion corpus_version = 3;
+}
+
+message VFSExtensions {
+}

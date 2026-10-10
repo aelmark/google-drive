@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./dot_onboarding.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./dot_onboarding.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <section id="intro-page">
+      <div id="intro-pane">
+        <p id="keyboard-tip" class="hidden gmTypographyBody2"></p>
+        <div class="top-bar" id="intro-page-top-bar">
+          <img id="logo" src="drivefs_full_logo.svg" />
+          <button type="button" class="close-button"
+                  id="intro-page-close-button">
+            <img class="showInDarkMode" alt="Close" src="ic_close_dark_24dp.svg">
+            <img class="hideInDarkMode" alt="Close" src="ic_close_white_24dp.svg">
+          </button>
+        </div>
+        <div class="animation" aria-hidden="true">
+          <div class="fake-dot">
+            <div class="states">
+              <!-- 1. Drive -->
+              <div class="fake-dot-state fake-dot-state-loading">
+                <img class="fake-dot-loading-icon" src="ic_loading.svg" />
+                <div class="fake-dot-loading-progress"><!-- DFSLinearProgress --></div>
+              </div>
+              <!-- 2. Safe to edit -->
+              <div class="fake-dot-state is-hidden">
+                <img class="fake-dot-icon greenIcon" alt="" src="ic_done_googgreen_24dp.svg" />
+                <p id="fake-dot-safe"></p>
+              </div>
+              <!-- 3. Drive -->
+              <div class="fake-dot-state fake-dot-state-loading is-hidden">
+                <img class="fake-dot-loading-icon" src="ic_loading.svg" />
+                <div class="fake-dot-loading-progress"><!-- DFSLinearProgress --></div>
+              </div>
+              <!-- 4. Wait to edit -->
+              <div class="fake-dot-state is-hidden">
+                <img class="fake-dot-icon orangeIcon" alt="" src="ic_schedule_orange_24dp.svg" />
+                <p id="fake-dot-wait"></p>
+              </div>
+              <!-- 5. Drive -->
+              <div class="fake-dot-state fake-dot-state-loading is-hidden">
+                <img class="fake-dot-loading-icon" src="ic_loading.svg" />
+                <div class="fake-dot-loading-progress"><!-- DFSLinearProgress --></div>
+              </div>
+              <!-- 6. New version -->
+              <div class="fake-dot-state is-hidden">
+                <img class="fake-dot-icon blueIcon" alt="" src="ic_refresh_googblue_24dp.svg" />
+                <p id="fake-dot-new"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h1 id="intro-heading" class="gmTypographyHeadline4"></h1>
+        <p id="intro-description" class="description gmTypographyBody2"></p>
+        <p id="intro-disable-notice" class="description gmTypographyBody2"></p>
+      </div>
+      <div id="account-details">
+        <div id="user-info-space">
+          <img id="user-photo" />
+          <div id="user-info-text">
+            <!-- Use 'lang' attribute to tell the browser to not assume
+                 the language for user name and email. This is based on
+                 the user's account, not on their system settings. -->
+            <div id="user-name" class="gmTypographyBody1" lang=""></div>
+            <div id="user-email" class="gmTypographyBody1" lang=""></div>
+          </div>
+        </div>
+        <button type="button"
+                id="continue-button"
+                class="mdc-button GmFillButton GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="continue-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+        </button>
+      </div>
+    </section>
+    <section id="permissions-page">
+      <div class="top-bar" id="permissions-page-top-bar">
+        <button type="button" class="close-button"
+                id="permissions-page-close-button">
+          <img class="showInDarkMode" alt="Close" src="ic_close_dark_24dp.svg">
+          <img class="hideInDarkMode" alt="Close" src="ic_close_white_24dp.svg">
+        </button>
+      </div>
+      <div id="permissions-text">
+        <h1 id="permissions-heading" class="gmTypographyHeadline4"></h1>
+        <p id="permissions-description" class="gmTypographyBody2"></p>
+        <p id="permissions-unlock-tip" class="gmTypographyBody2"></p>
+      </div>
+      <div id="more-info">
+        <hr>
+        <p id="faq-question" class="gmTypographyBody2"></p>
+        <p id="faq-answer" class="gmTypographyBody2"></p>
+      </div>
+      <div id="more-info-button-container">
+        <button id="more-info-button">
+          <img id="more-info-icon" class="greyIcon" alt="" src="ic_help_outline_grey600_24dp.svg" />
+        </button>
+      </div>
+      <div id="button-container">
+        <button type="button"
+                id="open-preferences-button"
+                class="mdc-button GmFillButton GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="open-preferences-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+        </button>
+        <button type="button"
+                id="not-now-button"
+                class="mdc-button mdc-button--outline GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="not-now-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+        </button>
+      </div>
+    </section>
+  </body>
+</html>

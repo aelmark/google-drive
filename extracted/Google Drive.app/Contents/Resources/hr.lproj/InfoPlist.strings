@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google disk za računala treba pristup Microsoft Officeu kako bi omogućio prisutnost u stvarnom vremenu tako da možete vidjeti tko uređuje Microsoft datoteku";
+"NSDesktopFolderUsageDescription" = "Google pogon za računala treba pristup datotekama u mapi Računala kako bi sinkronizirao datoteke i izradio sigurnosnu kopiju fotografija i videozapisa";
+"NSDocumentsFolderUsageDescription" = "Google disk za računala treba pristup datotekama u mapi Dokumenti kako bi sinhronizirao datoteke i izradio sigurnosnu kopiju fotografija i videozapisa";
+"NSNetworkVolumesUsageDescription" = "Google disk za računala treba pristup mrežnom disku kako bi izradio sigurnosnu kopiju vaših fotografija i videozapisa";
+"NSRemovableVolumesUsageDescription" = "Google disk za računala treba pristup vašem USB-u ili drugom prijenosnom medijskom uređaju kako bi sinkronizirao datoteke i izradio sigurnosnu kopiju fotografija i videozapisa";
+"NSPhotoLibraryUsageDescription" = "Google disk za računala treba pristup vašoj biblioteci fotografija kako bi sinkronizirao datoteke i izradio sigurnosnu kopiju fotografija i videozapisa";
+"NSBluetoothAlwaysUsageDescription" = "Da biste se prijavili na Google disk za računala pomoću Bluetooth sigurnosnog ključa, dopustite Google disku pristup Bluetoothu";

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./outlook_onboarding_dialog.css">
+    <script src="./outlook_onboarding_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <section id="page">
+      <div id="top-pane">
+        <div id="logo-space">
+          <img id="logo" src="favicon.png"/>
+        </div>
+        <div id="title-space"><!-- Set by the JS --></div>
+        <button id="close-button"
+                class="GmIconButton mdc-icon-button"
+                onclick ="onClosePressed()">
+          <div class="mdc-icon-button__ripple"></div>
+          <img id="close-button-icon" class="mdc-icon-button__icon greyIcon" alt="" src="ic_close_grey600_24dp.svg" />
+        </button>
+      </div>
+      <div id="pane">
+        <h1 id="heading"><!-- Set by the JS --></h1>
+        <p id="description"><!-- Set by the JS --></p>
+        <p>
+          <span id="remove-anytime"><!-- Set by the JS --></span>
+          <span>
+            <a id="learn-more" href="javascript: void(0)" onclick="onLearnMorePressed()">
+              <!-- Set by the JS -->
+            </a>
+          </span>
+        </p>
+      </div>
+      <div id="bottom-pane">
+        <button type="button" id="got-it" class="GmFillButton mdc-button" onclick="onClosePressed()">
+          <div class="mdc-button__ripple"></div>
+          <span id="got-it-label" class="mdc-button__label">
+            <!-- Set by the JS. -->
+          </span>
+        </button>
+      </div>
+    </section>
+  </body>
+</html>

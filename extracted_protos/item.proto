@@ -1,0 +1,1019 @@
+// Extracted protobuf descriptor: apps/drive/dataservice/proto/item.proto
+syntax = "proto2";
+
+package drive.ds;
+
+import "apps/drive/cse/proto/cse_in_place_upgrade_status.proto";
+import "apps/drive/dataservice/proto/action.proto";
+import "apps/drive/dataservice/proto/action_item.proto";
+import "apps/drive/dataservice/proto/agent.proto";
+import "apps/drive/dataservice/proto/approval.proto";
+import "apps/drive/dataservice/proto/cross_workspace.proto";
+import "apps/drive/dataservice/proto/item_location.proto";
+import "apps/drive/dataservice/proto/label.proto";
+import "apps/drive/dataservice/proto/permission.proto";
+import "apps/drive/dataservice/proto/restriction_callouts.proto";
+import "apps/framework/data/caching_annotations.proto";
+import "apps/security/cse/api/oidcidp.proto";
+import "frameworks/client/data/data_annotation.proto";
+import "google/rpc/status.proto";
+import "java/com/google/apps/jspb/jspb.proto";
+import "java/com/google/apps/jspb/jspb_generate_object_format.proto";
+import "java/com/google/protobuf/contrib/j2cl/options/js_enum.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+import "third_party/java_src/j2objc/protobuf/compiler/internal/j2objc-descriptor.proto";
+import "webutil/html/types/proto/html.proto";
+
+enum GeminiSearchCorpus {
+  CORPUS_UNSPECIFIED = 0;
+  CORPUS_CALENDAR = 1;
+  CORPUS_CHAT = 2;
+  CORPUS_DRIVE = 3;
+  CORPUS_GMAIL = 4;
+  CORPUS_WEB = 5;
+  CORPUS_MEET = 6;
+  CORPUS_TASKS = 7;
+  CORPUS_HELP_CENTER = 8;
+  CORPUS_KEEP = 9;
+  CORPUS_NOTEBOOK = 10;
+  CORPUS_GEMINI_ENTERPRISE = 11;
+  CORPUS_THIRD_PARTY = 12;
+  CORPUS_CONTACT = 13;
+}
+
+enum GenAiCapability {
+  CAPABILITY_UNSPECIFIED = 0;
+  VIEWER_PROACTIVE_SUMMARY_CARD = 1;
+  FOLDER_SHELF_PROACTIVE_SUMMARY = 2;
+  AI_MODE_SOURCES = 3;
+}
+
+enum Field {
+  PARENTS = 1;
+  TITLE = 2;
+  MIME_TYPE = 3;
+  STARRED = 4;
+  HIDDEN = 5;
+  TRASHED = 6;
+  RESTRICTED = 7;
+  VIEWED = 8;
+  CREATE_DATE_MILLIS = 9;
+  MODIFIED_DATE_MILLIS = 10;
+  MODIFIED_BY_ME_DATE_MILLIS = 11;
+  LAST_VIEWED_BY_ME_DATE_MILLIS = 12;
+  FILE_SIZE = 13;
+  OWNERS = 14;
+  OWNERS__ID = 164;
+  OWNERS__DISPLAY_NAME = 165;
+  OWNERS__PICTURE__URL = 166;
+  OWNERS__EMAIL_ADDRESS = 167;
+  OWNERS__EMAIL_ADDRESS_FROM_ACCOUNT = 195;
+  OWNERS__ORGANIZATION_DISPLAY_NAME = 203;
+  OWNERS__FOCUS_USER_ID = 244;
+  OWNERS__IS_ME = 284;
+  OWNERS__TYPE = 286;
+  LAST_MODIFYING_USER = 16;
+  LAST_MODIFYING_USER__ID = 168;
+  LAST_MODIFYING_USER__DISPLAY_NAME = 169;
+  LAST_MODIFYING_USER__PICTURE__URL = 170;
+  LAST_MODIFYING_USER__EMAIL_ADDRESS = 179;
+  LAST_MODIFYING_USER__EMAIL_ADDRESS_FROM_ACCOUNT = 196;
+  LAST_MODIFYING_USER__ORGANIZATION_DISPLAY_NAME = 204;
+  LAST_MODIFYING_USER__FOCUS_USER_ID = 248;
+  LAST_MODIFYING_USER__IS_ME = 280;
+  LAST_MODIFYING_USER__TYPE = 287;
+  OPEN_URL = 18;
+  THUMBNAIL_URL = 19;
+  ICON_URL = 20;
+  ID = 21;
+  SHARED = 24;
+  SHARED_WITH_ME_DATE_MILLIS = 25;
+  DESCRIPTION = 26;
+  SAFE_HTML_DESCRIPTION = 355;
+  USER_ROLE = 27;
+  EXPLICITLY_TRASHED = 28;
+  IMAGE_DATE_MILLIS = 29;
+  IMAGE_WIDTH = 30;
+  IMAGE_HEIGHT = 31;
+  QUOTA_BYTES_USED = 32;
+  QUOTA_BYTES_USED_IN_DRIVE = 218;
+  INDIVIDUAL_QUOTA_BYTES_TOTAL = 235;
+  COPYABLE = 34;
+  SUBSCRIBED = 35;
+  FOLDER_COLOR = 38;
+  HAS_CHILD_FOLDER = 39;
+  DOWNLOADABLE = 41;
+  DOWNLOAD_URL = 42;
+  CREATOR_APP = 43;
+  FILE_EXTENSION = 44;
+  PRIMARY_SYNC_PARENT = 45;
+  SHARING_USER = 46;
+  SHARING_USER__ID = 171;
+  SHARING_USER__DISPLAY_NAME = 172;
+  SHARING_USER__PICTURE__URL = 173;
+  SHARING_USER__EMAIL_ADDRESS = 174;
+  SHARING_USER__EMAIL_ADDRESS_FROM_ACCOUNT = 197;
+  SHARING_USER__ORGANIZATION_DISPLAY_NAME = 205;
+  SHARING_USER__FOCUS_USER_ID = 250;
+  SHARING_USER__IS_ME = 281;
+  SHARING_USER__TYPE = 288;
+  MD5_CHECKSUM = 47;
+  FLAGGED_FOR_ABUSE = 48;
+  FOLDER_FEATURES = 49;
+  OFFLINE = 50;
+  SOURCES = 52;
+  ETAG = 53;
+  EXPORT_LINKS = 54;
+  SPACES = 55;
+  SOURCE_APP_ID = 56;
+  OWNED_BY_ME = 58;
+  EDITABLE = 59;
+  CAN_COMMENT = 61;
+  HAS_THUMBNAIL = 62;
+  CONTENT_MODIFIED_MILLIS = 65;
+  SERVER_CREATE_DATE_MILLIS = 66;
+  RECENCY_DATE_MILLIS = 67;
+  RECENCY_DATE_REASON = 68;
+  CHANGED = 69;
+  VERSION = 70;
+  HEAD_REVISION_ID = 72;
+  RECURSIVE_FILE_COUNT = 73;
+  ACTION_ITEMS = 74;
+  PERMISSION_SUMMARY = 75;
+  PERMISSION_SUMMARY_VISIBILITY_TYPE = 162;
+  PERMISSION_SUMMARY_VISIBILITY_WITH_LINK = 163;
+  CAN_ADD_CHILDREN = 76;
+  CAN_DELETE = 77;
+  CAN_DISCOVER_BY_SEARCH = 327;
+  CAN_REMOVE_CHILDREN = 78;
+  CAN_SHARE = 79;
+  CAN_TRASH = 80;
+  CAN_MANAGE_MEMBERS = 81;
+  CAN_MANAGE_VISITORS = 82;
+  TEAM_DRIVE_ID = 83;
+  CAN_RENAME = 85;
+  FOLDER_COLOR_RGB = 86;
+  HAS_OWN_PERMISSIONS = 87;
+  ANCESTOR_HAS_OWN_PERMISSIONS = 188;
+  CAN_PRINT = 88;
+  CAN_LIST_CHILDREN = 89;
+  CAN_READ_TEAM_DRIVE = 90;
+  CREATOR = 91;
+  CREATOR__ID = 180;
+  CREATOR__DISPLAY_NAME = 181;
+  CREATOR__PICTURE__URL = 182;
+  CREATOR__EMAIL_ADDRESS = 183;
+  CREATOR__EMAIL_ADDRESS_FROM_ACCOUNT = 198;
+  CREATOR__ORGANIZATION_DISPLAY_NAME = 206;
+  CREATOR__FOCUS_USER_ID = 252;
+  CREATOR__IS_ME = 282;
+  CREATOR__TYPE = 285;
+  IMAGE_ROTATION = 92;
+  CAN_MOVE_TEAM_DRIVE_ITEM = 93;
+  PRIMARY_DOMAIN_NAME = 94;
+  ORGANIZATION_DISPLAY_NAME = 95;
+  PASSIVELY_SUBSCRIBED = 96;
+  TRASHING_USER = 97;
+  TRASHING_USER__ID = 175;
+  TRASHING_USER__DISPLAY_NAME = 176;
+  TRASHING_USER__PICTURE__URL = 177;
+  TRASHING_USER__EMAIL_ADDRESS = 178;
+  TRASHING_USER__EMAIL_ADDRESS_FROM_ACCOUNT = 199;
+  TRASHING_USER__ORGANIZATION_DISPLAY_NAME = 207;
+  TRASHING_USER__FOCUS_USER_ID = 254;
+  TRASHING_USER__IS_ME = 283;
+  TRASHING_USER__TYPE = 289;
+  TRASHED_DATE_MILLIS = 98;
+  HAS_VISITOR_PERMISSIONS = 100;
+  CAN_MOVE_ITEM_INTO_TEAM_DRIVE = 101;
+  CAN_UNTRASH = 102;
+  PAIRED_DOC_TYPE = 103;
+  HAS_APPS_SCRIPT_ADDON = 104;
+  AUDIO__DURATION_MILLIS = 277;
+  VIDEO__WIDTH = 105;
+  VIDEO__HEIGHT = 106;
+  VIDEO__DURATION_MILLIS = 107;
+  VIDEO__TRANSCODE_STATUS = 303;
+  DETECTORS = 108;
+  BLOCKING_DETECTORS = 109;
+  WARNING_DETECTORS = 110;
+  SPELL_RESPONSE = 111;
+  SUGGESTED_NLP_QUERIES = 112;
+  CAN_MODIFY_CONTENT_RESTRICTION = 114;
+  CONTENT_RESTRICTION_READ_ONLY = 115;
+  CONTENT_RESTRICTION_REASON = 116;
+  READERS_CAN_SEE_COMMENTS = 117;
+  RECURSIVE_FOLDER_COUNT = 118;
+  DEFAULT_OPEN_WITH_LINK = 119;
+  ALTERNATE_LINK = 120;
+  HAS_LEGACY_BLOB_COMMENTS = 121;
+  CAN_SHARE_TO_ALL_USERS = 123;
+  PUBLISHED = 124;
+  WORKFLOW_CREATION_ID = 332;
+  WORKSPACE_IDS = 126;
+  LAST_VIEWED_BY_ME_OR_CREATED_DATE_MILLIS = 128;
+  CAN_MODIFY_CONTENT = 129;
+  CAN_MOVE_ITEM_WITHIN_TEAM_DRIVE = 130;
+  CAN_MOVE_ITEM_OUT_OF_TEAM_DRIVE = 131;
+  CAN_MOVE_CHILDREN_OUT_OF_TEAM_DRIVE = 133;
+  CAN_DELETE_CHILDREN = 134;
+  CAN_TRASH_CHILDREN = 135;
+  CONTENT_RESTRICTIONS = 136;
+  CAN_REQUEST_APPROVAL = 137;
+  APPROVAL_VERSION = 138;
+  CAN_READ_CATEGORY_METADATA = 146;
+  CAN_EDIT_CATEGORY_METADATA = 147;
+  CAN_CHANGE_CATEGORY_LINKS = 156;
+  LINKED_CATEGORIES = 157;
+  NAME = 139;
+  COLOR_RGB = 140;
+  BACKGROUND_IMAGE_LINK = 141;
+  TRUSTED = 144;
+  MEMBER_COUNT = 145;
+  APPROVAL_SUMMARIES = 148;
+  THUMBNAIL_VERSION = 150;
+  TD_HIDDEN = 151;
+  USER_ENTRY_COUNT = 152;
+  GROUP_ENTRY_COUNT = 153;
+  SHORTCUT_TARGET_ID = 154;
+  SHORTCUT_TARGET_MIME_TYPE = 155;
+  SHORTCUT_TARGET_LOOKUP_STATUS = 158;
+  SHORTCUT_TARGET_FILE = 159;
+  SHORTCUT_TARGET_CAN_REQUEST_ACCESS_TO_TARGET = 192;
+  SHORTCUT_TARGET_RESOURCE_KEY = 214;
+  PHOTOS_STORAGE_POLICY = 160;
+  PHOTOS_COMPRESSION_STATUS = 161;
+  AUTHORIZED_APP_IDS = 184;
+  CAN_ADD_MY_DRIVE_PARENT = 185;
+  CAN_REMOVE_MY_DRIVE_PARENT = 186;
+  CUSTOMER_ID = 187;
+  CAN_SHARE_CHILD_FILES = 189;
+  CAN_SHARE_CHILD_FOLDERS = 190;
+  CAN_READ = 191;
+  CLIENT_ENCRYPTION_DETAILS__ENCRYPTION_STATE = 193;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA = 194;
+  CLIENT_ENCRYPTION_DETAILS__CSE_IN_PLACE_UPGRADE_STATUS = 354;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA_NO_JWT = 290;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__AES_256_GCM_CHUNK_SIZE = 291;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__RESOURCE_KEY_HASH = 292;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__JWT = 293;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__KACLS_ID = 294;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__KACLS_NAME = 295;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__KEY_FORMAT = 296;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__WRAPPED_KEY = 297;
+  CLIENT_ENCRYPTION_DETAILS__DECRYPTION_METADATA__GUEST_IDP = 301;
+  CAN_INITIATE_ESIGNATURE = 300;
+  CAN_INITIATE_ESIGNATURE_WITHOUT_POLICY_CHECK = 357;
+  CAN_MOVE_ITEM_WITHIN_DRIVE = 200;
+  CAN_MOVE_ITEM_OUT_OF_DRIVE = 201;
+  CAN_MOVE_CHILDREN_WITHIN_DRIVE = 202;
+  CAN_ADD_FOLDER_FROM_ANOTHER_DRIVE = 208;
+  CAN_SET_MISSING_REQUIRED_FIELDS = 209;
+  RESOURCE_KEY = 210;
+  LINK_SHARE_METADATA__SECURITY_UPDATE_ELIGIBLE = 211;
+  LINK_SHARE_METADATA__SECURITY_UPDATE_ENABLED = 212;
+  LINK_SHARE_METADATA__SECURITY_UPDATE_CHANGE_DISABLED_REASON = 219;
+  CAN_CHANGE_SECURITY_UPDATE_ENABLED = 213;
+  SINGLE_PARENT_ID = 215;
+  CAN_CREATE_DECRYPTED_COPY = 216;
+  CAN_CREATE_ENCRYPTED_COPY = 217;
+  LINK_SHARE_METADATA__SECURITY_UPDATE_EXPLICITLY_SET = 220;
+  CAN_ADD_ENCRYPTED_CHILDREN = 223;
+  CAN_BLOCK_OWNER = 224;
+  CAN_CREATE_CLIENT_SIDE_ENCRYPTED_FILES = 225;
+  CAN_ACCEPT_OWNERSHIP = 226;
+  ABUSE_IS_APPEALABLE = 227;
+  ABUSE_NOTICE_REASON = 228;
+  SPAM_METADATA = 231;
+  SPAM_METADATA__MARKED_AS_SPAM_DATE_MILLIS = 233;
+  SPAM_METADATA__IN_SPAM_VIEW = 234;
+  SPAM_METADATA__IS_SPAM = 274;
+  SPAM_METADATA__IS_INHERITED_SPAM = 275;
+  CAN_CHANGE_PERMISSION_EXPIRATION = 232;
+  CAN_REPORT_SPAM_OR_ABUSE = 236;
+  CAN_CHANGE_SHARING_FOLDERS_REQUIRES_ORGANIZER_PERMISSION_RESTRICTION = 237;
+  CAN_RESET_DRIVE_RESTRICTIONS = 238;
+  OPEN_WITH_LINKS = 239;
+  CAN_COPY_ENCRYPTED_FILE = 240;
+  BADGED_LABELS = 241;
+  ACCESS_REQUESTS_COUNT = 242;
+  HAS_INCOMING_APPROVAL = 243;
+  CONTENT_RESTRICTIONS__READ_ONLY = 256;
+  CONTENT_RESTRICTIONS__REASON = 257;
+  CAN_COPY_NON_AUTHORITATIVE = 258;
+  CAN_DOWNLOAD_NON_AUTHORITATIVE = 259;
+  LOCATION = 273;
+  LOCATION__FOLDER_COLOR = 260;
+  LOCATION__PARENT__HAS_AUGMENTED_PERMISSIONS = 261;
+  LOCATION__PARENT__SHARED = 262;
+  LOCATION__PARENT__TRASHED = 263;
+  LOCATION__PARENT__ID = 264;
+  LOCATION__PARENT__TITLE = 265;
+  LOCATION__PARENT__VERSION = 266;
+  LOCATION__PARENT__RESOURCE_KEY = 267;
+  LOCATION__PARENT__MIME_TYPE = 268;
+  LOCATION__PARENT__ICON_URL = 269;
+  LOCATION__PARENT__DRIVE_ID = 270;
+  LOCATION__PARENT__TRUSTED_DRIVE = 271;
+  CAN_REPORT_NOT_SPAM = 276;
+  RESTRICTION_CALLOUTS = 278;
+  INHERITANCE_BROKEN = 279;
+  TEAM_DRIVE_ROOT_DATA__CORPUS_LIMITS__ITEMS_COUNT_CAPACITY_USED_PERCENTAGE = 298;
+  TEAM_DRIVE_ROOT_DATA__CORPUS_LIMITS__ITEMS_COUNT_CAPACITY_USED_PERCENTAGE_NOTIFICATION_THRESHOLD = 299;
+  TEAM_DRIVE_ROOT_DATA__CORPUS_LIMITS__CAN_SYNC = 331;
+  EDIT_SOURCE = 302;
+  CONTAINS_UNSUBSCRIBED_CHILDREN = 1004;
+  RESTRICTIONS = 122;
+  CAN_CHANGE_TEAM_DRIVE_BACKGROUND = 304;
+  CAN_CHANGE_TEAM_MEMBERS_ONLY_RESTRICTION = 305;
+  CAN_CHANGE_DOMAIN_USERS_ONLY_RESTRICTION = 306;
+  CAN_RENAME_TEAM_DRIVE = 308;
+  CAN_CHANGE_COPY_REQUIRES_WRITER_PERMISSION_RESTRICTION = 309;
+  CAN_DELETE_DRIVE = 311;
+  RESTRICTIONS__COPY_REQUIRES_WRITER_PERMISSION = 312;
+  RESTRICTIONS__DOMAIN_USERS_ONLY = 314;
+  RESTRICTIONS__TEAM_MEMBERS_ONLY = 315;
+  RESTRICTIONS__SHARING_FOLDERS_REQUIRES_ORGANIZER_PERMISSION = 316;
+  RESTRICTIONS_OVERRIDE__DOMAIN_USERS_ONLY = 317;
+  EMBED_LINK = 318;
+  PARTIAL_STATE = 319;
+  TEAM_DRIVE_ROOT_DATA__THEME_IMAGE_GRID_VIEW_URL = 320;
+  TEAM_DRIVE_ROOT_DATA__THEME_IMAGE_LIST_VIEW_URL = 321;
+  GMAIL_MESSAGE_STORAGE_ID = 322;
+  CAN_VIEW_RESTRICTION_VISUALIZATION = 323;
+  TEMPLATE_DATA = 84;
+  TEMPLATE_DATA__DESCRIPTION = 324;
+  TEMPLATE_DATA__CATEGORY = 325;
+  TEMPLATE_DATA__GALLERY_STATE = 326;
+  EXTERNALITY_STATE = 328;
+  APPLIED_LABELS = 329;
+  HAS_CATCH_ME_UP_CONTENT = 330;
+  VIDS_IMPORT_COMPATIBILITY_INFO = 333;
+  GEN_AI_METADATA = 334;
+  GENAI_CAPABILITY__FOLDER_SHELF_PROACTIVE_SUMMARY = 335;
+  GENAI_CAPABILITY__AI_MODE_SOURCES = 336;
+  WORKBOOK_DETAILS = 337;
+  CREATOR_AGENT__AGENT_ID = 338;
+  CREATOR_AGENT__NAME = 339;
+  CREATOR_AGENT__PHOTO_URL = 340;
+  CREATOR_AGENT__STATE = 350;
+  LAST_MODIFYING_AGENT__AGENT_ID = 341;
+  LAST_MODIFYING_AGENT__NAME = 342;
+  LAST_MODIFYING_AGENT__PHOTO_URL = 343;
+  LAST_MODIFYING_AGENT__STATE = 351;
+  SHARING_AGENT__AGENT_ID = 344;
+  SHARING_AGENT__NAME = 345;
+  SHARING_AGENT__PHOTO_URL = 346;
+  SHARING_AGENT__STATE = 352;
+  MODIFIED_BY_ME_AGENT__AGENT_ID = 347;
+  MODIFIED_BY_ME_AGENT__NAME = 348;
+  MODIFIED_BY_ME_AGENT__PHOTO_URL = 349;
+  MODIFIED_BY_ME_AGENT__STATE = 353;
+  C2PA_METADATA = 356;
+  WORKBOOK_SOURCE_DETAILS = 358;
+}
+
+enum PartialState {
+  FULL = 1;
+  PARTIAL_TD_ROOT = 2;
+  PARTIAL_OFFLINE = 3;
+  PARTIAL_ITEM_SUGGEST = 4;
+  PARTIAL_MISSING_USER_PROFILE_DATA = 5;
+  PARTIAL_QUERY_API_DATA = 6;
+}
+
+enum RecencyReason {
+  UNKNOWN = 0;
+  CREATED_BY_ME = 1;
+  MODIFIED_BY_ME = 2;
+  MODIFIED = 3;
+  VIEWED_BY_ME = 4;
+}
+
+enum CelloItemOrigin {
+  ORIGIN_UNKNOWN = 0;
+  ORIGIN_QUERY = 1;
+  ORIGIN_GENOA_BACKFILL = 2;
+  ORIGIN_CHANGELOG = 3;
+  ORIGIN_PERSISTELLO = 4;
+  ORIGIN_OFFLINE = 5;
+  ORIGIN_IVDP = 6;
+  ORIGIN_CLIENT_PREFETCH = 7;
+  ORIGIN_PERSISTELLO_FORKLIFT = 8;
+  ORIGIN_MUTATE_RESPONSE = 9;
+}
+
+enum PairedDocType {
+  DOC_TYPE_UNKNOWN = 0;
+  DOCS = 1;
+  SHEETS = 2;
+  SLIDES = 3;
+}
+
+enum AbuseNoticeReason {
+  REASON_UNSPECIFIED = 0;
+  ACCESSIBLE_ONLY_TO_OWNER = 1;
+  ACCESSIBLE_ONLY_TO_OWNING_CUSTOMER = 2;
+  SUSPICIOUS_OTHER = 3;
+  SUSPICIOUS_PHISHING = 4;
+  SUSPICIOUS_MALWARE = 5;
+  ACCESSIBLE_ONLY_TO_OWNER_IN_SOME_REGIONS = 6;
+  ACCESSIBLE_ONLY_TO_OWNING_CUSTOMER_IN_SOME_REGIONS = 7;
+  SUSPICIOUS_IN_SOME_REGIONS = 8;
+  MARKED_AS_SPAM = 9;
+  MARKED_AS_CONFIRMED_SPAM = 10;
+  MARKED_AS_GLOBAL_SPAM = 11;
+}
+
+enum EditSource {
+  UNSPECIFIED_EDIT_SOURCE = 0;
+  BLOB_COMMENTS = 1;
+  SHADOW_DOCS = 2;
+  CSE_OFFICE_EDITING_MODE = 3;
+  ESIGNATURE = 4;
+  FORM_FILLING = 5;
+}
+
+enum ExternalityState {
+  EXTERNALITY_STATE_UNSPECIFIED = 0;
+  SHARED_EXTERNALLY = 1;
+  OWNED_EXTERNALLY = 2;
+  CREATOR_EXTERNAL = 5;
+  NOT_EXTERNAL = 3;
+  NOT_APPLICABLE = 4;
+}
+
+message Item {
+  required string id = 1;
+  repeated string parent = 2;
+  string title = 3;
+  string mime_type = 4;
+  bool starred = 5;
+  bool hidden = 6;
+  bool trashed = 7;
+  bool restricted = 8;
+  bool viewed = 9;
+  int64 create_date_millis = 10;
+  int64 modified_date_millis = 11;
+  int64 modified_by_me_date_millis = 12;
+  int64 last_viewed_by_me_date_millis = 13;
+  int64 file_size = 14;
+  repeated Permission owner = 15;
+  Permission last_modifying_user = 17;
+  string open_url = 19;
+  string thumbnail_url = 20;
+  string icon_url = 21;
+  bool shared = 22;
+  int64 shared_with_me_date_millis = 23;
+  string description = 24;
+  SafeHtmlProto safe_html_description = 176;
+  Role user_role = 25;
+  bool explicitly_trashed = 26;
+  Image image = 27;
+  int64 quota_bytes_used = 28;
+  bool copyable = 30;
+  bool subscribed = 31;
+  int64 folder_color = 34;
+  bool has_child_folder = 35;
+  bool flagged_for_abuse = 36;
+  bool downloadable = 40;
+  string download_url = 41;
+  string creator_app_id = 42;
+  string creator_app_value = 43;
+  bool has_thumbnail = 44;
+  string file_extension = 45;
+  string primary_sync_parent = 46;
+  Permission sharing_user = 47;
+  string md5_checksum = 48;
+  repeated string folder_features = 50;
+  PartialState partial = 52; [default = FULL]
+  int64 sync_state = 54;
+  repeated LocalOnlyProperty property = 55;
+  repeated string sources = 56;
+  string etag = 57;
+  repeated ExportLink export_links = 58;
+  bool is_tombstone = 59;
+  repeated SpaceSpec spaces = 60;
+  string source_app_id = 61;
+  bool owned_by_me = 63;
+  int64 content_modified_millis = 67;
+  int64 server_create_date_millis = 69;
+  int64 recency_date_millis = 70;
+  RecencyReason recency_date_reason = 71;
+  string team_drive_id = 72;
+  TeamDriveRootData team_drive_root_data = 73;
+  bool changed = 74;
+  int64 version = 75;
+  bool has_own_permissions = 76;
+  bool ancestor_has_own_permissions = 137;
+  string head_revision_id = 78;
+  int64 recursive_file_count = 79;
+  OfflineData offline_data = 81;
+  CelloItemOrigin cello_item_origin = 82;
+  repeated ActionItem action_item = 83;
+  Capabilities capabilities = 84;
+  PermissionSummary permission_summary = 85;
+  TemplateData template_data = 86;
+  int64 folder_color_rgb = 87;
+  int64 stable_id = 88;
+  repeated int64 parent_stable_id = 89;
+  int64 thumbnail_version = 90;
+  Permission creator = 91;
+  string primary_domain_name = 92;
+  string organization_display_name = 93;
+  bool passively_subscribed = 94;
+  Permission trashing_user = 95;
+  int64 trashed_date_millis = 96;
+  int64 team_drive_stable_id = 97;
+  bool has_visitor_permissions = 98;
+  QuickAccess quick_access = 100;
+  PairedDocType paired_doc_type = 101;
+  bool has_apps_script_addon = 102;
+  Audio audio = 158;
+  Video video = 103;
+  repeated string detectors = 104;
+  repeated string blocking_detectors = 105;
+  repeated string warning_detectors = 106;
+  bool contains_unsubscribed_children = 108;
+  Restrictions restrictions = 109;
+  ContentRestriction content_restriction = 111;
+  bool readers_can_see_comments = 112;
+  int64 recursive_folder_count = 113;
+  string default_open_with_link = 114;
+  string alternate_link = 115;
+  bool has_legacy_blob_comments = 116;
+  repeated Action action = 117;
+  bool published = 118;
+  repeated string workspace_id = 120;
+  repeated int64 workspace_stable_id = 121;
+  RestrictionsOverride restrictions_override = 122;
+  int64 last_viewed_by_me_or_created_date_millis = 124;
+  repeated ContentRestriction content_restrictions = 125;
+  int64 approval_version = 126;
+  repeated ApprovalSummary approval_summaries = 127;
+  ShortcutDetails shortcut_details = 132;
+  string photos_storage_policy = 133;
+  string photos_compression_status = 134;
+  repeated string authorized_app_ids = 135;
+  string customer_id = 136;
+  ClientEncryptionDetails client_encryption_details = 138;
+  LinkShareMetadata link_share_metadata = 139;
+  string resource_key = 140;
+  string single_parent_id = 141;
+  int64 single_parent_stable_id = 142;
+  int64 quota_bytes_used_in_drive = 143;
+  bool abuse_is_appealable = 144;
+  AbuseNoticeReason abuse_notice_reason = 145;
+  SpamMetadata spam_metadata = 148;
+  int64 individual_quota_bytes_total = 149;
+  repeated OpenWithLink open_with_links = 150;
+  int32 access_requests_count = 152;
+  bool has_incoming_approval = 153;
+  ItemLocation item_location = 156;
+  repeated Label badged_label = 151;
+  repeated RestrictionVisualizationCallout restriction_callouts = 159;
+  bool inheritance_broken = 160;
+  EditSource edit_source = 161;
+  string embed_link = 162;
+  string gmail_message_storage_id = 163;
+  ExternalityState externality_state = 164;
+  repeated Label applied_labels = 165;
+  bool has_catch_me_up_content = 166;
+  string workflow_creation_id = 167;
+  VidsImportCompatibilityInfo vids_import_compatibility_info = 168;
+  GenAiMetadata gen_ai_metadata = 169;
+  GenAiCapabilityVerdicts gen_ai_capability_verdicts = 170;
+  WorkbookDetails workbook_details = 171;
+  repeated WorkbookSourceDetails workbook_source_details = 178;
+  Agent creator_agent = 172;
+  Agent last_modifying_agent = 173;
+  Agent sharing_agent = 174;
+  Agent modified_by_me_agent = 175;
+  C2paMetadata c2pa_metadata = 177;
+}
+
+message C2paMetadata {
+  string provider_name = 1;
+  string app_name = 2;
+}
+
+message WorkbookDetails {
+  message SearchSettings {
+    bool allow_gemini_to_search_for_sources = 1;
+    bool allow_gemini_to_automatically_add_sources = 2;
+    repeated GeminiSearchCorpus allowed_gemini_search_corpora = 3;
+  }
+  repeated WorkbookSource workbook_sources = 1;
+  string mission_statement = 3;
+  string emoji = 4;
+  SearchSettings search_settings = 5;
+}
+
+message WorkbookSource {
+  enum SourceActor {
+    SOURCE_ACTOR_UNSPECIFIED = 0;
+    SOURCE_ACTOR_USER = 1;
+    SOURCE_ACTOR_GEMINI_VIA_CITATION = 2;
+    SOURCE_ACTOR_GEMINI_VIA_CREATED_ARTIFACT = 3;
+    SOURCE_ACTOR_GEMINI_VIA_HIGH_CONFIDENCE_SUGGESTION = 4;
+    SOURCE_ACTOR_USER_VIA_PROMPT = 5;
+    SOURCE_ACTOR_USER_VIA_CONFIRMATION_CARD = 6;
+  }
+  message ItemSource {
+    string item_id = 1;
+    string resource_key = 2;
+    string mime_type = 3;
+  }
+  message UrlSource {
+    string url = 1;
+  }
+  message GmailSource {
+    string thread_id = 1;
+    int64 thread_owner_user_id = 3;
+    string thread_owner_focus_user_id = 5;
+    string message_id = 6;
+  }
+  message ChatSource {
+    string space_id = 1;
+  }
+  string source_id = 1;
+  string source_title = 2;
+  ItemSource item_source = 3; // oneof source_type
+  UrlSource url_source = 4; // oneof source_type
+  GmailSource gmail_source = 5; // oneof source_type
+  ChatSource chat_source = 7; // oneof source_type
+  SourceActor source_actor = 6;
+}
+
+message WorkbookSourceDetails {
+  string source_id = 1;
+  Status status = 2;
+  GenAiCapabilityVerdicts gen_ai_capability_verdicts = 3;
+  Item drive_source = 4; // oneof source_type
+  CrossWorkspaceGmailResult gmail_source = 5; // oneof source_type
+}
+
+message GenAiMetadata {
+  message HomepageDoclistMetadata {
+    enum EligibleInlineFeature {
+      ELIGIBLE_INLINE_FEATURE_UNSPECIFIED = 0;
+      SUMMARY = 1;
+    }
+    message InlineSummaryMetadata {
+      enum InlineSummaryIneligibilityReason {
+        INLINE_SUMMARY_INELIGIBILITY_REASON_UNSPECIFIED = 0;
+        INLINE_SUMMARY_SENSITIVE_CONTENT = 1;
+        INLINE_SUMMARY_UNSUPPORTED_MIME_TYPE = 2;
+        INLINE_SUMMARY_OWNED_AND_VIEWED_BY_USER = 3;
+        INLINE_SUMMARY_FILE_SIZE_BELOW_THRESHOLD = 4;
+      }
+      bool is_eligible = 1;
+      InlineSummaryIneligibilityReason inline_summary_ineligibility_reason = 2;
+    }
+    repeated EligibleInlineFeature eligible_inline_features = 1;
+    InlineSummaryMetadata inline_summary_metadata = 2;
+  }
+  HomepageDoclistMetadata homepage_doclist_metadata = 1;
+}
+
+message GenAiCapabilityVerdicts {
+  GenAiCapabilityVerdict folder_shelf_proactive_summary = 1;
+  GenAiCapabilityVerdict ai_mode_sources = 2;
+}
+
+message GenAiCapabilityVerdict {
+  GenAiCapability gen_ai_capability = 1;
+  GenAiSupportedCapability supported = 2; // oneof verdict
+  GenAiUnsupportedCapability unsupported = 3; // oneof verdict
+  Status status = 4;
+}
+
+message GenAiSupportedCapability {
+}
+
+message GenAiUnsupportedCapability {
+  enum GenAiUnsupportedReason {
+    UNSUPPORTED_REASON_UNSPECIFIED = 0;
+    NOT_ENOUGH_CONTENT = 1;
+    IRM_PROTECTED = 2;
+    UNSUPPORTED_MIME_TYPE = 3;
+    ABUSIVE = 4;
+    DLP_RESTRICTED = 5;
+    SPAM_LABELED = 6;
+    CLIENT_SIDE_ENCRYPTED = 7;
+    IN_TRASH = 8;
+    CONTEXT_AWARE_RESTRICTION = 9;
+  }
+  repeated GenAiUnsupportedReason unsupported_reasons = 1;
+}
+
+message ExportLink {
+  string mime_type = 1;
+  string url = 2;
+}
+
+message LocalOnlyProperty {
+  required string key = 1;
+  bool bool_value = 2;
+  int64 int64_value = 3;
+  string string_value = 4;
+  bytes binary_value = 5;
+}
+
+message Property {
+  required string key = 1;
+  string value = 2;
+  string visibility = 3;
+}
+
+message Image {
+  int64 date_millis = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 rotation = 4;
+}
+
+message SharedDriveCorpusLimits {
+  float items_count_capacity_used_percentage = 1;
+  float items_count_capacity_used_percentage_notification_threshold = 2;
+  bool can_sync = 3;
+}
+
+message TeamDriveRootData {
+  string theme_image_url = 1;
+  int64 theme_color = 2;
+  bool trusted = 3;
+  string theme_image_id = 4;
+  string theme_image_grid_view_url = 5;
+  string theme_image_list_view_url = 6;
+  bool hidden = 7;
+  bool starred = 11;
+  repeated LinkedCategory linked_categories = 8;
+  SharedDriveCorpusLimits corpus_limits = 10;
+}
+
+message LinkedCategory {
+  string category_name = 1;
+}
+
+message OfflineData {
+  bool available_offline = 1;
+  bool local_only = 2;
+  bool pinned = 3;
+  bool has_unsaved_local_changes = 4;
+  int64 last_sync_start_time = 5;
+  int64 last_sync_finish_time = 6;
+  bool last_sync_succeeded = 7;
+  bool has_undeliverable_local_changes = 8;
+}
+
+message SpaceSpec {
+  enum Space {
+    UNKNOWN = 0;
+    DRIVE = 1;
+    APP_DATA_FOLDER = 2;
+    GOOGLE_PHOTOS = 3;
+    ANDROID_BACKUP = 4;
+  }
+  Space space = 1;
+}
+
+message Capabilities {
+  bool can_add_children = 1;
+  bool can_comment = 2;
+  bool can_copy = 3;
+  bool can_delete = 4;
+  bool can_download = 5;
+  bool can_edit = 6;
+  bool can_remove_children = 7;
+  bool can_share = 8;
+  bool can_trash = 9;
+  bool can_manage_members = 10;
+  bool can_manage_visitors = 11;
+  bool can_rename = 12;
+  bool can_rename_team_drive = 13;
+  bool can_print = 14;
+  bool can_list_children = 15;
+  bool can_read_team_drive = 16;
+  bool can_move_team_drive_item = 17;
+  bool can_change_team_drive_background = 18;
+  bool can_move_item_into_team_drive = 20;
+  bool can_untrash = 21;
+  bool can_change_copy_requires_writer_permission_restriction = 22;
+  bool can_change_disallow_drive_file_stream_restriction = 23;
+  bool can_change_domain_users_only_restriction = 24;
+  bool can_change_team_members_only_restriction = 25;
+  bool can_share_outside_domain = 26;
+  bool can_modify_content_restriction = 27;
+  bool can_share_to_all_users = 28;
+  bool can_modify_content = 29;
+  bool can_move_item_within_team_drive = 30;
+  bool can_move_item_out_of_team_drive = 31;
+  bool can_move_children_out_of_team_drive = 33;
+  bool can_delete_children = 34;
+  bool can_trash_children = 35;
+  bool can_request_approval = 36;
+  bool can_read_category_metadata = 37;
+  bool can_edit_category_metadata = 38;
+  bool can_change_category_links = 39;
+  bool can_add_my_drive_parent = 40;
+  bool can_remove_my_drive_parent = 41;
+  bool can_share_child_files = 42;
+  bool can_share_child_folders = 43;
+  bool can_read = 44;
+  bool can_move_item_within_drive = 45;
+  bool can_move_item_out_of_drive = 46;
+  bool can_move_children_within_drive = 47;
+  bool can_add_folder_from_another_drive = 48;
+  bool can_set_missing_required_fields = 49;
+  bool can_change_security_update_enabled = 50;
+  bool can_create_decrypted_copy = 52;
+  bool can_create_encrypted_copy = 53;
+  bool can_add_encrypted_children = 54;
+  bool can_block_owner = 55;
+  bool can_create_client_side_encrypted_files = 56;
+  bool can_accept_ownership = 57;
+  bool can_change_permission_expiration = 58;
+  bool can_report_spam_or_abuse = 59;
+  bool can_change_sharing_folders_requires_organizer_permission_restriction = 60;
+  bool can_reset_drive_restrictions = 61;
+  bool can_copy_encrypted_file = 62;
+  bool can_copy_non_authoritative = 64;
+  bool can_download_non_authoritative = 65;
+  bool can_report_not_spam = 66;
+  bool can_initiate_esignature = 67;
+  bool can_view_restriction_visualization = 68;
+  bool can_discover_by_search = 69;
+  bool can_initiate_esignature_without_policy_check = 70;
+}
+
+message Restrictions {
+  bool copy_requires_writer_permission = 1;
+  bool disallow_drive_file_stream = 2;
+  bool domain_users_only = 3;
+  bool team_members_only = 4;
+  bool sharing_folders_requires_organizer_permission = 5;
+}
+
+message RestrictionsOverride {
+  string domain_users_only = 1;
+}
+
+message TemplateData {
+  enum GalleryState {
+    UNAVAILABLE = 1;
+    AVAILABLE = 2;
+    PENDING = 3;
+  }
+  string description = 1;
+  repeated string category = 2;
+  GalleryState gallery_state = 3;
+}
+
+message QuickAccess {
+  double score = 1;
+  string explanation_message = 2;
+  bool is_for_drive = 3;
+  bool is_for_shared_files = 4;
+}
+
+message Audio {
+  int32 duration_millis = 1;
+}
+
+message Video {
+  enum TranscodeStatus {
+    TRANSCODE_STATUS_UNKNOWN = 0;
+    NOT_REQUESTED = 1;
+    PENDING = 2;
+    FAILED_TEMPORARY = 3;
+    FAILED = 4;
+    AVAILABLE = 5;
+    REMOVED = 6;
+    NOT_REQUESTED_BY_POLICY = 7;
+    PENDING_PHOTO_SERVICE = 8;
+    BASIC_PROCESSING = 9;
+    DROPPED = 10;
+    RESET_BACKFILL = 11;
+    RESET_REVERTED = 12;
+    DROPPED_TOS_VIOLATION = 13;
+    ARCHIVED = 14;
+    MIGRATING_FROM_PICASA = 15;
+    RESTORED = 16;
+  }
+  int32 width = 1;
+  int32 height = 2;
+  int32 duration_millis = 3;
+  TranscodeStatus transcode_status = 4;
+}
+
+message ContentRestriction {
+  bool read_only = 1;
+  string reason = 2;
+}
+
+message ApprovalSummary {
+  message ReviewerDecisionSummary {
+    int64 reviewer_id = 1;
+    Decision decision = 2;
+  }
+  string id = 1;
+  Status status = 2;
+  repeated ReviewerDecisionSummary reviewer_decision_summaries = 3;
+  int64 initiator_id = 4;
+  Type type = 5;
+}
+
+message ShortcutDetails {
+  enum TargetLookupStatus {
+    UNKNOWN = 0;
+    OK = 1;
+    NOT_FOUND = 2;
+    PERMISSION_DENIED = 3;
+    UNRESOLVED = 4;
+  }
+  string target_id = 1;
+  int64 target_stable_id = 2;
+  string target_mime_type = 3;
+  TargetLookupStatus target_lookup_status = 4;
+  Item target_item = 5;
+  bool can_request_access_to_target = 6;
+  string target_resource_key = 7;
+  bool is_downloadable = 8;
+}
+
+message ClientEncryptionDetails {
+  enum EncryptionState {
+    UNKNOWN = 0;
+    UNENCRYPTED = 1;
+    ENCRYPTED = 2;
+  }
+  message DecryptionMetadata {
+    enum ChunkSize {
+      UNSET = 0;
+      DEFAULT = 1;
+      SMALL = 2;
+      SIZE16KB = 3;
+    }
+    enum KeyFormat {
+      UNSET_KEY_FORMAT = 0;
+      TINK_KEYSET = 1;
+      TINK_AES_GCM_KEY = 2;
+    }
+    string wrapped_key = 1;
+    int64 kacls_id = 2;
+    ChunkSize aes_256_gcm_chunk_size = 3;
+    string jwt = 4;
+    string kacls_name = 5;
+    KeyFormat key_format = 6;
+    bytes resource_key_hash = 7;
+    OidcIdp guest_idp = 8;
+  }
+  EncryptionState encryption_state = 1;
+  DecryptionMetadata decryption_metadata = 2;
+  CseInPlaceUpgradeStatus cse_in_place_upgrade_status = 3;
+}
+
+message LinkShareMetadata {
+  enum SecurityUpdateChangeDisabledReason {
+    UNKNOWN_REASON = 0;
+    FOLDER = 1;
+    SECURE_ONLY = 2;
+    ADMIN_OPTED_IN = 3;
+    ADMIN_OPTED_OUT = 4;
+    INSUFFICIENT_PERMISSION = 5;
+    NOT_LINK_SHARED = 6;
+  }
+  bool security_update_eligible = 2;
+  bool security_update_enabled = 3;
+  SecurityUpdateChangeDisabledReason security_update_change_disabled_reason = 4;
+  bool security_update_explicitly_set = 5;
+}
+
+message SpamMetadata {
+  int64 marked_as_spam_date_millis = 3;
+  bool in_spam_view = 4;
+  bool is_spam = 5;
+  bool is_inherited_spam = 6;
+}
+
+message OpenWithLink {
+  string app_id = 1;
+  string url = 2;
+}
+
+message VidsImportCompatibilityInfo {
+  message IncompatibilityDetail {
+    enum Reason {
+      UNSPECIFIED = 0;
+      DURATION_TOO_LONG = 1;
+      FILE_SIZE_TOO_SMALL = 2;
+      FILE_SIZE_TOO_LARGE = 3;
+      INCORRECT_TRANSCODE_STATUS = 4;
+    }
+    Reason reason = 1;
+    string localized_message = 2;
+  }
+  bool can_import = 1;
+  repeated IncompatibilityDetail incompatibility_details = 2;
+}

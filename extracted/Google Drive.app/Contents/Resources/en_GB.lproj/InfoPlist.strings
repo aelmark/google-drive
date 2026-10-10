@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive for desktop needs access to Microsoft Office in order to provide real-time presence so that you can see who’s editing a Microsoft file";
+"NSDesktopFolderUsageDescription" = "Google Drive for desktop needs access to files in your Desktop folder in order to sync your files and back up your photos and videos";
+"NSDocumentsFolderUsageDescription" = "Google Drive for desktop needs access to files in your Documents folder in order to sync your files and back up your photos and videos";
+"NSNetworkVolumesUsageDescription" = "Google Drive for desktop needs access to your network volume in order to back up your photos and videos";
+"NSRemovableVolumesUsageDescription" = "Google Drive for desktop needs access to your USB or other removable media device in order to sync your files and back up your photos and videos";
+"NSPhotoLibraryUsageDescription" = "Google Drive for desktop needs access to your photo library in order to sync your files and back up your photos and videos";
+"NSBluetoothAlwaysUsageDescription" = "In order to sign in to Google Drive for desktop using a Bluetooth security key, allow Google Drive to access Bluetooth";

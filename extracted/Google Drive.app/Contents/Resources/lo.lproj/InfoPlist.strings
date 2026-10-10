@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການເຂົ້າໃຊ້ Microsoft Office ເພື່ອໃຫ້ມີການສະແດງໃນເວລາຈິງ ເພື່ອວ່າທ່ານຈະສາມາດເຫັນຜູ້ທີ່ ກຳລັງແກ້ໄຂເອກະສານ Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການການເຂົ້າເຖິງໄຟລ໌ຕ່າງໆໃນໂຟນເດີ Desktop ຂອງທ່ານເພື່ອທີ່ຈະຊິ້ງຂໍ້ມູນກັບແຟ້ມຂອງທ່ານ ແລະ ສຳຮອງຮູບພາບ ແລະ ວິດີໂອຂອງທ່ານ";
+"NSDocumentsFolderUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການການເຂົ້າເຖິງໄຟລ໌ຕ່າງໆໃນໂຟນເດີ Documents ຂອງທ່ານເພື່ອທີ່ຈະຊິ້ງຂໍ້ມູນກັບແຟ້ມຂອງທ່ານ ແລະ ສຳຮອງຮູບພາບ ແລະ ວິດີໂອຂອງທ່ານ";
+"NSNetworkVolumesUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການການເຂົ້າເຖິງປະລິມານເຄືອຂ່າຍຂອງທ່ານເພື່ອການສຳຮອງຮູບພາບ ແລະ ວິດີໂອຂອງທ່ານ";
+"NSRemovableVolumesUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການເຂົ້າໃຊ້ USB ຂອງທ່ານ ຫຼື ອຸປະກອນສື່ທີ່ຖອດອອກໄດ້ເພື່ອຊິ້ງຂໍ້ມູນໄຟລ໌ຂອງທ່ານແລະ ສຳຮອງຮູບ ແລະ ວິດີໂອຂອງທ່ານ.";
+"NSPhotoLibraryUsageDescription" = "Google Drive ສຳລັບເດັສທັອບ ຕ້ອງການການເຂົ້າເຖິງຫໍສະມຸດພາບຂອງທ່ານເພື່ອຊິ້ງຂໍ້ມູນເອກະສານຂອງທ່ານ ແລະ ສຳ ຮອງຮູບພາບ ແລະ ວິດີໂອຂອງທ່ານ";
+"NSBluetoothAlwaysUsageDescription" = "ເພື່ອເຂົ້າສູ່ລະບົບ Google Drive ສຳລັບເດັສທັອບ ໂດຍໃຊ້ລະຫັດຄວາມປອດໄພຂອງ Bluetooth, ອະນຸຍາດໃຫ້ Google Drive ເຂົ້າໃຊ້ Bluetooth";

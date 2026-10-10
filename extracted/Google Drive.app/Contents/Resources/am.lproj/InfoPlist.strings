@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "እርስዎ ማን በአንድ የMicrosoft ፋይል ላይ አርትዖት እያደረገ እንደሆነ ለማየት Google Drive ለዴስክቶፕ የMicrosoft Office መዳረሻ ያስፈልገዋል";
+"NSDesktopFolderUsageDescription" = "Google Drive ለዴስክቶፕ የእርስዎን ፎቶዎች እና ቪዲዮዎች ማስመር እና የእነሱን ምትኬ ማስቀመጥ እንዲችል በእርስዎ የዴስክቶፕ አቃፊ ውስጥ ያሉ የፋይሎች መዳረሻ ያስፈልገዋል";
+"NSDocumentsFolderUsageDescription" = "Google Drive ለዴስክቶፕ የእርስዎን ፎቶዎች እና ቪዲዮዎች ማስመር እና የእነሱን ምትኬ ማስቀመጥ እንዲችል በእርስዎ የሰነዶች አቃፊ ውስጥ ያሉ የፋይሎች መዳረሻ ያስፈልገዋል";
+"NSNetworkVolumesUsageDescription" = "Google Drive ለዴስክቶፕ የእርስዎን የፎቶዎች እና የቪዲዮዎች ምትኬ ማስቀመጥ እንዲችል የእርስዎን የአውታረ መረብ መጠን መዳረሻ ያስፈልገዋል";
+"NSRemovableVolumesUsageDescription" = "Google Drive ለዴስክቶፕ የእርስዎን ፎቶዎች እና ቪዲዮዎች ማስመር እና የእነሱን ምትኬ ማስቀመጥ እንዲችል የእርስዎ የዩኤስቢ ወይም ሌላ ተነቃይ የሚዲያ መሣሪያ መዳረሻ ያስፈልገዋል";
+"NSPhotoLibraryUsageDescription" = "Google Drive ለዴስክቶፕ የእርስዎን ፎቶዎች እና ቪዲዮዎች ማስመር እና የእነሱን ምትኬ ማስቀመጥ እንዲችል የእርስዎን የቤተ-ፎቶ መዳረሻ ያስፈልገዋል";
+"NSBluetoothAlwaysUsageDescription" = "የብሉቱዝ ደህንነት ቁልፍ ተጠቅመው በመለያ ወደ Google Drive ለዴስክቶፕ መግባት እንዲችሉ ለGoogle Drive የብሉቱዝ መዳረሻን ይፍቀዱለት።";

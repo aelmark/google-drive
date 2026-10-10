@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia Microsoft Office ili iweze kutoa kipengele cha kubadilisha faili kwa pamoja katika wakati halisi, ili uweze kuona ni nani anayebadilisha faili ya Microsoft";
+"NSDesktopFolderUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia faili zilizo katika folda yako ya Eneo Kazi ili iweze kusawazisha faili zako na kuhifadhi nakala za picha na video zako";
+"NSDocumentsFolderUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia faili zilizo katika folda yako ya Hati ili iweze kusawazisha faili zako na kuhifadhi nakala za picha na video zako";
+"NSNetworkVolumesUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia nafasi ya hifadhi ya mtandao wako ili iweze kuhifadhi nakala za picha na video zako";
+"NSRemovableVolumesUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia USB au kifaa chako kingine cha kuhifadhi data kinachoweza kuondolewa, ili iweze kusawazisha faili zako na kuhifadhi nakala za picha na video zako";
+"NSPhotoLibraryUsageDescription" = "Hifadhi ya Google ya kompyuta za mezani inahitaji ruhusa ya kufikia maktaba yako ya picha ili iweze kusawazisha faili zako na kuhifadhi nakala za picha na video zako";
+"NSBluetoothAlwaysUsageDescription" = "Ili uweze kuingia katika akaunti kwenye Hifadhi ya Google ya kompyuta za mezani ukitumia ufunguo wa usalama wa Bluetooth, ruhusu Hifadhi ya Google ifikie Bluetooth";

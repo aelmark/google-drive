@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./file_stats_dialog.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./file_stats_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <div id="offline-file-viewer" class="vertical-container">
+      <!--aria reader has to be assertive here for when it reads that it successfully removed an offline file. If it wasn't other information always gets read over it.-->
+      <div id="aria-live-reader" class="visually-hidden" aria-live="assertive" aria-atomic="true"></div>
+      <div id="scrollable-content-area" class="vertical-container">
+        <div id="header" class="horizontal-container">
+          <div id="back-button"><!--- DFSIconButton --></div>
+          <div id="pinned-content-overview-header" class="hidden vertical-container">
+            <h1 id="pinned-content-overview-header-title" tabindex="-1" class="a11y-focusable-text gmTypographyHeadline6"><!-- Set by the JS. --></h1>
+            <div id="pinned-content-overview-header-subtitle" class="gmTypographyBody2"><!-- Set by the JS. --></div>
+            <div id="bulk-actions-container" class="horizontal-container">
+              <div id="clear-offline-files-button"><!-- DFSButton --></div>
+              <div id="clear-cache-button"><!-- DFSButton --></div>
+              <div id="open-cache-settings-button"><!-- DFSButton --></div>
+            </div>
+            <div id="pinned-content-overview-header-banner" class="hidden banner horizontal-container">
+              <img src="ic_info_blue_24px.svg" class="info-banner-icon banner-icon blueIconOnBlueBackground" alt="">
+              <div id="pinned-content-overview-header-banner-text" class="banner-text"><!-- Sey by the JS. --></div>
+            </div>
+          </div>
+          <div id="pinned-content-breadcrumb-bar" class="hidden horizontal-container"></div>
+          <div id="pinned-content-breadcrumb-template" class="hidden pinned-content-breadcrumb horizontal-container">
+            <img class="pinned-content-breadcrumb-arrow flip-in-rtl greyIcon hidden" alt="" src="ic_chevron_right_grey_24px.svg">
+            <h1 class="pinned-content-breadcrumb-title gmTypographySubhead1 mdc-ripple-surface"><!-- Set by the JS --></h1>
+          </div>
+          <div id="refresh-button"><!--- DFSIconButton --></div>
+          <div id="account-switcher" class="hidden">
+            <!-- Only show currently selected account's profile picture. -->
+<div id="account-switcher-face-view" class="hidden">
+  <div id="account-switcher-face-view-button"><!-- DFSIconButton --></div>
+</div>
+
+<!-- Show currently selected account's profile picture and info. -->
+<div id="account-switcher-normal-view" class="GmCardHairline horizontal-container hidden">
+  <button id="account-switcher-normal-view-button" aria-label="" class="mdc-button GmButtonText">
+    <div class="mdc-button__ripple"></div>
+    <div id="account-info" class="horizontal-container account-info">
+      <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+      <div id="user-info" class="user-info">
+        <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+        <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<!-- Shows all signed in user's profile picture stacked over each other -->
+<div id="account-switcher-all-view" class="hidden">
+  <button id="account-switcher-all-view-button" aria-label="" class="mdc-button GmButtonText">
+    <div class="mdc-button__ripple"></div>
+    <span class='dfs-focus-ring'></span>
+    <div class="multi-account-view horizontal-container">
+      <div id="all-view-imgs"><!-- Set by the JS. --></div>
+      <span id="all-view-label" class="gmTypographyBody1"><!-- Set by the JS. --></span>
+    </div>
+    <div id="account-info" class="single-account-view horizontal-container account-info">
+      <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+      <div id="user-info" class="user-info">
+        <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+        <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<!-- Template for #account-switcher-all-view -->
+<div id="all-view-img-template" class="all-view-img-wrapper hidden">
+  <div class="all-view-backdrop">
+    <img class="all-view-img blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg">
+  </div>
+</div>
+
+<div id="account-select-menu-anchor"><!-- AccountSelectMenu --></div>
+
+<!-- Show all signed in account. -->
+<div id="account-switcher-full-view" class="hidden mdc-card GmCard">
+  <!-- Set by the JS. -->
+</div>
+
+<!-- Template for Accounts used in the full view. -->
+<div id="account-switcher-account-template" class="full-view-account-option user-account horizontal-container hidden">
+  <div id="account-info" class="horizontal-container account-info">
+    <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+    <div id="user-info" class="user-info">
+      <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+      <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      <div id="manage-storage" class="gmTypographyCaption manage-storage hidden">
+        <a href="javascript: void(0)"><!-- Set by the JS. --></a>
+      </div>
+    </div>
+  </div>
+  <div id="drive-link-button"><!-- DFSIconButton --></div>
+  <div id="photos-link-button"><!-- DFSIconButton --></div>
+  <div id="open-mount-point-button"><!-- DFSIconButton --></div>
+  <div id="overflow-menu-button"><!-- DFSIconButton --></div>
+  <div class="menu-button-spacer" class="hidden"></div>
+  <div class="dfs-menu-anchor"><!-- DFSMenu --></div>
+</div>
+
+<!-- Template for items added to the AccountSelectMenu. -->
+<li id="account-select-menu-item-template" class="account-switcher-menu mdc-deprecated-list-item hidden" role="menuitem">
+  <span class="mdc-deprecated-list-item__ripple"></span>
+  <span class='dfs-focus-ring'></span>
+  <img class="mdc-deprecated-list-item__graphic" alt="" src=""/>
+  <div class="vertical-container">
+    <span class="mdc-deprecated-list-item__text menu-item-title gmTypographySubhead2"></span>
+    <span class="mdc-deprecated-list-item__text menu-item-subtitle gmTypographyCaption"></span>
+  </div>
+  <img class="account-select-menu-item-checkmark mdc-deprecated-list-item__meta blueIcon hidden" alt="" src="ic_checkmark_blue_24dp.svg"/>
+</li>
+
+<!-- Template for the add account button in the full view. -->
+<button id="account-switcher-add-account-template" class="account-switcher-add-account mdc-ripple-surface account-option horizontal-container hidden">
+  <img class="add-account-icon greyIcon" alt="" src="ic_person_add_24px.svg" />
+  <span class='dfs-focus-ring'></span>
+  <div id="add-account-label" class="add-account-label gmTypographySubhead2"><!-- Set by the JS. --></div>
+</button>
+
+<button id="account-switcher-disabled-add-account-template" class="account-switcher-disabled-add-account account-option horizontal-container hidden">
+  <img class="add-account-icon greyIcon" alt="" src="ic_person_add_24px.svg" />
+  <div class="vertical-container">
+    <div id="disabled-add-account-label" class="add-account-label gmTypographySubhead2"><!-- Set by the JS. --></div>
+    <div id="disabled-add-account-sublabel" class="add-account-label gmTypographyCaption"><!-- Set by the JS. --></div>
+  </div>
+</button>
+          </div>
+        </div>
+        <div id="main-content" class="vertical-container">
+          <div id="browse-pinned-content" class="hidden">
+            <div id="browse-pinned-content-header" class="horizontal-container">
+              <div id="file-viewer-banner" class="banner horizontal-container">
+                <img src="ic_info_blue_24px.svg" class="info-banner-icon banner-icon blueIconOnBlueBackground" alt="">
+                <div id="file-viewer-banner-text" class="banner-text"><!-- Sey by the JS. --></div>
+              </div>
+            </div>
+            <div id="pinned-content-data-table"><!-- DFSDataTable --></div>
+          </div>
+          <div id="nothing-pinned" class="hidden">
+            <div id="nothing-pinned-img-wrapper">
+              <img class="nothing-pinned-img" alt="" src="file_stats_dialog_empty_state.webp">
+            </div>
+            <h1 id="nothing-pinned-title" tabindex="-1" class="a11y-focusable-text gmTypographyHeadline5"><!-- Set by the JS. --></h1>
+            <div id="nothing-pinned-subtitle" class="gmTypographyBody2"><!-- Set by the JS. --></div>
+          </div>
+          <div id="pinned-content-overview" class="hidden"></div>
+          <div id="pending-cache-calculation-popover-scrim" class="hidden popover-scrim">
+            <div id="pending-cache-calculation-popover" class="popover mdc-card GmCard">
+              <div class="mdc-elevation-overlay"></div>
+              <h1 id="pending-cache-calculation-title" tabindex="-1" class="a11y-focusable-text gmTypographyHeadline5"><!-- Set by the JS. --></h1>
+              <div id="pending-cache-calculation-subtitle" class="gmTypographyBody2"><!-- Set by the JS. --></div>
+              <div id="pending-cache-calculation-spinner" class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer" class="horizontal-container">
+        <div id="cancel-button"><!--- DFSButton --></div>
+        <div id="done-button"><!--- DFSButton --></div>
+      </div>
+    </div>
+    <div id="pinned-content-overview-card-template" class="hidden pinned-content-overview-card GmCardHairline">
+      <div id="pinned-content-overview-title-container" class="horizontal-container">
+        <img id="pinned-content-overview-icon" src="ic_account_circle_googblue_24dp.svg" class="blueIcon" alt="">
+        <div id="pinned-content-overview-title" class="gmTypographySubhead1"><!-- Set by the JS. --></div>
+        <div id="pinned-content-overview-subtitle" class="gmTypographySubhead2"><!-- Set by the JS. --></div>
+      </div>
+      <div id="pinned-content-overview-bar">
+        <div class="segmentable-progress-bar__container horizontal-container"><!-- Filled with .segmentable-progress-bar__segment --></div>
+<div class="hidden segmentable-progress-bar__segment-template segmentable-progress-bar__segment"></div>
+<div class="hidden segmentable-progress-bar__legend-title gmTypographyOverline"><!-- Set by JS --></div>
+<div class="segmentable-progress-bar__legend vertical-container"><!-- Filled with .segmentable-progress-bar__legend-item --></div>
+<button class="hidden segmentable-progress-bar__legend-item-clickable-template segmentable-progress-bar__legend-item segmentable-progress-bar__legend-item-clickable mdc-ripple-surface">
+  <!-- Filled with .segmentable-progress-bar__legend-item-content -->
+</button>
+<div class="hidden segmentable-progress-bar__legend-item-template segmentable-progress-bar__legend-item">
+  <!-- Filled with .segmentable-progress-bar__legend-item-content -->
+</div>
+<div class="hidden segmentable-progress-bar__legend-item-content-template segmentable-progress-bar__legend-item-content horizontal-container">
+  <div class="segmentable-progress-bar__color-swatch"></div>
+  <div class="segmentable-progress-bar__legend-item-info">
+    <div class="segmentable-progress-bar__legend-item-title gmTypographySubtitle2"></div>
+    <div class="segmentable-progress-bar__legend-item-subtitle gmTypographyCaption"></div>
+  </div>
+  <div class="hidden segmentable-progress-bar__legend-item-icon-placeholder"></div>
+  <img class="hidden segmentable-progress-bar__legend-item-clickable-icon greyIcon" src="ic_chevron_right_grey_24px.svg" alt="">
+</div>
+      </div>
+    </div>
+    <div id="snackbar-view">
+      <div id="snackbar-view">
+  <!-- Set by the JS. -->
+</div>
+<!-- Template for #snackbar-view -->
+<div id="snackbar-template" class="GmStackableSnackbar mdc-snackbar mdc-snackbar--leading">
+  <div class="mdc-snackbar__surface">
+    <div class="mdc-snackbar__label"
+         role="status"
+         aria-live="polite">
+      <!-- Set by the JS. -->
+    </div>
+    <div id="snackbar-buttons" class="mdc-snackbar__actions" aria-atomic="true">
+      <button id="snackbar-action-button" type="button" class="mdc-button mdc-snackbar__action">
+        <div class="mdc-button__ripple"></div>
+        <span id="snackbar-button-text" class="mdc-button__label"><!-- Set by the JS. --></span>
+      </button>
+      <button id="snackbar-dismiss-button" type="button" class="mdc-icon-button mdc-snackbar__dismiss">
+        <div class="mdc-icon-button__ripple"></div>
+        <img class="mdc-icon-button__icon" aria-hidden="true" alt="" src="ic_close_grey600_24dp.svg">
+      </button>
+    </div>
+  </div>
+</div>
+    </div>
+    <div id ="file-stats-popover"><!--- DFSDialog ---></div>
+  </body>
+</html>

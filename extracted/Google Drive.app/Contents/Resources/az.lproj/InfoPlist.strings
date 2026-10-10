@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Microsoft faylını kimin redaktə etdiyinə baxmaq üçün real zaman statusunu təmin etmək məqsədilə Masaüstü üçün Google Disk Microsoft Office'ə giriş icazəsi tələb edir";
+"NSDesktopFolderUsageDescription" = "Faylları sinxronizasiya etmək, həmçinin foto və videoları yedəkləmək məqsədilə Masaüstü üçün Google Disk Masaüstü qovluğunuzdakı fayllara giriş icazəsi tələb edir";
+"NSDocumentsFolderUsageDescription" = "Faylları sinxronizasiya etmək, həmçinin foto və videoları yedəkləmək məqsədilə Masaüstü üçün Google Disk Sənədlər qovluğunuzdakı fayllara giriş icazəsi tələb edir";
+"NSNetworkVolumesUsageDescription" = "Foto və videoları yedəkləmək məqsədilə Masaüstü üçün Google Disk şəbəkə həcminə giriş icazəsi tələb edir";
+"NSRemovableVolumesUsageDescription" = "Faylları sinxronizasiya etmək, həmçinin foto və videoları yedəkləmək məqsədilə Masaüstü üçün Google Disk USB və ya digər çıxarıla bilən cihaza giriş icazəsi tələb edir";
+"NSPhotoLibraryUsageDescription" = "Faylları sinxronizasiya etmək, həmçinin foto və videoları yedəkləmək məqsədilə Masaüstü üçün Google Disk foto kitabxananıza giriş icazəsi tələb edir";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth təhlükəsizlik açarı ilə Masaüstü üçün Google Diskə daxil olmaq məqsədilə Google Diskə Bluetooth girişi icazəsi verin";

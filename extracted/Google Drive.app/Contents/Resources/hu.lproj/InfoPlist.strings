@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie a Microsoft Office-hoz, hogy valós idejű jelenléti adatokkal szolgálhasson arról, hogy éppen ki szerkeszt egy Microsoft-fájlt";
+"NSDesktopFolderUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie az Ön Asztal mappájában lévő fájlokhoz, hogy szinkronizálni tudja a fájlokat, és biztonsági másolatot készíthessen a fotókról és a videókról";
+"NSDocumentsFolderUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie az Ön Dokumentumok mappájában lévő fájlokhoz, hogy szinkronizálni tudja a fájlokat, és biztonsági másolatot készíthessen a fotókról és a videókról";
+"NSNetworkVolumesUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie az Ön hálózati kötetéhez, hogy biztonsági másolatot készíthessen a fotókról és a videókról";
+"NSRemovableVolumesUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie az Ön USB- vagy másmilyen cserélhető meghajtójához, hogy szinkronizálni tudja a fájlokat, és biztonsági másolatot készíthessen a fotókról és a videókról";
+"NSPhotoLibraryUsageDescription" = "Az asztali Google Drive-nak hozzá kell férnie az Ön fotótárához, hogy szinkronizálni tudja a fájlokat, és biztonsági másolatot készíthessen a fotókról és a videókról";
+"NSBluetoothAlwaysUsageDescription" = "Ahhoz, hogy Bluetooth-alapú biztonsági kulccsal jelentkezhessen be az Asztali Google Drive-ba, hozzáférést kell adnia a Google Drive-nak a Bluetooth-hoz";

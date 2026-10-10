@@ -1,0 +1,127 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/root_preference.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/fs/app/account_token.proto";
+import "apps/drive/fs/common/user_directory.proto";
+import "java/com/google/apps/jspb/jspb.proto";
+import "util/task/status.proto";
+
+enum RootDestination {
+  ROOT_DESTINATION_UNSPECIFIED = 0;
+  DRIVE = 1;
+  PHOTOS = 2;
+  BOTH_DRIVE_AND_PHOTOS = 3;
+}
+
+enum SyncType {
+  SYNC_TYPE_UNSPECIFIED = 0;
+  MIRROR = 1;
+  SLURP = 2;
+}
+
+enum RootMedium {
+  MEDIUM_UNDEFINED = 0;
+  FOLDER = 1;
+  USB_DEVICE = 2;
+  NAS = 3;
+  APPLE_PHOTOS_LIBRARY = 4;
+}
+
+enum RootSyncState {
+  STATE_UNSPECIFIED = 0;
+  PENDING = 1;
+  SYNCING = 2;
+  PENDING_REMOVAL = 3;
+  REMOVED = 4;
+}
+
+message RootNotifications {
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    NAS = 1;
+    USB = 2;
+    DOUBLE_UPLOAD = 3;
+  }
+  message DoubleUploadNotification {
+    int64 number_of_roots = 1;
+    string title = 2;
+    repeated int64 root_ids = 3;
+  }
+  bool nas_notification = 1;
+  bool usb_notification = 2;
+  DoubleUploadNotification double_upload_notification = 3;
+}
+
+message RootNotificationsMap {
+  message NotificationsEntry {
+    string key = 1;
+    RootNotifications value = 2;
+  }
+  repeated NotificationsEntry notifications = 1;
+}
+
+message RootMetadata {
+  repeated UserDirectory special_folders = 3;
+  int64 inode = 4;
+  string destination_item_id = 5;
+  bool is_encrypted = 6;
+}
+
+message AddRootRequest {
+  message PathByMediaIdAndRelativePath {
+    string media_id = 1;
+    string relative_path = 2;
+  }
+  string absolute_path = 1; // oneof root_path
+  PathByMediaIdAndRelativePath path_by_media_id_and_relative_path = 2; // oneof root_path
+  RootDestination destination = 3;
+  RootMedium medium = 4;
+  AccountToken account_token = 5;
+  bool one_shot = 6;
+  string title = 7;
+  bool is_my_drive = 8;
+  string doc_id = 9;
+  string destination_item_id = 10;
+}
+
+message AddRootResponse {
+  StatusProto status = 1;
+  RootPreference root_preference = 2;
+}
+
+message RootPreference {
+  int64 root_id = 1;
+  RootMetadata metadata = 2;
+  string media_id = 3;
+  string title = 4;
+  int64 size = 5;
+  string size_label = 6;
+  SyncType sync_type = 7;
+  RootDestination destination = 8;
+  string root_path = 9;
+  AccountToken account_token = 10;
+  RootSyncState state = 11;
+  bool one_shot = 12;
+  RootMedium medium = 13;
+  bool is_my_drive = 14;
+  string doc_id = 15;
+  string runtime_absolute_path = 16;
+}
+
+message RootPreferenceMap {
+  message RootPreferencesEntry {
+    int64 key = 1;
+    RootPreference value = 2;
+  }
+  repeated RootPreferencesEntry root_preferences = 1;
+}
+
+message ModifyRootRequest {
+  int64 drive_root_id = 1;
+  int64 photos_root_id = 2;
+  bool sync_to_drive = 3;
+  bool sync_to_photos = 4;
+}
+

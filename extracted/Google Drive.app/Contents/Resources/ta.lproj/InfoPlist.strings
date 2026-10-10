@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Microsoft ஃபைலை யார் திருத்துகிறார்கள் என்பதைக் காணும் வகையில் நிகழ்நேரப் பங்கேற்பை வழங்க Google Drive for desktopபிற்கு Microsoft Officeஸுக்கான அணுகல் தேவை";
+"NSDesktopFolderUsageDescription" = "கோப்புகளை ஒத்திசைக்கவும் படங்களையும் வீடியோக்களையும் காப்புப் பிரதி எடுக்கவும் Google Drive for desktopபிற்கு உங்கள் டெஸ்க்டாப் ஃபோல்டருக்கான அணுகல் தேவை";
+"NSDocumentsFolderUsageDescription" = "கோப்புகளை ஒத்திசைக்கவும் படங்களையும் வீடியோக்களையும் காப்புப் பிரதி எடுக்கவும் Google Drive for desktopபிற்கு உங்கள் ஆவணங்கள் ஃபோல்டருக்கான அணுகல் தேவை";
+"NSNetworkVolumesUsageDescription" = "படங்களையும் வீடியோக்களையும் காப்புப் பிரதி எடுக்க Google Drive for desktopபிற்கு உங்கள் நெட்வொர்க் வால்யூமிற்கான அணுகல் தேவை";
+"NSRemovableVolumesUsageDescription" = "கோப்புகளை ஒத்திசைக்கவும் படங்களையும் வீடியோக்களையும் காப்புப் பிரதி எடுக்கவும் Google Drive for desktopபிற்கு உங்கள் USB அல்லது பிற அகற்றத்தக்க மீடியா சாதனத்திற்கான அணுகல் தேவை";
+"NSPhotoLibraryUsageDescription" = "கோப்புகளை ஒத்திசைக்கவும் படங்களையும் வீடியோக்களையும் காப்புப் பிரதி எடுக்கவும் Google Drive for desktopபிற்கு உங்கள் பட லைப்ரரிக்கான அணுகல் தேவை";
+"NSBluetoothAlwaysUsageDescription" = "புளூடூத் பாதுகாப்பு விசையைப் பயன்படுத்தி Google Drive for desktopபில் உள்நுழைய புளூடூத்தை அணுக Google Driveவை அனுமதிக்கவும்";

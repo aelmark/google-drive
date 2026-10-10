@@ -1,0 +1,70 @@
+/* Text of a context menu item, displayed when the user can toggle having a file made available while offline. */
+"ACTION_PIN" = "Make available offline";
+/* Text of a context menu item, displayed when the user can toggle having a file made no longer available while offline. */
+"ACTION_UNPIN" = "Make available online only";
+/* Text of a context menu item, displayed when the user can open an item with Google Drive. 'Google Drive' is a product name, please translate accordingly. */
+"ACTION_OPEN" = "Open with Google Drive";
+/* Text of a context menu item, displayed when the user can share an item with Google Drive. 'Google Drive' is a product name, please translate accordingly. */
+"SHARE_WITH_DRIVE" = "Share with Google Drive";
+/* Text of a context menu item, displayed when the user can add or manage members of a shared drive root item. */
+"SHARE_ADD_OR_MANAGE_MEMBERS" = "Add or manage members";
+/* Text of a context menu item, displayed when the user can only view members of a shared drive root item. */
+"SHARE_VIEW_MEMBERS" = "View members";
+/* Text of a context menu item that copies the web Drive URL of the file to the user's clipboard. */
+"ACTION_COPY_LINK" = "Copy link to clipboard";
+/* Text of a context menu item, displayed when the user can add a shortcut to selected item to Google Drive. */
+"ACTION_ADD_SHORTCUT" = "Add shortcut to Google Drive";
+/* Text of a context menu item, displayed when the user can toggle viewing shared drive trash or not. */
+"ACTION_VIEW_TRASH" = "View shared drive trash";
+/* Text of a context menu item, shown when the user right-clicks on an item.  Selecting this option will bring the user to a folder that shows historical revisions of the file. */
+"ACTION_OPEN_REVISION_FOLDER" = "Manage versions";
+/* Text of a context menu item, displayed when the user can create a new shared drive. */
+"ACTION_CREATE_SHARED_DRIVE" = "Create new shared drive";
+/* Text of a context menu item, displayed on folders in order to refresh their content. */
+"ACTION_FORCE_REFRESH_FOLDER" = "Refresh folder";
+/* Text of a context menu item, displayed to create a new Google Docs file. */
+"ACTION_CREATE_DOCS_FILE" = "Create new Google Doc";
+/* Text of a context menu item, displayed to create a new Google Sheet file. */
+"ACTION_CREATE_SHEETS_FILE" = "Create new Google Sheet";
+/* Text of a context menu item, displayed to create a new Google Slide file. */
+"ACTION_CREATE_SLIDES_FILE" = "Create new Google Slide";
+/* Title of a generic alert dialog that indicates that a user action is not supported. */
+"USER_ACTION_NOT_SUPPORTED_TITLE" = "Not supported";
+/* Text of a generic alert dialog that indicates that a user action is not supported. */
+"USER_ACTION_NOT_SUPPORTED" = "This action is not supported";
+/* Text of a alert dialog that indicates that a user cannot move a Google Docs, Sheets, Slides, etc. file outside of Google Drive. [BACKUP_MESSAGE_ID:1538528376042617215]*/
+"USER_ACTION_MOVEOUT_GDOCS_NOT_SUPPORTED" = "Google Docs files can’t be moved outside Google Drive. To download a copy of a Google Docs file, go to Google Drive in your browser.";
+/* Title of the move outside domain alert dialog that informs the user the file location change outside the domain is a move and not a copy. */
+"USER_ACTION_MOVEOUT_TITLE" = "Move item out of Google Drive?";
+/* Text of the move outside domain alert dialog that informs the user the file location change outside the domain is a move and not a copy and which manipulation can be done to copy the items. [BACKUP_MESSAGE_ID:1565319521531574437] */
+"USER_ACTION_MOVEOUT" = "Item will be moved to your local folder. The Drive copy will be moved to trash. To copy the item instead of moving it, hold the Option key while you drag.";
+/* The button label used by the user to confirm the user wants to move files outside Google Drive */
+"USER_ACTION_MOVEOUT_CONTINUE" = "Confirm";
+/* The button label used by the user to cancel the action to move files outside Google Drive */
+"USER_ACTION_MOVEOUT_CANCEL" = "Cancel";
+/* Title of the alert dialog that indicates that the action of the user to move files outside a Shared drive is not permitted. */
+"USER_ACTION_SHARED_DRIVE_MOVE_OUT_TITLE" = "Permission denied";
+/* Text of the alert dialog that indicates that the action of the user to move files outside a Shared drive is not permitted. */
+"USER_ACTION_SHARED_DRIVE_MOVE_OUT" = "You do not have permission to move this item out of the shared drive.";
+/* Title of the move inside domain alert dialog that informs the user the file location change inside the domain is a move and not a copy. */
+"USER_ACTION_MOVEIN_TITLE" = "Move item to Google Drive?";
+/* Text of the move inside domain alert dialog that informs the user the file location change inside the domain is a move and not a copy. */
+"USER_ACTION_MOVEIN" = "Item will be moved to Google Drive. The local copy will no longer exist. ";
+/* The button label used by the user to confirm the user wants to move files inside Google Drive */
+"USER_ACTION_MOVEIN_CONTINUE" = "Confirm";
+/* The button label used by the user to cancel the action to move files inside Google Drive */
+"USER_ACTION_MOVEIN_CANCEL" = "Cancel";
+/* Text of a context menu item, displayed to create a new encrypted Google Docs file. */
+"ACTION_CREATE_ENCRYPTED_DOCS_FILE" = "Create new encrypted Google Doc";
+/* Text of a context menu item, displayed to create a new encrypted Google Sheet file. */
+"ACTION_CREATE_ENCRYPTED_SHEETS_FILE" = "Create new encrypted Google Sheet";
+/* Text of a context menu item, displayed to create a new encrypted Google Slide file. */
+"ACTION_CREATE_ENCRYPTED_SLIDES_FILE" = "Create new encrypted Google Slide";
+/* Text of a context menu item, displayed to refresh the shared drives root. [BACKUP_MESSAGE_ID:7180611975245234373]*/
+"ACTION_REFRESH_SHARED_DRIVES_ROOT" = "Refresh";
+/* Text of a context menu item, shown when the user right-clicks on an item.  Selecting this option will open a URL that shows historical revisions of the file. */
+"ACTION_OPEN_REVISION_WEB" = "Manage versions with Google Drive";
+/* Text of a context menu item that allows user to manage shared drives. */
+"ACTION_MANAGE_SHARED_DRIVES" = "Manage shared drives";
+/* Text of a context menu item that opens the item in Gemini web. */
+"ACTION_OPEN_GEMINI_WEB" = "Ask Gemini";

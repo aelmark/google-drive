@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do zbirke Microsoft Office, da bo lahko zagotavljal pristnost v realnem času, tako da boste lahko videli, kdo ureja Microsoftovo datoteko.";
+"NSDesktopFolderUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do datotek v mapi »Namizje«, da bo lahko sinhroniziral datoteke ter varnostno kopiral fotografije in videoposnetke.";
+"NSDocumentsFolderUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do datotek v mapi »Dokumenti«, da bo lahko sinhroniziral datoteke ter varnostno kopiral fotografije in videoposnetke.";
+"NSNetworkVolumesUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do omrežnega nosilca, da bo lahko varnostno kopiral fotografije in videoposnetke.";
+"NSRemovableVolumesUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do naprave USB ali druge odstranljive naprave za shranjevanje, da bo lahko sinhroniziral datoteke ter varnostno kopiral fotografije in videoposnetke.";
+"NSPhotoLibraryUsageDescription" = "Google Drive za namizne računalnike potrebuje dostop do knjižnice fotografij, da bo lahko sinhroniziral datoteke ter varnostno kopiral fotografije in videoposnetke.";
+"NSBluetoothAlwaysUsageDescription" = "Če se želite v Google Drive za namizne računalnike prijaviti z varnostnim ključem Bluetooth, Googlu Drive omogočite dostop do Bluetootha.";

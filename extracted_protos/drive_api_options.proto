@@ -1,0 +1,38 @@
+// Extracted protobuf descriptor: apps/drive/cello/proto/drive_api_options.proto
+syntax = "editions";
+
+package cello;
+
+enum BackendInstance {
+  PROD = 0;
+  CORP = 1;
+  SCARY = 2;
+  SANDBOX_PROD = 3;
+  SANDBOX_CORP = 4;
+  SANDBOX_SCARY = 5;
+  QA = 6;
+  LOCAL = 7;
+  CUSTOM = 8;
+}
+
+message DriveApiOptions {
+  string cacerts_path = 3;
+  string user_agent = 4;
+  int64 cloud_store_timeout_ms = 19; [default = 60000]
+  BackendInstance backend_instance = 23; [default = PROD]
+  int32 num_prefetched_cloud_ids = 24; [default = 1000]
+  string apiary_trace_email = 26;
+  string apiary_trace_token = 27;
+  bool unsafe_network = 28; [default = false]
+  string apiary_trace_regex = 29;
+  string language_code = 31;
+  bool disable_crl_check = 33; [default = false]
+  bool use_legacy_domain_permission_behavior = 38; [default = true]
+  string custom_drive_api_host = 40;
+  string custom_drive_api_root_path = 41;
+  string api_key = 46;
+  bool trust_system_root_certs = 47; [default = false]
+  string custom_driveway_url = 48;
+  bool strict_crl_check = 49; [default = false]
+}
+

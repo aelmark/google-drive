@@ -1,0 +1,162 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/options.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/cello/proto/encrypted_headers_option.proto";
+import "apps/drive/cello/proto/options.proto";
+import "apps/drive/dataservice/proto/account.proto";
+import "apps/drive/dataservice/proto/status.proto";
+import "apps/drive/fs/proto/account_feature_config.proto";
+import "apps/drive/fs/proto/features.proto";
+import "apps/drive/fs/proto/global_feature_config.proto";
+import "apps/drive/fs/proto/preferences.proto";
+import "apps/drive/fs/proto/ransomware.proto";
+import "apps/drive/fs/proto/version.proto";
+import "google/protobuf/duration.proto";
+import "googledata/experiments/mobile/drive_fs_ph/application_properties.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+
+enum CseSupport {
+  CSE_NONE = 0;
+  CSE_LISTING = 1;
+  CSE_READWRITE = 2;
+}
+
+enum ReadOnlyReason {
+  ROM_UNKNOWN = 0;
+  ROM_GLOBAL_FLAG = 1;
+  ROM_CORRUPTION = 2;
+  ROM_RANSOMWARE = 4;
+}
+
+message ModuleLogLevel {
+  string module_regex = 1;
+  LogLevel log_level = 2;
+}
+
+message DriveCreateOptions {
+  bool use_fake_cloud_store = 1; [default = false]
+  bool authorize_new_user = 4; [default = false]
+  string refresh_token = 5;
+  string user_email = 7;
+  string token_uri = 9;
+  string auth_uri = 10;
+  bool use_fake_network_status_listener = 12; [default = false]
+  string metadata_server_auth_uri = 16;
+  string user_id = 19;
+  ApplicationProperties app_properties = 26;
+  string signup_uri = 27;
+  bool use_signup_flow = 28;
+  string cse_refresh_token = 29;
+}
+
+message Options {
+  string argv_0 = 1;
+  string base_path = 2;
+  string ipc_pipe_path = 3;
+  string shell_ipc_pipe_path = 4;
+  string crash_handler_token = 6;
+  AccountFeatureConfig account_feature_config = 121;
+  bytes experiment_token = 136;
+  bytes cello_experiment_token = 152;
+  bytes zwieback_cookie = 139;
+  CoreFeatureConfig feature_config_override = 115;
+  GlobalFeatureConfig global_feature_config = 118;
+  DriveForDesktopSettings admin_settings = 134;
+  SecuritySettings security_settings = 135;
+  EnterpriseSettings enterprise_settings = 140;
+  GenAiSettings gen_ai_settings = 158;
+  bool enable_tracing = 10; [default = false]
+  repeated ModuleLogLevel module_log_level = 12;
+  LogLevel stderr_log_level = 13; [default = LOG_ERROR]
+  bool enable_metrics = 14; [default = true]
+  bool flag_evictable_files = 20; [default = false]
+  bool enable_ui = 21; [default = true]
+  bool clear_db_on_initialization = 28; [default = false]
+  repeated string ignore_file_pattern = 29;
+  string content_cache_path = 30;
+  string sqlite_path = 31;
+  DriveCreateOptions drive_create_options = 33;
+  bool enable_field_event_recording = 34;
+  string thumbnail_cache_path = 35;
+  string account_settings_path = 36;
+  string open_gdoc_path = 37;
+  int64 push_delay_ms = 40;
+  bool started_by_installer = 41; [default = false]
+  string locale = 43;
+  bool new_user = 44; [default = true]
+  string local_folder_mirrors_path = 45;
+  bool ignore_cloud_feature_flags = 46; [default = false]
+  bool force_onboarding = 47; [default = false]
+  string lost_and_found_path = 50;
+  string content_cache_range_db_base_path = 57;
+  bool log_connection_details = 59; [default = false]
+  CorePreferences effective_preferences = 62;
+  CoreStringResources core_string_resources = 63;
+  uint32 fuse_uid = 64;
+  uint32 fuse_gid = 65;
+  bool use_intranet_connectivity_to_check_online = 66; [default = false]
+  int64 ui_update_throttle_time_ms = 68; [default = 1000]
+  uint32 umask = 69; [default = 63]
+  string account_dir_path = 70;
+  Status crash_handler_init_status = 71;
+  bool empty_team_drives_virtual_folder = 72; [default = false]
+  int64 max_syncing_status_change_events = 73; [default = 15]
+  int64 item_events_buffer_size = 74; [default = 50]
+  bool empty_computers_virtual_folder = 75; [default = false]
+  InitializeOptions cello_options = 78;
+  string mirror_sqlite_path = 79;
+  bool files_by_id_virtual_folder = 80; [default = false]
+  string mirror_cello_sqlite_path = 81;
+  int32 fuse_umask = 84; [default = 63]
+  bool skip_mount_point_check = 88; [default = false]
+  bool skip_fuse_cleanup = 89; [default = false]
+  bool open_gdocs_root = 90;
+  bool open_gsheets_root = 91;
+  bool open_gslides_root = 92;
+  bool crash_on_core_start = 93; [default = false]
+  bool use_curl_logging_scribe = 94; [default = false]
+  bool force_case_sensitivity = 97; [default = false]
+  string new_gsuite_file = 99;
+  bool use_config_dir_resources = 100; [default = false]
+  string account_settings_from_file_path = 102;
+  string parent_version = 104;
+  bool open_all_dialogs = 105;
+  bool startup_mode = 107; [default = false]
+  string user_agent_override = 109;
+  bool stream_my_drive = 113; [default = true]
+  string volume_name = 116; [default = Google Drive]
+  string photos_scope = 119;
+  string integration_test_ipc_path = 120;
+  string my_drive_mirror_root_absolute_path = 125;
+  bool show_sign_in_dialog_if_no_user = 126;
+  bool crash_in_execution_context = 129; [default = false]
+  bool reimport_file_provider_domains = 130; [default = false]
+  string default_originator_hint = 131;
+  bool enable_physical_http_logging = 132; [default = false]
+  bool enable_chromeos_mirroring = 133;
+  bool trigger_lost_and_found_event = 137; [default = false]
+  CseSupport cse_support = 138; [default = CSE_READWRITE]
+  Duration phenotype_credential_timeout = 141;
+  int32 override_support_status = 142; [default = -1]
+  bool disable_change_replayer_for_testing = 143; [default = false]
+  string cello_metrics_db_path = 144;
+  bytes cello_server_token = 145;
+  bytes server_token = 151;
+  bool trigger_fake_db_corruption = 147; [default = false]
+  string mirror_cello_metrics_db_path = 148;
+  bool terminate_core_before_start = 149; [default = false]
+  int32 read_only_reasons = 150; [default = 0]
+  string canceled_uploads_path = 153;
+  RansomwareClear maybe_clear_ransomware_restriction = 154; [default = RANSOMWARE_UNSET]
+  VersionProto browser_version = 155;
+  EncryptedHeadersOption encrypted_headers_option = 156;
+  int32 flag_random_shared_drives_as_outliers = 157; [default = 0]
+}
+
+message CoreStringResources {
+  string my_drive = 1; [default = My Drive]
+  string team_drives = 2; [default = Shared drives]
+  string computers = 3; [default = Computers]
+}

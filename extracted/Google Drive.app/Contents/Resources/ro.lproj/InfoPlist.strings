@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive pentru computer necesită acces la Microsoft Office pentru a asigura prezența în timp real astfel încât să poți vedea cine editează un fișier Microsoft.";
+"NSDesktopFolderUsageDescription" = "Google Drive pentru computer necesită acces la fișierele din dosarul Computer ca să sincronizeze fișierele și să facă backup pentru fotografii și videoclipuri.";
+"NSDocumentsFolderUsageDescription" = "Google Drive pentru computer necesită acces la fișierele din dosarul Documente ca să sincronizeze fișierele și să facă backup pentru fotografii și videoclipuri.";
+"NSNetworkVolumesUsageDescription" = "Google Drive pentru computer necesită acces la volumul din rețea ca să facă backup pentru fotografii și videoclipuri.";
+"NSRemovableVolumesUsageDescription" = "Google Drive pentru computer necesită acces la USB sau la alte dispozitive media detașabile ca să sincronizeze fișierele și să facă backup pentru fotografii și videoclipuri.";
+"NSPhotoLibraryUsageDescription" = "Google Drive pentru computer necesită acces la fototeca ta ca să sincronizeze fișierele și să facă backup pentru fotografii și videoclipuri.";
+"NSBluetoothAlwaysUsageDescription" = "Permite accesul aplicației Google Drive la Bluetooth pentru a te conecta la Google Drive pentru computer folosind o cheie de securitate Bluetooth.";

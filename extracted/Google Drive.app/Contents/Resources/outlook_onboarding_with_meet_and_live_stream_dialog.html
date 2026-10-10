@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./outlook_onboarding_with_meet_and_live_stream_dialog.css">
+    <script src="./outlook_onboarding_with_meet_and_live_stream_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <button id="close-button"
+            class="GmIconButton mdc-icon-button" aria-label="" onclick="outlookOnboardingDialog.close()">
+      <div class="mdc-icon-button__ripple"></div>
+      <!-- TODO(dsslater): Add alt text for close button. -->
+      <img id="close-button-icon"
+           class="mdc-icon-button__icon greyIcon flip-in-rtl"
+           aria-hidden="false"
+           alt=""
+           src="ic_close_grey600_24dp.svg">
+    </button>
+    <div id="main" class="vertical-container">
+      <img id="meet-icon"
+           class=""
+           aria-hidden="true"
+           alt=""
+           src="google_meet_icon.svg">
+      <div id="frames-housing">
+        <div id="frames"><!-- Set by the JS --></div>
+        <div id="frames-border-left" class="frames-border"></div>
+        <div id="frames-border-right" class="frames-border"></div>
+        <button id="frames-button-back" type="button" class="hidden">
+          <svg class="blackIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+          </svg>
+        </button>
+        <button id="frames-button-forward" type="button">
+          <svg class="blackIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+          </svg>
+        </button>
+        <div id="circles-container">
+          <div id="circles">
+            <svg id="circle-0" class="circle active" width="12px" height="12px" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="6"></circle>
+            </svg>
+            <svg id="circle-1" class="circle" width="12px" height="12px" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="6"></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Template for #frames -->
+      <div id="frame-template" class="frame hidden">
+        <div id="main-title" class="gmTypographyHeadline2"><!-- Set by the JS --></div>
+        <img class="hideInDarkMode meet-explanation-img" alt="" src="outlook_meet_plugin_example_light.png">
+        <img class="showInDarkMode meet-explanation-img" alt="" src="outlook_meet_plugin_example_dark.png">
+        <div id="explanation-container">
+          <div id="explanation">
+            <div id="explanation-title" class="gmTypographySubtitle2"><!-- Set by the JS --></div>
+            <div id="explanation-subtitle" class="gmTypographyBody2"><!-- Set by the JS --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bottom-pane-container">
+      <div id="bottom-pane" class="horizontal-container">
+        <div id="user-info" class="vertical-container">
+          <div id="user-info-title" class="gmTypographyBody2"><!-- Set by the JS --></div>
+        </div>
+        <button id="connect-button" aria-labelledby="user-info-title" class="GmFillButton mdc-button" type="button" onclick="outlookOnboardingDialog.connect()">
+          <div class="mdc-button__ripple"></div>
+          <span id="connect-button-label" class="mdc-button__label">
+            <!-- Set by the JS. -->
+          </span>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

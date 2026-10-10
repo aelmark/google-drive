@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./device_dialog.css">
+    <script src="./jquery.min.js"></script>
+    <script src="./device_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <div id="device-dialog">
+      <div id="root-configurator">
+        <div id="root-configurator-dialog-root" class="dfs-dialog">
+  <div class="dfs-dialog-container">
+    <div class="root-configurator-dialog-surface dfs-dialog-surface" aria-describedby="root-configurator-content-container" aria-labelledby="root-configurator-title">
+      <div class="mdc-elevation-overlay"></div>
+      <div id="indeterminate-progress-bar" class="hidden"><!-- DFSLinearProgress --></div>
+      <div id="root-configurator-scrim" class="hidden"></div>
+      <div id="root-configurator-header-container" class="dfs-dialog-header-container">
+        <div id="root-configurator-title" class="dfs-dialog-header-element gmTypographyHeadline5"><!-- Set by the JS. --></div>
+      </div>
+      <div id="root-configurator-content-container" class="dfs-dialog-content">
+        <div id="root-header">
+          <div class="vertical-container">
+            <div id="root-header-container" class="horizontal-container">
+              <div>
+                <img id="folder-root-icon" class="greyIcon" alt="" src="ic_folder_24px.svg">
+                <img id="usb-root-icon" class="greyIcon" alt="" src="ic_usb_grey_24px.svg">
+                <img id="nas-root-icon" class="greyIcon" alt="" src="ic_storage_grey_24px.svg">
+              </div>
+              <div id="root-title-container" class="vertical-container">
+                <span id="root-title" class="gmTypographyHeadline6"><!-- Set by the JS. --></span>
+                <div id="root-configurator-subtitle" class="horizontal-container">
+                  <span id="root-configurator-size-label" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+                  <span id="root-configurator-content-description" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+                  <div id="root-configurator-new-root-spinner" class="spinner hidden"><!-- Set by the JS. --></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="root-configurator-account-switcher">
+          <div id="root-configurator-account-switcher-label" class="gmTypographyBody2"><!-- Set by the JS. --></div>
+          <!-- Only show currently selected account's profile picture. -->
+<div id="account-switcher-face-view" class="hidden">
+  <div id="account-switcher-face-view-button"><!-- DFSIconButton --></div>
+</div>
+
+<!-- Show currently selected account's profile picture and info. -->
+<div id="account-switcher-normal-view" class="GmCardHairline horizontal-container hidden">
+  <button id="account-switcher-normal-view-button" aria-label="" class="mdc-button GmButtonText">
+    <div class="mdc-button__ripple"></div>
+    <div id="account-info" class="horizontal-container account-info">
+      <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+      <div id="user-info" class="user-info">
+        <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+        <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<!-- Shows all signed in user's profile picture stacked over each other -->
+<div id="account-switcher-all-view" class="hidden">
+  <button id="account-switcher-all-view-button" aria-label="" class="mdc-button GmButtonText">
+    <div class="mdc-button__ripple"></div>
+    <span class='dfs-focus-ring'></span>
+    <div class="multi-account-view horizontal-container">
+      <div id="all-view-imgs"><!-- Set by the JS. --></div>
+      <span id="all-view-label" class="gmTypographyBody1"><!-- Set by the JS. --></span>
+    </div>
+    <div id="account-info" class="single-account-view horizontal-container account-info">
+      <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+      <div id="user-info" class="user-info">
+        <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+        <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+<!-- Template for #account-switcher-all-view -->
+<div id="all-view-img-template" class="all-view-img-wrapper hidden">
+  <div class="all-view-backdrop">
+    <img class="all-view-img blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg">
+  </div>
+</div>
+
+<div id="account-select-menu-anchor"><!-- AccountSelectMenu --></div>
+
+<!-- Show all signed in account. -->
+<div id="account-switcher-full-view" class="hidden mdc-card GmCard">
+  <!-- Set by the JS. -->
+</div>
+
+<!-- Template for Accounts used in the full view. -->
+<div id="account-switcher-account-template" class="full-view-account-option user-account horizontal-container hidden">
+  <div id="account-info" class="horizontal-container account-info">
+    <img id="user-photo" class="user-photo blueIcon" alt="" src="ic_account_circle_googblue_24dp.svg"/>
+    <div id="user-info" class="user-info">
+      <div id="user-email" class="gmTypographySubhead2 user-email"><!-- Set by the JS. --></div>
+      <div id="user-quota" class="gmTypographyCaption user-quota"><!-- Set by the JS. --></div>
+      <div id="manage-storage" class="gmTypographyCaption manage-storage hidden">
+        <a href="javascript: void(0)"><!-- Set by the JS. --></a>
+      </div>
+    </div>
+  </div>
+  <div id="drive-link-button"><!-- DFSIconButton --></div>
+  <div id="photos-link-button"><!-- DFSIconButton --></div>
+  <div id="open-mount-point-button"><!-- DFSIconButton --></div>
+  <div id="overflow-menu-button"><!-- DFSIconButton --></div>
+  <div class="menu-button-spacer" class="hidden"></div>
+  <div class="dfs-menu-anchor"><!-- DFSMenu --></div>
+</div>
+
+<!-- Template for items added to the AccountSelectMenu. -->
+<li id="account-select-menu-item-template" class="account-switcher-menu mdc-deprecated-list-item hidden" role="menuitem">
+  <span class="mdc-deprecated-list-item__ripple"></span>
+  <span class='dfs-focus-ring'></span>
+  <img class="mdc-deprecated-list-item__graphic" alt="" src=""/>
+  <div class="vertical-container">
+    <span class="mdc-deprecated-list-item__text menu-item-title gmTypographySubhead2"></span>
+    <span class="mdc-deprecated-list-item__text menu-item-subtitle gmTypographyCaption"></span>
+  </div>
+  <img class="account-select-menu-item-checkmark mdc-deprecated-list-item__meta blueIcon hidden" alt="" src="ic_checkmark_blue_24dp.svg"/>
+</li>
+
+<!-- Template for the add account button in the full view. -->
+<button id="account-switcher-add-account-template" class="account-switcher-add-account mdc-ripple-surface account-option horizontal-container hidden">
+  <img class="add-account-icon greyIcon" alt="" src="ic_person_add_24px.svg" />
+  <span class='dfs-focus-ring'></span>
+  <div id="add-account-label" class="add-account-label gmTypographySubhead2"><!-- Set by the JS. --></div>
+</button>
+
+<button id="account-switcher-disabled-add-account-template" class="account-switcher-disabled-add-account account-option horizontal-container hidden">
+  <img class="add-account-icon greyIcon" alt="" src="ic_person_add_24px.svg" />
+  <div class="vertical-container">
+    <div id="disabled-add-account-label" class="add-account-label gmTypographySubhead2"><!-- Set by the JS. --></div>
+    <div id="disabled-add-account-sublabel" class="add-account-label gmTypographyCaption"><!-- Set by the JS. --></div>
+  </div>
+</button>
+        </div>
+        <div id="root-destination">
+          <div class="vertical-container root-destination-options">
+            <div id="root-destination-options-label" class="gmTypographySubhead2"><!-- Set by the JS. --></div>
+            <div id="drive-destination-container" class="horizontal-container">
+              <div id="drive-destination-checkbox"></div>
+            </div>
+            <div id="photos-destination-container" class="horizontal-container">
+              <div id="photos-destination-checkbox"></div>
+            </div>
+            <div id="warning-banner" class="hidden horizontal-container">
+              <img class="banner-icon blueIconOnBlueBackground" alt="" src="ic_info_blue_24px.svg">
+              <span id="warning-banner-message" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+            </div>
+            <div id="nas-notification-banner" class="hidden notification-banner horizontal-container">
+              <img class="banner-icon blueIconOnBlueBackground" alt="" src="ic_info_blue_24px.svg">
+              <span id="nas-notification-message" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+            </div>
+            <div id="photos-disabled-notification-banner" class="hidden notification-banner horizontal-container">
+              <img class="banner-icon blueIconOnBlueBackground" alt="" src="ic_info_blue_24px.svg">
+              <span id="photos-disabled-notification-message" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+              <div id="photos-disabled-notification-action-button"><!-- DFSButton --></div>
+            </div>
+            <div id="photos-deprecation-warning-banner" class="hidden horizontal-container">
+              <img class="photos-deprecation-warning-banner-icon" alt="">
+              <span id="photos-deprecation-warning-banner-message" class="gmTypographyBody2"><!-- Set by the JS. --></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="root-configurator-footer-container" class="dfs-dialog-actions">
+        <button id="cancel-add-root-button" class="mdc-button GmButtonText GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="cancel-add-root-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+          <span class="dfs-focus-ring"></span>
+        </button>
+        <button id="done-root-button" class="hidden mdc-button GmFillButton GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="done-root-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+          <span class="dfs-focus-ring"></span>
+        </button>
+        <button id="save-root-button" class="hidden mdc-button GmFillButton GmTextLabelButton">
+          <div class="mdc-button__ripple"></div>
+          <span id="save-root-button-label" class="mdc-button__label"><!-- Set by the JS. --></span>
+          <span class="dfs-focus-ring"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="dfs-dialog-scrim"></div>
+</div>
+<div id="stop-syncing-root-confirmation-dialog-root"><!--- DFSDialog ---></div>
+<div id="merge-folder-dialog-root"><!--- DFSDialog ---></div>
+<div id="photos-deprecation-confirmation-dialog-root"><!--- DFSDialog ---></div>
+      </div>
+    </div>
+  </body>
+</html>

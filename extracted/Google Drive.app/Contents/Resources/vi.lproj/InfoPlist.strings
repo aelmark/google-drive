@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào Microsoft Office để cung cấp tính năng hiện diện theo thời gian thực nhằm giúp bạn biết được ai đang chỉnh sửa một tệp Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào các tệp trong thư mục Desktop (Máy tính) để đồng bộ hóa tệp và sao lưu ảnh cũng như video của bạn";
+"NSDocumentsFolderUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào các tệp trong thư mục Documents (Tài liệu) để đồng bộ hóa tệp và sao lưu ảnh cũng như video của bạn";
+"NSNetworkVolumesUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào ổ đĩa mạng để sao lưu ảnh và video của bạn";
+"NSRemovableVolumesUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào USB hoặc thiết bị truyền thông có thể tháo rời khác để đồng bộ hóa tệp và sao lưu ảnh cũng như video của bạn";
+"NSPhotoLibraryUsageDescription" = "Google Drive cho máy tính cần quyền truy cập vào thư viện ảnh để đồng bộ hóa tệp và sao lưu ảnh cũng như video của bạn";
+"NSBluetoothAlwaysUsageDescription" = "Để đăng nhập vào Google Drive cho máy tính bằng một khóa bảo mật Bluetooth, hãy cho phép Google Drive truy cập vào Bluetooth";

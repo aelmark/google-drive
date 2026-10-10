@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Ordenagailuetarako Google Drive-k Microsoft Office erabiltzeko baimena behar du aldaketak denbora errealean ikusteko aukera eskaini ahal izateko; horrela, Microsoft-eko fitxategia nor editatzen ari den ikusi ahalko duzu";
+"NSDesktopFolderUsageDescription" = "Ordenagailuetarako Google Drive-k Mahaigaina karpeta erabiltzeko baimena behar du fitxategiak sinkronizatu eta argazki eta bideoen babeskopiak egin ahal izateko";
+"NSDocumentsFolderUsageDescription" = "Ordenagailuetarako Google Drive-k Dokumentuak karpeta erabiltzeko baimena behar du fitxategiak sinkronizatu eta argazki eta bideoen babeskopiak egin ahal izateko";
+"NSNetworkVolumesUsageDescription" = "Ordenagailuetarako Google Drive-k sareko bolumena erabiltzeko baimena behar du argazki eta bideoen babeskopiak egin ahal izateko";
+"NSRemovableVolumesUsageDescription" = "Ordenagailuetarako Google Drive-k USBak edo ken daitezkeen bestelako multimedia-gailuak erabiltzeko baimena behar du fitxategiak sinkronizatu eta argazki eta bideoen babeskopiak egin ahal izateko";
+"NSPhotoLibraryUsageDescription" = "Ordenagailuetarako Google Drive-k argazkien liburutegia erabiltzeko baimena behar du fitxategiak sinkronizatu eta argazki eta bideoen babeskopiak egin ahal izateko";
+"NSBluetoothAlwaysUsageDescription" = "Ordenagailuetarako Google Drive-n Bluetooth bidezko segurtasun-giltza batekin saioa hasteko, eman Bluetootha erabiltzeko baimena Google Drive-ri";

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að Microsoft Office til að sýna rauntímastöðu svo þú getir séð hver er að breyta Microsoft-skrá";
+"NSDesktopFolderUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að skrám í skjáborðsmöppunni til að samstilla skrár og afrita myndir og myndskeið";
+"NSDocumentsFolderUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að skrám í möppunni „Skjöl“ til að samstilla skrár og afrita myndir og myndskeið";
+"NSNetworkVolumesUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að tölvudrifinu til að afrita myndir og myndskeið";
+"NSRemovableVolumesUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að USB-lyklinum eða öðrum lausum geymslumiðli til að samstilla skrár og afrita myndir og myndskeið";
+"NSPhotoLibraryUsageDescription" = "Google Drive fyrir skjáborð þarf aðgang að myndasafninu til að samstilla skrár og afrita myndir og myndskeið";
+"NSBluetoothAlwaysUsageDescription" = "Þú verður að veita Google Drive Bluetooth-aðgang til að skrá þig inn á Google Drive fyrir skjáborð með Bluetooth-öryggislykli";

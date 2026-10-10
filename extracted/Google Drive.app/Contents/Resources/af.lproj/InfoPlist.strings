@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive vir rekenaars benodig toegang tot Microsoft Office om intydse teenwoordigheid te kan verskaf sodat jy kan sien wie is besig om 'n Microsoft-lêer te wysig";
+"NSDesktopFolderUsageDescription" = "Google Drive vir rekenaars benodig toegang tot jou lêers in jou Rekenaar-vouer om jou lêers te kan sinkroniseer en jou foto's en video's te kan rugsteun";
+"NSDocumentsFolderUsageDescription" = "Google Drive vir rekenaars benodig toegang tot jou lêers in jou Dokumente-vouer om jou lêers te kan sinkroniseer en jou foto's en video's te kan rugsteun";
+"NSNetworkVolumesUsageDescription" = "Google Drive vir rekenaars benodig toegang tot jou netwerkvolume om jou foto's en video's te kan rugsteun";
+"NSRemovableVolumesUsageDescription" = "Google Drive vir rekenaars benodig toegang tot jou USB of ander verwyderbare mediatoestel om jou lêers te kan sinkroniseer en jou foto's en video's te kan rugsteun";
+"NSPhotoLibraryUsageDescription" = "Google Drive vir rekenaars benodig toegang tot jou fotobiblioteek om jou lêers te kan sinkroniseer en jou foto's en video's te kan rugsteun";
+"NSBluetoothAlwaysUsageDescription" = "Gee toestemming aan Google Drive vir toegang tot Bluetooth om by Google Drive vir rekenaars te kan aanmeld met gebruik van 'n Bluetooth-sekuriteitsleutel";

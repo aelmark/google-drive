@@ -1,0 +1,35 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/remote_control.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/fs/consistency/consistency_scan.proto";
+import "util/task/status.proto";
+
+message RemoteControlRequest {
+  bool quit = 1;
+  bool enable_tracing = 2;
+  bool disable_tracing = 3;
+  bool enable_network = 4;
+  bool disable_network = 5;
+  bool handle_double_launch = 6;
+  bool dump_metrics = 8;
+  bool take_minidump = 9;
+  bool push_changes_and_quit = 10;
+  int32 timeout_sec = 11;
+  bool pause_syncing = 12;
+  bool resume_syncing = 13;
+  string dump_account_settings_to_file_path = 14;
+  string load_account_settings_from_file_path = 15;
+  string user_id = 16;
+  bool show_activity_monitor = 17;
+  bool sync_feature_config = 21;
+  bool enable_feature_sync_debug_mode = 22;
+  bool disable_feature_sync_debug_mode = 23;
+  string open_file = 26;
+  ConsistencyScanRequest consistency_scan = 27;
+}
+
+message RemoteControlResponse {
+  StatusProto status = 1;
+}

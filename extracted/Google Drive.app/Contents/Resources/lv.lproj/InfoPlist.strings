@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve Microsoft Office lietojumprogrammām, lai nodrošinātu klātbūtni reāllaikā un jūs varētu redzēt, kas rediģē Microsoft failu";
+"NSDesktopFolderUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve failiem jūsu mapē Darbvirsma, lai sinhronizētu jūsu failus un dublētu jūsu fotoattēlus un videoklipus";
+"NSDocumentsFolderUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve failiem jūsu mapē Dokumenti, lai sinhronizētu jūsu failus un dublētu jūsu fotoattēlus un videoklipus";
+"NSNetworkVolumesUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve jūsu failu krātuvei tīmeklī, lai dublētu jūsu fotoattēlus un videoklipus";
+"NSRemovableVolumesUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve jūsu USB vai citai noņemamai multivides ierīcei, lai sinhronizētu jūsu failus un dublētu jūsu fotoattēlus un videoklipus";
+"NSPhotoLibraryUsageDescription" = "Lietotnei Google disks datoram ir nepieciešama piekļuve jūsu fotoattēlu bibliotēkai, lai sinhronizētu jūsu failus un dublētu jūsu fotoattēlus un videoklipus";
+"NSBluetoothAlwaysUsageDescription" = "Lai pierakstītos lietotnē Google disks datoram, izmantojot Bluetooth drošības atslēgu, ļaujiet lietotnei Google disks piekļūt funkcijai Bluetooth";

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder à Microsoft Office dans le but de fournir une présence en temps réel pour que vous puissiez voir qui modifie un fichier Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder aux fichiers dans votre dossier Bureau dans le but de synchroniser vos fichiers et de sauvegarder vos photos et vos vidéos";
+"NSDocumentsFolderUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder aux fichiers dans votre dossier Documents dans le but de synchroniser vos fichiers et de sauvegarder vos photos et vos vidéos";
+"NSNetworkVolumesUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder à votre volume réseau dans le but de sauvegarder vos photos et vos vidéos";
+"NSRemovableVolumesUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder à votre clé USB ou à d'autres appareils de stockage multimédia amovibles dans le but de synchroniser vos fichiers et de sauvegarder vos photos et vos vidéos";
+"NSPhotoLibraryUsageDescription" = "Google Disque pour ordinateur de bureau a besoin d'accéder à votre bibliothèque de photos dans le but de synchroniser vos fichiers et de sauvegarder vos photos et vos vidéos";
+"NSBluetoothAlwaysUsageDescription" = "Pour vous connecter à Google Disque pour ordinateur de bureau à l'aide d'une clé de sécurité Bluetooth, autorisez Google Disque à accéder à la connectivité Bluetooth";

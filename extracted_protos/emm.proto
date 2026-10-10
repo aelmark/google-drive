@@ -1,0 +1,120 @@
+// Extracted protobuf descriptor: apps/drive/fs/core/stream/emm.proto
+syntax = "editions";
+
+package cello.fs.emm;
+
+enum DeviceType {
+  UNKNOWN = 0;
+  ANDROID = 1;
+  IOS = 2;
+  MAC = 3;
+  WINDOWS = 4;
+  LINUX = 5;
+  GOOGLE_SYNC = 6;
+  DESKTOP_CHROME_OS = 7;
+}
+
+message ListDevicesResponseWrapper {
+  ListDevicesResponse response = 1;
+}
+
+message ListDevicesResponse {
+  repeated UserDeviceDetails device = 2;
+  string continuation_token = 3;
+  int64 estimated_count = 4;
+}
+
+message UserDeviceDetails {
+  MobileDeviceInfo user_device_info = 2;
+  DriveFileStreamSpecificInfo drive_file_stream_specific_info = 9;
+}
+
+message DeviceHardwareInfo {
+  string host_name = 1;
+}
+
+message MobileDeviceInfo {
+  enum ServiceIdType {
+    NONE = 0;
+    MOBILE_SYNC = 1;
+    ANDROID_SYNC = 2;
+    CHROME_OS_SYNC = 3;
+    IOS_SYNC = 4;
+    DESKTOP_MAC = 5;
+    DESKTOP_WINDOWS = 6;
+    DESKTOP_LINUX = 7;
+    DESKTOP_CHROME_OS = 8;
+  }
+  ServiceIdType service_id = 1;
+  string device_id = 2;
+  int64 created_date = 4;
+  int64 last_sync_date = 22;
+  string serial_number = 37;
+  string device_encryption_status = 72;
+  bool is_device_secured_with_screenlock = 73;
+  DeviceHardwareInfo device_hardware_info = 85;
+  string device_resource_id = 101;
+  string windows_machine_guid = 107;
+}
+
+message DriveFileStreamSpecificInfo {
+  string drivefs_version = 1;
+  int64 created_time = 2;
+  int64 last_sync_time = 3;
+  string model = 4;
+  bool auto_update_enabled = 5; [default = false]
+  int64 cache_size_in_kbytes = 6;
+  string device_os_version = 7;
+  string fcm_registration_token = 9;
+}
+
+message GetDeviceComplianceStateResponseWrapper {
+  GetDeviceComplianceStateResponse response = 1;
+}
+
+message GetDeviceComplianceStateResponse {
+  enum DmResponseStatusCode {
+    UNKNOWN = 0;
+    SUCCESS = 1;
+    DEVICE_MANAGEMENT_INTERNAL_ERROR = 2;
+    DEVICE_MANAGEMENT_SYNC_DISABLED = 3;
+    DEVICE_MANAGEMENT_BLOCKED = 4;
+    DEVICE_MANAGEMENT_PENDING_APPROVAL = 5;
+    DEVICE_MANAGEMENT_STALE_SYNC_REQUIRED = 6;
+    DEVICE_MANAGEMENT_DEACTIVATED = 7;
+    DEVICE_MANAGEMENT_REQUIRED = 8;
+    DEVICE_MANAGEMENT_SCREENLOCK_REQUIRED = 9;
+    DEVICE_MANAGEMENT_JAILBROKEN_IOS_DEVICE_APP_REQUIRED = 10;
+    DEVICE_MANAGEMENT_DP_APP_REQUIRED = 11;
+    DEVICE_MANAGEMENT_DP_APP_ACTION_SYNC_REQUIRED = 12;
+    DEVICE_MANAGEMENT_DP_APP_ACTION_DEVICE_COMPROMISED = 13;
+    DEVICE_MANAGEMENT_DEVICE_UNSUPPORTED = 14;
+    DEVICE_MANAGEMENT_SCREENLOCK_INFO_REQUIRED = 15;
+    DEVICE_MANAGEMENT_APP_VERIFICATION_REQUIRED = 16;
+    DEVICE_MANAGEMENT_NOT_COMPANY_OWNED = 19;
+  }
+  bool is_device_adhering_to_policies = 2;
+  DmResponseStatusCode dm_status_code = 3;
+  DeviceType device_type = 5;
+  string device_id = 6;
+  int64 last_sync_time = 8;
+}
+
+message CreateOrUpdateDeviceRequestWrapper {
+  CreateOrUpdateDeviceRequest request = 1;
+}
+
+message CreateOrUpdateDeviceRequest {
+  DeviceType device_type = 3;
+  UserDeviceDetails device_details = 5;
+  string device_resource_id = 7;
+}
+
+message CreateOrUpdateDeviceResponseWrapper {
+  CreateOrUpdateDeviceResponse response = 1;
+}
+
+message CreateOrUpdateDeviceResponse {
+  UserDeviceDetails device = 2;
+  string device_resource_id = 3;
+}

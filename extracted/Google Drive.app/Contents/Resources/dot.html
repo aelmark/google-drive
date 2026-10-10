@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <link rel="stylesheet" href="./material.min.css">
+    <link rel="stylesheet" href="./dot.css">
+    <script src="./material.min.js"></script>
+    <script src="./jquery.min.js"></script>
+    <script src="./dot.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <!-- Note: tabindex=-1 is needed to prevent voice over apps from reading "On main..." -->
+    <main class="pages" tabindex=-1>
+      <!-- ERROR -->
+      <section class="page page-error page-hidden" data-page="page-error">
+        <nav class="top-bar">
+          <img class="nav-icon" aria-hidden="true" src="ic_sync_problem.png">
+          <h3 class="error_title">HTML ERROR</h3>
+        </nav>
+      </section>
+
+      <!-- ERROR_COLLAPSED -->
+      <section class="page page-error_collapsed page-hidden" data-page="page-error_collapsed">
+        <nav class="icon-only">
+          <img class="nav-icon error_icon_aria_label" src="ic_sync_problem.png">
+        </nav>
+      </section>
+
+      <!-- LOADING -->
+      <section class="page page-loading page-hidden" data-page="page-loading">
+        <nav>
+          <img class="loading-icon loading_icon_aria_label" src="ic_loading.svg">
+        </nav>
+        <!-- Progress Bar with Indeterminate Progress -->
+        <div id="downloading-progress" class="progress-bar"><!-- DFSLinearProgress --></div>
+      </section>
+
+      <!-- OFFLINE -->
+      <section class="page page-offline page-hidden" data-page="page-offline">
+        <nav class="top-bar">
+          <img class="nav-icon greyIcon" aria-hidden="true" alt="" src="ic_cloud_off_grey600_24dp.svg">
+          <h3 class="offline_title"></h3>
+        </nav>
+      </section>
+
+      <!-- OFFLINE_COLLAPSED -->
+      <section class="page page-offline_collapsed page-hidden" data-page="page-offline_collapsed">
+        <nav class="icon-only">
+          <img class="nav-icon offline_icon_aria_label greyIcon" alt="" src="ic_cloud_off_grey600_24dp.svg">
+        </nav>
+      </section>
+
+      <!-- PRIVATE -->
+      <section class="page page-private page-hidden" data-page="page-private">
+        <nav class="top-bar">
+          <h3 class="private_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler share_file_button_aria_label share_file_button" id="share_file_icon" aria-describedby="share_file_icon_tooltip_id">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="share-icon greyIcon mdc-icon-button__icon" alt="" src="ic_person_add_24px.svg">
+          </button>
+          <button id="menu-options-private" class="GmIconButton mdc-icon-button menu_options_button menu_options_button_aria_label" onclick="onMenuButtonClicked('page-private');">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="more-icon greyIcon mdc-icon-button__icon" alt="" src="ic_more_vert_grey600_24dp.svg">
+          </button>
+          <div class="dfs-menu-anchor">
+            <!-- Menu HTML is cloned into here by JS. -->
+          </div>
+        </nav>
+        <div class="content">
+          <p class="private_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmButtonText has-js-handler private_got_it_button" >
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label private_got_it_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRIVATE_SEMI_COLLAPSED -->
+      <section class="page page-private_semi_collapsed page-hidden" data-page="page-private_semi_collapsed">
+        <nav class="top-bar">
+          <img class="nav-icon greenIcon" aria-hidden="true" alt="" src="ic_done_googgreen_24dp.svg">
+          <h3 class="private_title"></h3>
+        </nav>
+      </section>
+
+      <!-- PRIVATE_COLLAPSED -->
+      <section class="page page-private_collapsed page-hidden" data-page="page-private_collapsed">
+        <nav class="icon-only">
+          <img class="nav-icon private_icon_aria_label greenIcon" alt="" src="ic_done_googgreen_24dp.svg">
+        </nav>
+      </section>
+
+      <!-- SAFE -->
+      <section class="page page-safe page-hidden" data-page="page-safe">
+        <nav class="top-bar">
+          <h3 class="safe_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler share_file_button_aria_label share_file_button" id="share_file_icon" aria-describedby="share_file_icon_tooltip_id">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="share-icon greyIcon mdc-icon-button__icon" alt="" src="ic_person_add_24px.svg">
+          </button>
+          <button id="menu-options-safe" class="GmIconButton mdc-icon-button menu_options_button menu_options_button_aria_label" onclick="onMenuButtonClicked('page-safe');">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="more-icon greyIcon mdc-icon-button__icon" alt="" src="ic_more_vert_grey600_24dp.svg">
+          </button>
+          <div class="dfs-menu-anchor">
+            <!-- Menu HTML is cloned into here by JS. -->
+          </div>
+        </nav>
+        <div class="content">
+          <p class="safe_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmButtonText has-js-handler safe_got_it_button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label safe_got_it_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SAFE_SEMI_COLLAPSED -->
+      <section class="page page-safe_semi_collapsed page-hidden" data-page="page-safe_semi_collapsed">
+        <nav class="top-bar">
+          <img class="nav-icon greenIcon" aria-hidden="true" alt="" src="ic_done_googgreen_24dp.svg">
+          <h3 class="safe_title"></h3>
+        </nav>
+      </section>
+
+      <!-- SAFE_COLLAPSED -->
+      <section class="page page-safe_collapsed page-hidden" data-page="page-safe_collapsed">
+        <nav class="icon-only">
+          <img class="nav-icon safe_collapsed_icon_aria_label greenIcon" alt="" src="ic_done_googgreen_24dp.svg">
+        </nav>
+      </section>
+
+      <!-- WAIT -->
+      <section class="page page-wait page-hidden" data-page="page-wait">
+        <nav class="top-bar">
+          <h3 class="wait_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler share_file_button_aria_label share_file_button" id="share_file_icon" aria-describedby="share_file_icon_tooltip_id">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="share-icon greyIcon mdc-icon-button__icon" alt="" src="ic_person_add_24px.svg">
+          </button>
+          <button id="menu-options-wait" class="GmIconButton mdc-icon-button menu_options_button menu_options_button_aria_label" onclick="onMenuButtonClicked('page-wait');">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="more-icon greyIcon mdc-icon-button__icon" alt="" src="ic_more_vert_grey600_24dp.svg">
+          </button>
+          <div class="dfs-menu-anchor">
+            <!-- Menu HTML is cloned into here by JS. -->
+          </div>
+        </nav>
+        <div class="content">
+          <button class="mdc-button mdc-button--outlined GmButtonHairline GmHairlineTextLabelButton heads-button wait_view_collaborators_aria_label"
+                  data-link-target="page-wait_collaborators">
+            <div class="mdc-button__ripple"></div>
+            <div class="heads-button-content">
+              <div class="heads"><!-- Editor chips inserted here --></div>
+              <span class="mdc-button__label wait_view_collaborators_button_label" tabindex="-1"></span>
+            </div>
+            <img class="forward-arrow flip-in-rtl greyIcon" alt="" src="ic_chevron_right_grey_24px.svg">
+          </button>
+          <p class="wait_message"></p>
+          <div id="wait-notify-checkbox"><!-- DFSCheckbox --></div>
+          <div class="buttons">
+            <button class="mdc-button GmButtonText has-js-handler wait_got_it_button" >
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label wait_got_it_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WAIT_COLLAPSED -->
+      <section class="page page-wait_collapsed page-hidden" data-page="page-wait_collapsed">
+        <nav class="top-bar">
+          <button class="invisible-button wait_collapsed_expand_button_aria_label" data-link-target="page-wait">
+            <img class="wait-icon orangeIcon" alt="" src="ic_schedule_orange_24dp.svg">
+            <h3 class="wait_title_text_only"></h3>
+          </button>
+        </nav>
+      </section>
+
+      <!-- WAIT_SEMI_COLLAPSED_WILL_NOTIFY -->
+      <section class="page page-wait_semi_collapsed_will_notify page-hidden" data-page="page-wait_semi_collapsed_will_notify">
+        <nav class="top-bar">
+          <h3 class="wait_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+        </nav>
+        <div class="content">
+          <p class="wait_semi_collapsed_will_notify_message"></p>
+        </div>
+      </section>
+
+      <!-- WAIT_COLLABORATORS -->
+      <section class="page page-wait_collaborators page-hidden" data-page="page-wait_collaborators">
+        <nav class="top-bar with-border">
+          <button class="GmIconButton mdc-icon-button wait_collaborators_back_button_aria_label back-button" data-link-target="page-wait">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="flip-in-rtl greyIcon mdc-icon-button__icon" alt="" src="ic_arrow_back_grey600_24dp.svg">
+          </button>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler wait_collaborators_email_button_aria_label wait_collaborators_email_button" id="wait_collaborators_email_icon" aria-describedby="wait_collaborators_email_icon_tooltip_id">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="email-icon greyIcon mdc-icon-button__icon" alt="" src="ic_email_grey600_24dp.svg">
+          </button>
+          <div class="mdl-tooltip wait_collaborators_email_icon_tooltip" id="wait_collaborators_email_icon_tooltip_id" aria-hidden="true" for="wait_collaborators_email_icon"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler share_file_button_aria_label share_file_button" id="share_file_icon" aria-describedby="share_file_icon_tooltip_id">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="share-icon greyIcon mdc-icon-button__icon" alt="" src="ic_person_add_24px.svg">
+          </button>
+          <button id="menu-options-wait-collaborators" class="GmIconButton mdc-icon-button menu_options_button menu_options_button_aria_label" onclick="onMenuButtonClicked('page-wait_collaborators');">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="more-icon greyIcon mdc-icon-button__icon" alt="" src="ic_more_vert_grey600_24dp.svg">
+          </button>
+          <div class="dfs-menu-anchor">
+            <!-- Menu HTML is cloned into here by JS. -->
+          </div>
+        </nav>
+        <div class="content scrollable-content">
+          <section class="wait_collaborators_editing">
+            <h4 class="wait_collaborators_header_editing"></h4>
+            <ul class="people-list" id="people-list-editing">
+              <!-- Editoring people inserted here -->
+            </ul>
+          </section>
+          <section class="wait_collaborators_viewing">
+            <h4 class="wait_collaborators_header_viewing"></h4>
+            <ul class="people-list" id="people-list-viewing">
+              <!-- Viewing people inserted here -->
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <!-- STALE -->
+      <section class="page page-stale page-hidden" data-page="page-stale">
+        <nav class="top-bar">
+          <h3 class="stale_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button has-js-handler stale_close_button stale_close_button_aria_label" data-link-target="page-stale_collapsed">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="close-icon greyIcon mdc-icon-button__icon" alt="" src="ic_close_grey600_24dp.svg">
+          </button>
+        </nav>
+        <div class="content">
+          <div class="creator stale_view_collaborators_alt_text">
+            <!-- Editor chip inserted here. -->
+          </div>
+          <p class="stale_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmFillButton GmTextLabelButton has-js-handler stale_get_latest_button" data-link-target="page-stale_downloading">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label stale_get_latest_button_label "><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STALE_DOWNLOADING -->
+      <section class="page page-stale_downloading page-hidden" data-page="page-stale_downloading">
+        <nav class="top-bar">
+          <h3 class="stale_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+        </nav>
+        <div class="content">
+          <div class="creator stale_downloading_view_collaborators_alt_text">
+            <!-- Editor chip inserted here. -->
+          </div>
+          <p class="stale_message"></p>
+          <p class="stale_downloading"></p>
+        </div>
+        <!-- Progress Bar with Indeterminate Progress -->
+        <div id="downloading-progress" class="progress-bar"><!-- DFSLinearProgress --></div>
+      </section>
+
+      <!-- STALE_COLLAPSED -->
+      <section class="page page-stale_collapsed page-hidden" data-page="page-stale_collapsed">
+        <nav class="top-bar">
+          <button class="invisible-button stale_collapsed_expand_button_aria_label" data-link-target="page-stale">
+            <img class="stale-icon blueIcon" alt="" src="ic_refresh_googblue_24dp.svg">
+            <h3 class="stale_collapsed_title"></h3>
+          </button>
+        </nav>
+      </section>
+
+      <!-- CONFLICT -->
+      <section class="page page-conflict page-hidden" data-page="page-conflict">
+        <nav class="top-bar">
+          <h3 class="conflict_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+          <button class="GmIconButton mdc-icon-button" id="conflict_close_button" aria-describedby="conflict_close_button_tooltip_id" data-link-target="page-conflict_dismiss">
+            <div class="mdc-icon-button__ripple"></div>
+            <img class="close-icon greyIcon mdc-icon-button__icon" alt="" src="ic_close_grey600_24dp.svg">
+          </button>
+          <div class="mdl-tooltip custom-mdl-tooltip mdl-tooltip--left conflict_close_button_tooltip" id="conflict_close_button_tooltip_id" aria-hidden="true" for="conflict_close_button"></div>
+        </nav>
+        <div class="content">
+          <div class="creator conflict_view_collaborators_aria_label">
+            <!-- Editor chip inserted here. -->
+          </div>
+          <p class="conflict_message"></p>
+          <div class="vertical-buttons">
+            <button class="mdc-button GmButtonText has-js-handler conflict_copy_button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_copy_button_label"><!-- Set by the JS. --></span>
+            </button>
+            <button class="mdc-button GmFillButton GmTextLabelButton has-js-handler bottom-button conflict_preview_button" id="conflict_preview_button" aria-describedby="conflict_preview_tooltip_id" data-link-target="page-stale_downloading">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_preview_button_label"><!-- Set by the JS. --></span>
+            </button>
+            <div class="mdl-tooltip mdl-tooltip--top conflict_preview_tooltip" for="conflict_preview_button" aria-hidden="true" id="conflict_preview_tooltip_id"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFLICT_YOUR -->
+      <section class="page page-conflict_your page-hidden" data-page="page-conflict_your">
+        <nav class="top-bar">
+          <div class="creator diff-flow-creator">
+            <!-- Editor chip inserted here. -->
+          </div>
+          <h3 class="conflict_your_title conflict_your_title_aria_label expanded-page-title diff-flow-title"></h3>
+          <div class="spacer"></div>
+        </nav>
+        <div class="content">
+          <p class="conflict_your_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmFillButton GmTextLabelButton has-js-handler conflict_your_back_button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_your_back_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFLICT_THEIR -->
+      <section class="page page-conflict_their page-hidden" data-page="page-conflict_their">
+        <nav class="top-bar">
+          <div class="creator diff-flow-creator">
+            <!-- Editor chip inserted here. -->
+          </div>
+          <h3 class="conflict_their_title conflict_their_title_aria_label expanded-page-title diff-flow-title"></h3>
+          <div class="spacer"></div>
+        </nav>
+        <div class="content">
+          <p class="conflict_their_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmFillButton GmTextLabelButton has-js-handler conflict_their_save_button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_their_save_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFLICT_DISMISS -->
+      <section class="page page-conflict_dismiss page-hidden" data-page="page-conflict_dismiss">
+        <nav class="top-bar">
+          <h3 class="conflict_dismiss_title expanded-page-title"></h3>
+          <div class="spacer"></div>
+        </nav>
+        <div class="content">
+          <p class="conflict_dismiss_message"></p>
+          <div class="buttons">
+            <button class="mdc-button GmFillButton GmTextLabelButton has-js-handler conflict_dismiss_preview_button" id="conflict_dismiss_preview_button" describedby="conflict_dismiss_preview_tooltip_id">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_dismiss_preview_button_label"><!-- Set by the JS. --></span>
+            </button>
+            <div class="mdl-tooltip custom-mdl-tooltip conflict_preview_tooltip" id="conflict_dismiss_preview_tooltip_id" aria-hidden="true" for="conflict_dismiss_preview_button"></div>
+            <button class="mdc-button GmButtonText has-js-handler conflict_dismiss_ignore_button" data-link-target="page-conflict_collapsed">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label conflict_dismiss_ignore_button_label"><!-- Set by the JS. --></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONFLICT_COLLAPSED -->
+      <section class="page page-conflict_collapsed page-hidden" data-page="page-conflict_collapsed">
+        <nav class="top-bar">
+          <button class="invisible-button conflict_collapsed_expand_button_aria_label" data-link-target="page-conflict">
+            <img class="conflict-icon orangeIcon" aria-hidden="true" alt="" src="ic_schedule_orange_24dp.svg">
+            <h3 class="conflict_collapsed_title"></h3>
+          </button>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Mae angen mynediad at Microsoft Office ar Google Drive ar gyfer bwrdd gwaith i ddarparu presenoldeb amser real fel y gallwch weld pwy sy'n golygu ffeil Microsoft";
+"NSDesktopFolderUsageDescription" = "Mae angen mynediad at ffeiliau yn eich ffolder Bwrdd Gwaith ar Google Drive ar gyfer bwrdd gwaith i gysoni eich ffeiliau ac i wneud copïau wrth gefn o'ch lluniau a'ch fideos";
+"NSDocumentsFolderUsageDescription" = "Mae angen mynediad at ffeiliau yn eich ffolder Dogfennau ar Google Drive ar gyfer bwrdd gwaith i gysoni'ch ffeiliau ac i wneud copïau wrth gefn o'ch lluniau a'ch fideos";
+"NSNetworkVolumesUsageDescription" = "Mae angen mynediad at faint eich rhwydwaith ar Google Drive ar gyfer bwrdd gwaith i wneud copïau wrth gefn o'ch lluniau a'ch fideos";
+"NSRemovableVolumesUsageDescription" = "Mae angen mynediad at eich USB neu ddyfais cyfryngau arall y gellir ei dynnu ar Google Drive ar gyfer bwrdd gwaith i gysoni'ch ffeiliau ac i wneud copïau wrth gefn o'ch lluniau a'ch fideos";
+"NSPhotoLibraryUsageDescription" = "Mae angen mynediad at eich llyfrgell lluniau ar Google Drive ar gyfer bwrdd gwaith i gysoni'ch ffeilliau a gwneud copïau wrth gefn o'ch lluniau a'ch fideos";
+"NSBluetoothAlwaysUsageDescription" = "Er mwyn mewngofnodi i Google Drive ar gyfer bwrdd gwaith gan ddefnyddio allwedd ddiogelwch Bluetooth, caniatewch i Google Drive gael mynediad at Bluetooth";

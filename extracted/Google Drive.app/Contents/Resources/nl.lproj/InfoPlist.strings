@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive voor desktop heeft toegang tot Microsoft Office nodig voor realtime aanwezigheid, zodat je kunt zien wie een Microsoft-bestand bewerkt";
+"NSDesktopFolderUsageDescription" = "Google Drive voor desktop heeft toegang tot bestanden in de map Bureaublad nodig om bestanden te synchroniseren en back-ups te maken van foto's en video's";
+"NSDocumentsFolderUsageDescription" = "Google Drive voor desktop heeft toegang tot bestanden in de map Documenten nodig om bestanden te synchroniseren en back-ups te maken van foto's en video's";
+"NSNetworkVolumesUsageDescription" = "Google Drive voor desktop heeft toegang tot het netwerkvolume nodig om bestanden te synchroniseren en back-ups te maken van foto's en video's";
+"NSRemovableVolumesUsageDescription" = "Google Drive voor desktop heeft toegang tot een USB-apparaat of een ander verwisselbaar media-apparaat nodig om bestanden te synchroniseren en back-ups te maken van foto's en video's";
+"NSPhotoLibraryUsageDescription" = "Google Drive voor desktop heeft toegang tot je fotobibliotheek nodig om bestanden te synchroniseren en back-ups te maken van foto's en video's";
+"NSBluetoothAlwaysUsageDescription" = "Als je bij Google Drive voor desktop wilt inloggen met een bluetooth-beveiligingssleutel, moet je Google Drive toegang geven tot Bluetooth";

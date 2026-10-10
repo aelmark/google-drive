@@ -1,0 +1,271 @@
+// Extracted protobuf descriptor: apps/drive/dataservice/proto/account.proto
+syntax = "editions";
+
+package drive.ds;
+
+import "apps/drive/common/data/storage_backend.proto";
+import "apps/drive/dataservice/proto/account_usage_state.proto";
+import "apps/drive/dataservice/proto/dataservice_request_descriptor.proto";
+import "apps/drive/dataservice/proto/permission.proto";
+import "apps/drive/dataservice/proto/query.proto";
+import "apps/drive/dataservice/proto/status.proto";
+import "apps/drive/dataservice/proto/user_pref.proto";
+import "apps/elements/generativeai/user_type.proto";
+import "apps/security/cse/api/d3idpconfiguration.proto";
+import "frameworks/client/data/data_annotation.proto";
+import "google/protobuf/timestamp.proto";
+import "java/com/google/apps/jspb/jspb.proto";
+import "java/com/google/apps/jspb/jspb_generate_object_format.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+import "third_party/java_src/j2objc/protobuf/compiler/internal/j2objc-descriptor.proto";
+
+message UserAccountRequest {
+  DataserviceRequestDescriptor request_descriptor = 1;
+  bool skip_localstore = 2; [default = false]
+  bool cached_only = 3; [default = false]
+  string fields = 4;
+}
+
+message AccountAndUserSettingsRequest {
+  DataserviceRequestDescriptor request_descriptor = 1;
+  repeated string fields = 2;
+  bool skip_cloudstore = 3; [default = false]
+  bool skip_localstore = 4; [default = false]
+}
+
+message AccountAndUserSettingsResponse {
+  Status status = 1;
+  Account account = 2;
+  string error_message = 3;
+  int64 last_updated_ms = 4;
+}
+
+message AccountAndUserSettingsDeltaResponse {
+}
+
+message AccountAndUserSettingsStorageData {
+  AccountAndUserSettingsRequest request = 1;
+  AccountAndUserSettingsResponse response = 2;
+}
+
+message UserAccountResponse {
+  Status status = 1;
+  Account account = 2;
+  string error_message = 3;
+  int64 largest_change_id = 4;
+  StoreType results_source = 5;
+}
+
+message Account {
+  Permission user = 1;
+  repeated UserPref DEPRECATED_pref = 2;
+  UserMetadata metadata = 3;
+  int64 last_updated_sec = 4;
+  repeated UserPref user_pref = 5;
+  WorkspaceSettings workspace_settings = 6;
+  SharedDrivesSettings shared_drives_settings = 7;
+  DriveForDesktopSettings drive_for_desktop_settings = 8;
+  ViewSettings view_settings = 9;
+  StorageSettings storage_settings = 10;
+  SearchSettings search_settings = 11;
+  EnterpriseSettings enterprise_settings = 12;
+  SecuritySettings security_settings = 13;
+  CategoriesSettings categories_settings = 14;
+  GenAiSettings gen_ai_settings = 15;
+  ExternalWarningsPolicySettings external_warnings_policy_settings = 16;
+  UserCapabilities user_capabilities = 17;
+}
+
+message WorkspaceSettings {
+  int32 active_workspace_limit = 1;
+  int32 total_workspace_limit = 2;
+  int32 workspace_item_limit = 3;
+  bool can_create_workspaces = 4;
+}
+
+message SharedDrivesSettings {
+  bool can_create_shared_drives = 1;
+  bool has_shared_drives = 2;
+  bool can_interact_with_shared_drives = 3;
+  bool can_migrate_to_shared_drives_as_admin = 4;
+}
+
+message DriveForDesktopSettings {
+  bool can_use_fs_presence = 1; [default = true]
+  bool show_fs_download = 2; [default = true]
+  string switchblade_psk = 3;
+  bool can_use_photos = 4; [default = true]
+  bool can_use_mirror = 5; [default = true]
+  bool can_use_slurp = 6; [default = true]
+  bool can_mirror_my_drive = 7; [default = true]
+}
+
+message ViewSettings {
+  bool can_display_suggestions_in_shared_with_me = 1;
+  bool can_view_priority = 2;
+  bool show_machine_root_view = 3;
+  bool show_spam_view = 4;
+}
+
+message CategoriesSettings {
+  bool categories_enabled = 1;
+}
+
+message GenAiSettings {
+  UserType user_type = 1;
+  bool is_eligible_for_sidekick = 2;
+  bool is_workspace_user_data_processing_consent_enabled = 3;
+  bool is_google_user_data_processing_consent_enabled = 4;
+  bool is_personal_context_allowed = 5;
+  bool is_search_ai_overviews_enabled = 6;
+  bool docs_gen_enabled = 7;
+  bool sheets_gen_enabled = 8;
+  bool slides_gen_enabled = 9;
+}
+
+message StorageSettings {
+  bool can_buy_storage = 1;
+  int64 corpus_size = 2;
+  int32 linked_changelog_size = 3;
+}
+
+message SearchSettings {
+  bool can_display_zero_state_search = 1;
+}
+
+message EnterpriseSettings {
+  bool is_dasher_admin = 1;
+  bool is_dasher_user = 2;
+  bool can_access_admin_console = 3;
+}
+
+message TargetAudience {
+  string display_name = 1;
+  string tooltip = 2;
+  string audience_id = 3;
+}
+
+message SecuritySettings {
+  D3IdpConfiguration cse_idp_settings = 1;
+  bool is_cse_enabled = 2;
+  bool is_cse_create_enabled = 3;
+  bool is_cse_on_by_default = 4;
+}
+
+message ExternalWarningsPolicySettings {
+  bool enable_file_level_external_warnings = 1;
+}
+
+message UserCapabilities {
+  bool can_upload = 1;
+  bool can_access_product = 2;
+}
+
+message UserMetadata {
+  enum QuotaType {
+    LIMITED = 1;
+    UNLIMITED = 2;
+    POOLED = 3;
+  }
+  enum QuotaStatus {
+    UNKNOWN_STATUS = 0;
+    UNDER_LIMIT = 1;
+    SOFT_EXCEEDED = 2;
+    HARD_EXCEEDED = 3;
+  }
+  enum AdminSecureLinkSetting {
+    UNKNOWN = 0;
+    REQUIRE_LESS_SECURE_LINKS = 1;
+    REMOVE_LESS_SECURE_LINKS = 2;
+    USER_CAN_CHOOSE = 3;
+  }
+  message ServiceUsage {
+    enum ServiceKey {
+      UNKNOWN = 0;
+      DRIVE = 1;
+      GMAIL = 2;
+      PHOTOS = 3;
+      FAMILY = 4;
+      POOLED_STORAGE = 5;
+    }
+    int64 bytes_used = 2;
+    ServiceKey service_key = 3;
+  }
+  message Quota {
+    message GracePeriodInfo {
+      Timestamp end_timestamp = 1;
+      int64 additional_quota_bytes = 2;
+      int64 end_timestamp_millis = 3;
+      bool active = 4;
+    }
+    int64 quota_bytes_total = 1;
+    int64 quota_bytes_used = 2;
+    int64 quota_bytes_used_aggregate = 3;
+    int64 quota_bytes_used_in_trash = 4;
+    repeated ServiceUsage service_usage = 5;
+    QuotaType quota_type = 6;
+    int64 bytes_limit = 7;
+    int64 bytes_remaining = 8;
+    int64 bytes_used_by_user = 9;
+    int64 bytes_used_by_all_services = 10;
+    int64 bytes_used_in_drive_trash_by_user = 11;
+    GracePeriodInfo grace_period_info = 12;
+    UsageState usage_state = 13;
+    int64 bytes_used_by_team = 14;
+    QuotaStatus quota_status = 15;
+    int64 individual_bytes_limit = 16;
+    UsageState individual_usage_state = 17;
+  }
+  message ImportFormat {
+    string source = 1;
+    repeated string target = 2;
+  }
+  message ExportFormat {
+    string source = 1;
+    repeated string target = 2;
+  }
+  message MaxUploadSize {
+    string type = 1;
+    int64 size = 2;
+  }
+  message AdditionalRoleInfoSet {
+    string primary_role = 1;
+    repeated string additional_role = 2;
+  }
+  message AdditionalRoleInfo {
+    string type = 1;
+    repeated AdditionalRoleInfoSet additional_role_info_set = 2;
+  }
+  message GSuiteSubscriptionInfo {
+    enum Status {
+      UNKNOWN = 0;
+      IS_IN_TRIAL = 1;
+      HAS_PAID_CONTRACT = 2;
+      NO_SUBSCRIPTION = 3;
+      TRIAL_EXPIRED = 4;
+      IS_FREE_ACCOUNT = 5;
+    }
+    Status status = 1;
+    int64 trial_millis_remaining = 2;
+    int64 trial_end_time_millis = 3;
+  }
+  message TeamDashboardCapabilities {
+    bool can_administer_team = 1;
+    bool can_manage_invites = 2;
+  }
+  message BackendDiagnostics {
+    StorageBackendEnum backend = 1;
+  }
+  Quota quota = 1;
+  string root_folder_id = 2;
+  string domain_sharing_policy = 3;
+  repeated ImportFormat import_format = 4;
+  repeated ExportFormat export_format = 5;
+  repeated MaxUploadSize max_upload_size = 6;
+  repeated AdditionalRoleInfo additional_role_info = 7;
+  GSuiteSubscriptionInfo gsuite_subscription_info = 8;
+  TeamDashboardCapabilities team_dashboard_capabilities = 9;
+  AdminSecureLinkSetting admin_secure_link_setting = 10;
+  repeated TargetAudience target_audiences = 11;
+  BackendDiagnostics backend_diagnostics = 12;
+}

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Disk Google pro počítače potřebuje přístup k Microsoft Office, aby mohl poskytovat funkci přítomnosti v reálném čase a vy tak mohli vidět, kdo soubor Microsoft upravuje";
+"NSDesktopFolderUsageDescription" = "Disk Google pro počítače potřebuje přístup k souborům ve vaší složce Desktop, aby mohl synchronizovat soubory a zálohovat fotky a videa";
+"NSDocumentsFolderUsageDescription" = "Disk Google pro počítače potřebuje přístup k souborům ve vaší složce Dokumenty, aby mohl synchronizovat soubory a zálohovat fotky a videa";
+"NSNetworkVolumesUsageDescription" = "Disk Google pro počítače potřebuje přístup k vašemu síťovému svazku, aby mohl zálohovat fotky a videa";
+"NSRemovableVolumesUsageDescription" = "Disk Google pro počítače potřebuje přístup k vašemu USB nebo jinému vyměnitelnému zařízení, aby mohl synchronizovat soubory a zálohovat fotky a videa";
+"NSPhotoLibraryUsageDescription" = "Disk Google pro počítače potřebuje přístup k vaší knihovně fotek, aby mohl synchronizovat soubory a zálohovat fotky a videa";
+"NSBluetoothAlwaysUsageDescription" = "Pokud se chcete k Disku Google pro počítače přihlásit pomocí bezpečnostního klíče Bluetooth, povolte Disku Google přístup k Bluetooth";

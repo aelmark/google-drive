@@ -1,0 +1,4517 @@
+{
+  "evidence_id": "ev_bd37886c3d6b3158ff6beeb0be49fef007115eab549dbb6ceeb9263d9725bf25",
+  "subject": {
+    "name": "Google Drive.app",
+    "digest": {
+      "sha256": "9c25f6b5fe40e431603be57fbd6390a605e8595b2451bc21ee9c694e2dc4d05e"
+    },
+    "format": "directory",
+    "architecture": null,
+    "local_path": "/home/marksterling/Development/Repositories/google-drive/extracted/Google Drive.app"
+  },
+  "provider": {
+    "id": "rea-apple-application",
+    "name": "REA Apple application workflows",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.apple-application-graph",
+  "operation": "project_apple_application_graph",
+  "parameters": {
+    "inventory_evidence_ids": [
+      "ev_0c54fa199b940e85dc911c3d8b09f4e98c64d2a1db41e5df272ed32b5f179c25"
+    ]
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "projection_id": "aap_dd730d8d23817394fd34b4538d33252bad35215ed43212bbacbeaf73249c5275",
+    "root_sha256": "9c25f6b5fe40e431603be57fbd6390a605e8595b2451bc21ee9c694e2dc4d05e",
+    "root_format": "directory",
+    "platforms": [
+      "macos"
+    ],
+    "source_evidence_ids": [
+      "ev_0c54fa199b940e85dc911c3d8b09f4e98c64d2a1db41e5df272ed32b5f179c25"
+    ],
+    "application_roots": [
+      "."
+    ],
+    "bundles": [
+      {
+        "path": ".",
+        "parent_path": null,
+        "layout": "macos-deep",
+        "role": "application",
+        "role_basis": "path-convention",
+        "info_plist_path": "Contents/Info.plist",
+        "executable_candidates": [
+          "Contents/MacOS/Google Drive",
+          "Contents/MacOS/account_export_tool",
+          "Contents/MacOS/crashpad_handler",
+          "Contents/MacOS/dfd_mcp_server",
+          "Contents/MacOS/diagnostic_tool",
+          "Contents/MacOS/mount_helper",
+          "Contents/MacOS/switchblade_host"
+        ],
+        "signing_paths": [
+          "Contents/_CodeSignature/CodeResources"
+        ]
+      },
+      {
+        "path": "Contents/Applications/FinderHelper.app",
+        "parent_path": ".",
+        "layout": "macos-deep",
+        "role": "nested-application",
+        "role_basis": "path-convention",
+        "info_plist_path": "Contents/Applications/FinderHelper.app/Contents/Info.plist",
+        "executable_candidates": [
+          "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper"
+        ],
+        "signing_paths": [
+          "Contents/Applications/FinderHelper.app/Contents/_CodeSignature/CodeResources"
+        ]
+      },
+      {
+        "path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex",
+        "parent_path": "Contents/Applications/FinderHelper.app",
+        "layout": "macos-deep",
+        "role": "app-extension",
+        "role_basis": "path-convention",
+        "info_plist_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/Info.plist",
+        "executable_candidates": [
+          "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension"
+        ],
+        "signing_paths": [
+          "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/_CodeSignature/CodeResources"
+        ]
+      },
+      {
+        "path": "Contents/PlugIns/DFSFileProviderExtension.appex",
+        "parent_path": ".",
+        "layout": "macos-deep",
+        "role": "app-extension",
+        "role_basis": "path-convention",
+        "info_plist_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/Info.plist",
+        "executable_candidates": [
+          "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension"
+        ],
+        "signing_paths": [
+          "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/_CodeSignature/CodeResources"
+        ]
+      }
+    ],
+    "components": {
+      "bundle_metadata": [
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/Info.plist",
+          "artifact_id": "art_81ee3401d3018b041d1830b1d6a88a28b741e73bae7528964316bb6a7cc0c11c",
+          "sha256": "7d0b5972b5552a0d71ac02ba8ee05deb904cead15e05147fd56702e9036db57f",
+          "format": "plist"
+        },
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/Info.plist",
+          "artifact_id": "art_0fdb2be5dc1fd911384f3cb59dd6fd410938651148fd3bf00e65ab1a34bb760f",
+          "sha256": "1495af44e9c53ce5aed365234620e59adb0e2e9b8d18744c8475e6b53c77294c",
+          "format": "plist"
+        },
+        {
+          "path": "Contents/Info.plist",
+          "artifact_id": "art_167214f08d89507bf62aa60b9bc2f24c341ef06317d6a1f1086f5de86f84fc65",
+          "sha256": "37a263593f97f72b9893f68fe942f85ddf1ef46446a3849901845c777e67972a",
+          "format": "plist"
+        },
+        {
+          "path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/Info.plist",
+          "artifact_id": "art_1ac6bc335bf14f4031a3e3472d201cb9b34c9ac1d4e50d2d7cc67124724c0e05",
+          "sha256": "25ea43f709bdc95a826dfe76dc44fc3a790ace5206c0651f1765ff9dc01f9b4b",
+          "format": "plist"
+        }
+      ],
+      "executables": [
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+          "artifact_id": "art_ae5b9d1298cb251797e88bcb69d87e14c02deb0c854832e0a14d7341108ee8a2",
+          "sha256": "4c2eeac33f4039059cf7e51585acee1a137856d17adb33ae6d26e45584de3b0e",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+          "artifact_id": "art_17005e9fd4aecbf8478794d1a71c2ddeacb58e61a042d4f6bc13fb40ed32b1c1",
+          "sha256": "2853274780fefbbcac688d16dc86a3cd11be1fb73405dc047f526f44575be8c0",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/Google Drive",
+          "artifact_id": "art_d201f6fb8f228e2bf8413deabcbcd447c564b7eb7d5f96e3914ba3000aa730d6",
+          "sha256": "27f1f7c3b95e093f0cd66a5edab3a465157086aefff7c89f5bc11a32239a7766",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/account_export_tool",
+          "artifact_id": "art_1b778cc482ce418681049bf401b7863caa2326f7447bb874143ef3c8e1d6fba6",
+          "sha256": "a389c750b2934ccba2acac23df59c1fdd64f184b63a1e240b0c0ec36cc33d058",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/crashpad_handler",
+          "artifact_id": "art_964c13b9182227262e711e405b2d828a3c3e086d424a24bba8bd1aeaba1534ec",
+          "sha256": "cc38d8a2612b865d054ccc2564e2ab61b4b9cc2c4ffd7722a5352e3b0fe8fcde",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/dfd_mcp_server",
+          "artifact_id": "art_c58fbaee3381c6c03b61f31f99515f1e5f8e2418447b9bc966ba07db2c3456b5",
+          "sha256": "6b84da296d9d3afd043c8f121b1d39458fd4e1f5a6e823318f8f5d263d26c97c",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/diagnostic_tool",
+          "artifact_id": "art_46e0e102df23d5404eeafca83870fbb580d4748fad1d63fd6b7b3dcc8c7841e8",
+          "sha256": "1e9914c6369c41129b6360dae4b5843148481b099bbf67c9d2fea842716a39ea",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/mount_helper",
+          "artifact_id": "art_4fa3a09b47d6ddeed1762ae8d889374aaeb68ce3261d8188e479fd60e3ba349e",
+          "sha256": "8bfd78efc7ecabd0ebba3bd81214c45339c280bb97dd19e87453e4a081c99389",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/MacOS/switchblade_host",
+          "artifact_id": "art_24a7d190b45f1a2d16d06d21ad8f674b8db67f2ca2f81cce99c3d695e507119f",
+          "sha256": "82539591f56df344febeb9ce692b9520bf5465c12dab6d46d1b2fde8599cc66d",
+          "format": "mach-o"
+        },
+        {
+          "path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+          "artifact_id": "art_d29d9bea64d1807074ff864e0e91650c0d8a5dcd86269bcbb38dceebba88f299",
+          "sha256": "2ebca8bd3c84cac215e24ac8939200610469c19f4f224f19ef26fe65b8b8e940",
+          "format": "mach-o"
+        }
+      ],
+      "frameworks": [],
+      "native_libraries": [],
+      "javascript": [
+        {
+          "path": "Contents/Resources/home_dialog.js",
+          "artifact_id": "art_595e9f792cb6fdcf54740c7da05f3b5ebf2b90ef152b2df0bc7d7f755c375b49",
+          "sha256": "e9c65af6f82d23c7d3164c163638dd63e609e0ad3a789fd7975239511b35299e",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__af.js",
+          "artifact_id": "art_6515a0ffb5626634592eb31c26692ec30245e12c9bc9d1cb3fa4fd777ac8d22b",
+          "sha256": "097ef0ab850722cad735ffe14e1597001bf354d1d25a8722c3b81d4b067a3495",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__am.js",
+          "artifact_id": "art_2e347335032a86b35426d0cbcd912b3386316bed8817dc2c9d846e55d198fac1",
+          "sha256": "7b950f7dc8067faabd88d519e33ebe6a5b1ca6155850cc4e6e67d3c6a3f3feec",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ar.js",
+          "artifact_id": "art_c8efbd643fa4938c62246957997662ec2cf30185456096a6cabd621f4d1b6fbe",
+          "sha256": "55870c34969e6785f1e5d764f70d3fc83284302411b4528d78ad152b9749985c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__az.js",
+          "artifact_id": "art_67ca8ea4fa7792b4833ad171030ad40cee7d44ad63377f9e1b69bf7261dac803",
+          "sha256": "8f06e4f13231806723264c08ee40c7d8bbbc90b647c88563dbd805185bdd33ca",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__be.js",
+          "artifact_id": "art_6fb69519a11a4bd28a0dc6b8c797feb3db12031f1d9930539996bcf6976ec4b3",
+          "sha256": "fa89a7a6351b93ac901815f21b197f2e57fe7e91c62ab9d500e8f38337e8d271",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__bg.js",
+          "artifact_id": "art_7ab33d38a815bc1ef6602dd32988c5e37f4c3ed8df2424192a227a6c8164521d",
+          "sha256": "4d1f74a93b22dc188338c62358c3b898d4315a1c3bb185f8b3f2a2f5054433eb",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__bn.js",
+          "artifact_id": "art_8b410b3c0e6a1c2d68e03cd045dbb3e525a6dd8b602f1c22007f35ee5ad7b1c0",
+          "sha256": "ae3f6fc658db333115e35789b0215743599c4c93cc9e52abc4ca436f041d7820",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ca.js",
+          "artifact_id": "art_38c3acda17fae07a14d0ef030729fb1420c60e37648587c356a3e237caf2b1b1",
+          "sha256": "3fd57a84a20b197b5e4f59c022a3cb8357d9621e7830047751b4c9dd72da63f8",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__cs.js",
+          "artifact_id": "art_532de8681ab451800fb15b13c5fcd25e5d227931612114ca58b577c4991b9450",
+          "sha256": "ba6987d0ccfd55710caf8cef1f00ccba625f230a2311dd7b375aac70bad48c4b",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__cy.js",
+          "artifact_id": "art_607a89f32c4f23644f886bfd2043617504977b4e3d423d517ce3815e39b1f1aa",
+          "sha256": "445a19bc6be05a620acda43426a38f30f6754547a9008c8c8ffebd83f4294095",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__da.js",
+          "artifact_id": "art_bf7e54c7e075484ea5c0cc4f0465ab61c58f5987d860f1efa33e5f0b5d0ba59e",
+          "sha256": "fd1d024b1ddbc025c47b289b95c2001cc1a283c02439b0ea65f1d9a5869c1a0f",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__de.js",
+          "artifact_id": "art_1f047b8f5c45b152aca25c3599be751fbe9890e88660efcf7ccd1b25b95cb65b",
+          "sha256": "80973d4c5b404c24d9a082f84e3d3fce32ba3296742f507931fce88ac32fa8d3",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__el.js",
+          "artifact_id": "art_b330f9e45bf06992d9724bed6f1e101f5e1d15df510206ecab3c86d378f63259",
+          "sha256": "6ef85873c2767171353de46c43db0b58f449e377b053180b3d378944da2a77a6",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__en_gb.js",
+          "artifact_id": "art_0e3abba06e10338d7fd8a1deb911e976d33c9e161c7a2f1082d9175e1b03b11a",
+          "sha256": "3a4e3062cb5595ff0495e2ccd38fb12e0874ee39168a8c7e898127b447aed1d9",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__es.js",
+          "artifact_id": "art_6de99558beecec8f696e7a6d94b99437475f98e18887ff426a804d4069dcd055",
+          "sha256": "060ea8417d9371674f5b2f41dfedb2befc0eb1e9bb215f69c420cd999b68e76d",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__es_419.js",
+          "artifact_id": "art_c4118f2effce15376249215624a9a1e488dd36bb1ddcb5becf297d973e621185",
+          "sha256": "ded5ddad4baa764e2de7cad9bf0105d58b06a162fd8622a5ca7ae6d8aebc2742",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__et.js",
+          "artifact_id": "art_bfacd525492261f8042c3d70590847b4a94858f4b5682dead576b56d82269b37",
+          "sha256": "04a0bb89202caf7fbf3deeb4f3f136e48acd95c41461d4e2fc6968f11709172b",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__eu.js",
+          "artifact_id": "art_b7cd4087a261137dd995d519401a5ae6c5e7b76858a108dcd9a2419e736bf122",
+          "sha256": "2422d45c057750b6f078c1833e830efd06ea3f511f8be9845f795bc5b9a3ea81",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__fa.js",
+          "artifact_id": "art_7b0d1d866c22d903d8498469d489aedd19be719a449f026a6e8372ea106a7444",
+          "sha256": "9431449bb508e81c82efa795802a57b2941540934bd03d6bd25d6a9584bfb194",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__fi.js",
+          "artifact_id": "art_fa8c260e669628f010d2540340e3333362820cd529a936a20ba1170da31849e7",
+          "sha256": "5c5413af415dd8c19f80f24686ae3bf116651b9345e03adb82f129458ff3bc24",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__fil.js",
+          "artifact_id": "art_0273cf0003063b670998196f3ca104976fe7a1ca3150b65ebedd393e69f849d1",
+          "sha256": "60368685d22af50ff199a0d36ad74c833e05c547fb017aac829d0562a407b1a0",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__fr.js",
+          "artifact_id": "art_3cffcd66d182dd64d95eb322683817333a6b6c78c2bc14f06618721bb83ed3f4",
+          "sha256": "cff3111c304fe6f80ecfea635f2288f6ce8831390b19216513a683b9fd86f18c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__fr_ca.js",
+          "artifact_id": "art_1393b53456da3d104ba6581330b4fb8f916b1a82e60f6220f872686ac83c75cc",
+          "sha256": "7c2326a885469c34e3d225f73c6a41f664d687c757219f3260a120e4564d1452",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__gl.js",
+          "artifact_id": "art_ffc9ae0388e729a183db7ee78cc5d98a7ecec804972a8c360f40f71627cf812f",
+          "sha256": "21a71a1ce8fa9f911ee733b67ed3c2f7b035cb8d03493b57bbef0c084c5ad498",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__gu.js",
+          "artifact_id": "art_ccfea030a37d4ce1c50753648797e2348cc9059351ab04184bf6321b096f219f",
+          "sha256": "a5b3400a7b43a3c5b8ed212a2a73927d100dea1c58144847794d21bdbd388f51",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__hi.js",
+          "artifact_id": "art_b7e6f925cd129d86646252cc3187ada2d11e3c51f5191c851781fa45f1d048a3",
+          "sha256": "dd7ee05328e888cd5930095656902cb55bebd6a0112a0e0bf67cd8e6ae21af8a",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__hr.js",
+          "artifact_id": "art_b0a6ed3bf236230bd57a0be025126070762371328db77bdb19e79cf65628f4ef",
+          "sha256": "4b8088f45a7808f31747be436f9eb5d1dc410167e1f807389c8fe34c435796c9",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__hu.js",
+          "artifact_id": "art_6bcc37ff57a52dd29630ab29b6b825452d86fb693eb31a266e0ccd3df4a78802",
+          "sha256": "473a79baceb0424c8d44c2ea5fd349642226348dce31fb63b0f29e131a4e00a5",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__hy.js",
+          "artifact_id": "art_cc898904d2c3182ccf786969b5eeb46532c169b60a6606b532a5b89bb7d3c2c7",
+          "sha256": "0a5211be11bc39825e3cb01454ed830a6a2485a665d1e8c4325f1fc38f79e925",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__id.js",
+          "artifact_id": "art_4ea47b56112ffb3813452d39f265a0502b21e6114ae20d7dec3c72fbb9883ff3",
+          "sha256": "438b1e8299823eb609b7fe4d10987f6275b05d56398a050602376c8475f688ba",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__is.js",
+          "artifact_id": "art_c7e49846d66981512228cd26297869d667ff18331b44ecc06ffccc4c1df8c387",
+          "sha256": "5506fcc28465c45334ed2b6280cb3c9cb8d11a8ca71ec5174bc7d2d1bc09917f",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__it.js",
+          "artifact_id": "art_cf036707fd249d8077589863d3b14f353afec8a5ab15904a7f4292b61927abda",
+          "sha256": "1bb103a5bb10b1e4ade6166019a6cd95e7bc3ac9b0d3ae73ad78ebfb2b04d4a2",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__iw.js",
+          "artifact_id": "art_7c96d69cdb1461d335d315a7cc78c1b0cd5c108d4ecf326da3fca2333a1c8e27",
+          "sha256": "707a5c58a52afaac1e2bf18c0d02849e919ca52d75ba0868324c5b07803d6bc1",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ja.js",
+          "artifact_id": "art_8a043cb28e04c69f587a2fbd004483edc61871b3eb7a74d82edb406c1c419509",
+          "sha256": "4a80fb4ffce68a9210cb1e9ec45eb5a7cb0e778ee5309f81d15e6083927a84d0",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ka.js",
+          "artifact_id": "art_3ec4d8a69a38a4f164a139921fb8216bc11b5fb1f13f5de8ccb5e14d25ed7d53",
+          "sha256": "eb466db51f0514cfeffb7c60412bc42b30a3a2b78d9f045ca2ae16720065351c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__kk.js",
+          "artifact_id": "art_7476659e5d515f40806ef07d3b42934c58c2717a1bd1fb1ff95c33b106a2f1b0",
+          "sha256": "c8732471f21093da073d88f187b66d78bb28fa4ee8bb7a470ba8272ba22b13c8",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__km.js",
+          "artifact_id": "art_7fcd7431f30e6a7bab70dc7b0924be1169dbb8d4150d9e006eca00578b4bd995",
+          "sha256": "1055bb0c951baa8808116b9575b41839b5ccc5271566665759d8effe383a1de5",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__kn.js",
+          "artifact_id": "art_2e1c1b082983fcaf23d30ec16a311a2166c9bfeb31c2327c6e279ce6815942d2",
+          "sha256": "765268ad088f33278e89b9e7e47789e949d41351072d05b2b56ffd035c0642f1",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ko.js",
+          "artifact_id": "art_5f45d8912b72df7de95a0465ad8c74a0c10149771c9eabdb157ef47075333aad",
+          "sha256": "2a4fa204ba2651c9434ca116449b1be7746cc8e7dadf535bb0130c9273a32014",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__lo.js",
+          "artifact_id": "art_6ef90e22b7113e88071482dce1c02337374489a93cedd6d94984eb45d0482e1e",
+          "sha256": "49a52b4625252353b4a993e7d7c3cb755263dc996977193baf85554c9519f912",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__lt.js",
+          "artifact_id": "art_c55710f4f397cacfa92170504963df48ed7149ca45866ffe586800912ee59773",
+          "sha256": "2f1a6bbd163d9e42f2d399e28a968dd6b6325b9ee0d95959837a837d8ba6188f",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__lv.js",
+          "artifact_id": "art_ec88b8e036f7ae3f8a6ab8bcec79dde2dceef3e24d23e6a2b69bfc08a1c1bd22",
+          "sha256": "df01608a97677ef56eaa002d82a3469ceffb5ea5a0db87bcb4de118347981f19",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ml.js",
+          "artifact_id": "art_8dbe5d1751f1182184fbf046bddeab9b93faf4eb45d021b24f98f47868df397c",
+          "sha256": "f4d560ee53b54c391126a211fcc3d75aabc296f9d8875aa9fa483b5e5fd281eb",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__mn.js",
+          "artifact_id": "art_a2d9441aa372681a780ac1865dd511ff371744322ba0154a42a5762b85a73642",
+          "sha256": "164f998ef2b41497f2e806da16171e30bc54e687f05ec6e83dbc96ffbb04227e",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__mr.js",
+          "artifact_id": "art_3e7b4d43bb164f5e36b80089667771dbbee8c93df7c5f08b8e6809ec1de0d85a",
+          "sha256": "25892a1006117cd2d71a912f66864a55b50ca92454542c93c99e8dcc547daa4d",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ms.js",
+          "artifact_id": "art_15ab4498195525c0b25a69e19fae9b7475234b9480416f1519f0ba33da83b121",
+          "sha256": "e69bd9d06523f97e812c506de0568299f43fcc4380718b07939f57b5ba8bf43a",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__my.js",
+          "artifact_id": "art_0ed65020d34eef8f4cc7e7646f5732fa44b38a4302b521c725837c310a32c363",
+          "sha256": "b361bcf79efd39c956e43b2848c997bb226103d57dc88c3870c1235e9901324d",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ne.js",
+          "artifact_id": "art_100825e593b27361adaa1d6925432a5e34a4fac5e7fdb953ec3f8990830dfec1",
+          "sha256": "736da294dea2ae0b12a3b38d26447eb0bece41b7d5d68784244d8740d0dd65e6",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__nl.js",
+          "artifact_id": "art_97b6f62880c2deaa8dd0c2e11f3e0691e484eed32991a1d8d2e4db25292d0f1e",
+          "sha256": "ecd627bb334711e81e932f78ace376b1ceac1821c770e15034803c2639e5caba",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__no.js",
+          "artifact_id": "art_55c2b085ef24a9e948f9419182351609477e56bff5ee14ce1509c373c46432ee",
+          "sha256": "6e43aad82ba5b500d610f5a7d1a4018b20a8993bb1b3d449b8ec4594d3de672c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__pa.js",
+          "artifact_id": "art_4c47f2ad9f88d304bf9bc0eb6ae9edde915ec9893e7964a2b20f0c969ff741fe",
+          "sha256": "6b73f6ac52d2de7138f5d7b653ba4cf525dc61d9a7b1f2b5829d84fb82e8a411",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__pl.js",
+          "artifact_id": "art_4d81477771be2764536cf23d28c3ec34f88bb85849e9a9e6c7a097d1f36f5681",
+          "sha256": "190930c3b8232849a24b91646f9ee4e425ed4c3a2cbcb73b32ef3dc35520afb6",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__pt_br.js",
+          "artifact_id": "art_c2e27fccbafc960478a2e889340b25db183f780b39fe7e4521241fad79fe2871",
+          "sha256": "c74f0c06d09d20948c1de6532ee865f0ec840bac02be59b6f20008c814034449",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__pt_pt.js",
+          "artifact_id": "art_f350037b40226b1d30519e3a73eeed04a156d4a93bd7af75b8e825f6c76497e0",
+          "sha256": "1cc39a2b8f13c58f0867d1b0a088cb03b173a59d069dca16881a210e7215bb74",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ro.js",
+          "artifact_id": "art_64c67611fb929984e1750f778e5cfcf6aaa5abcc0c320cc3cd3ac3b515971be5",
+          "sha256": "7b6a70b933c3095f335d13f6d4311fddf61ed678ca94e9699cef1214f0378397",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ru.js",
+          "artifact_id": "art_45dcdc2f389e6a735731e0a05e75819920727cbdacc7323cb026483c15aef763",
+          "sha256": "d4e58cd8e688a8b8627ab302e30a784039dc69152b2ca38a6b6ef84abe60e7b9",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__si.js",
+          "artifact_id": "art_d5ea8b4cb30db3762022c39f67edffa4e5f71fa3679b9493da796764f59361ed",
+          "sha256": "14a7250215276813f03d62dd93b4b7df413d234c9e67b37424aee9ea3ede1acd",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__sk.js",
+          "artifact_id": "art_b0948ad77f2d598b8024d43c227fd8392e68aee5efbf77f53d5d18641b62bbea",
+          "sha256": "545c2735922d33ad671c085e5792e887153b20150371c537fa2ace95ab78afc8",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__sl.js",
+          "artifact_id": "art_e974d112c82453ca50eadb68eb8e44ee3ec969c3b844e99bdb2398026df39022",
+          "sha256": "7aefed98a816d111b77232575ff40d09a8603c360b2f21cb705b2fba8a5d1549",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__sr.js",
+          "artifact_id": "art_4592a2af14a86da7d4e86e5e9994c115135832a5c2ac52971dd11e59f6b4ac9e",
+          "sha256": "51bd82b9bbe9535e218407c1397dc2c1893ebf03dbaec23c5fd179ebd557aaef",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__sv.js",
+          "artifact_id": "art_411b5b6f9351ca6acd6ea34c5dd2be28723c81422f34987159bde0cb3402f249",
+          "sha256": "568b496fe99b5fd92edee85cb63a40a3d9e3974b3c9b244c199e24ffe71b1d7a",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__sw.js",
+          "artifact_id": "art_02a146d837cd83c1576aa6111a8786555cae171873aeaa633bf641c0c47c199d",
+          "sha256": "fcdd11988223b0786b85939d30dc4818fc1f3d92b2c36783d9b7d035b080c4d5",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ta.js",
+          "artifact_id": "art_9384555733a027992111c1cf0b214e386ccfccfea51d4e8592f7b6fb1a2cff99",
+          "sha256": "413ca5e73c57c4f5f6ff99ee9f756cfcb8496f473cfc836a7238942471c019fe",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__te.js",
+          "artifact_id": "art_fd938033cde3736162ed9df387d2c5348281df50cb026b7e039b0812d37a19e6",
+          "sha256": "d46083813511ed729c6e99206ecc3ab30226e1b3005ac14e8141790c29359f63",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__th.js",
+          "artifact_id": "art_e55eff15be9d31bd5e40b5888539d10fb378782eaf7d0bcde34b347935492883",
+          "sha256": "5218fa44547c59b8f374f5c43cb0c6c4b10d2e1ad2f27850eba34423c1a76928",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__tr.js",
+          "artifact_id": "art_318dfc089d2516e80c4f114ec069eba5a9537fe5779224044eba1565b19ca94e",
+          "sha256": "eeaa2cd77e3b28e4110885e3f8f6377d73fff59dbccc1ce6c27cb7625bbd0caf",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__uk.js",
+          "artifact_id": "art_31c436409fe048112a937932a4f82318de7070dbe211a0cdc48046c03ec8bf70",
+          "sha256": "202b67b8067193282d6c89894d949d8879d6a581fda12e689512df617d7423f3",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__ur.js",
+          "artifact_id": "art_29535492964b9071f088becd3b56e6e0b612c35db44bfac6afad821f9bce912a",
+          "sha256": "687981f200b78e736cf5a646472b529c902ee615c6dcf908f262ec08eaab474d",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__vi.js",
+          "artifact_id": "art_2d4850fa62f46244766b2fc3437c341d7e3a6468dcf463aa4e094a4dfb225463",
+          "sha256": "417d1fabb53678cd61418f28d09c83c84e8fb09112108d39066fc1db27f84caf",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__zh_cn.js",
+          "artifact_id": "art_08d48f9d37c20dfe7a20adecb7190072137463f7729838f257d76fe3256b0810",
+          "sha256": "056dd44d0d1d897af5a4ab3a899bc5c3aeb9952f1b58168e784ce2a10288295c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__zh_hk.js",
+          "artifact_id": "art_299d6cc09c286fec1d2fa3e6a250b86dc8e428d8efa3e03c5f113119c5d35290",
+          "sha256": "e5ea9f2764ecae15d6ff5ba6145859df0671f0c10fdeff5b7882325937c41574",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__zh_tw.js",
+          "artifact_id": "art_eba7fe669423820ce5c8ccb157365a0024e7973a838100d56c47db35bcca7936",
+          "sha256": "e39525a27594e12b212bf05aaf30f0f5f9cd5afc10a22b9d1125eaeffd1f2a3c",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/home_dialog__zu.js",
+          "artifact_id": "art_0c9450dcc1e4ff0e69d52ddfbac1a7a002b7b0c8d65377329ab1106260b34fba",
+          "sha256": "0b84270eb93b5e60f2dfe45e06e9b910329d8ce5ec83618e7d9398663f9f28ba",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/jquery.min.js",
+          "artifact_id": "art_850e45b80c04eb7832b8837701d3551dd38e47e8ab978aadfae2406123cccc20",
+          "sha256": "c0bb9c38f519c08ad303c5e5bd700ecb05fc4933e87f23d5ebb0e0110a746d59",
+          "format": "javascript-bundle"
+        },
+        {
+          "path": "Contents/Resources/material.min.js",
+          "artifact_id": "art_560cfdffc07286d4e990a40f85f17cf32a4670409df8d81add91948ca495d9b1",
+          "sha256": "a9e24d921a79fd39da6b73afc78f7ffe3f8a9f42f1f7290d60974b3310b07757",
+          "format": "javascript-bundle"
+        }
+      ],
+      "signing": [
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/_CodeSignature/CodeResources",
+          "artifact_id": "art_10883c7eb95025051d9daa7a0e7b5ba6d10fed6722e484fec276c30dc6b5cf4e",
+          "sha256": "b698c08b663714d6fcc8cd972445451ae6ab20afc71d15a1c122aabd32003583",
+          "format": "file"
+        },
+        {
+          "path": "Contents/Applications/FinderHelper.app/Contents/_CodeSignature/CodeResources",
+          "artifact_id": "art_bb957eea4b57ceb832849f37ae1c2932f90f95c1657140b49e57d4f76d6dddda",
+          "sha256": "bc97fff147af7ad5e9e4faf5b2b4c1336e13ebbd291c8e5b7b83faecb6f17290",
+          "format": "file"
+        },
+        {
+          "path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/_CodeSignature/CodeResources",
+          "artifact_id": "art_e847379376f4b973be71d44ba4dc8b3b6cd1c3daddb374c8604325c37467a315",
+          "sha256": "ee8f52a4dd701946e7b948d95c9a90de29c240b19c89f885d0ab11a2f4da2074",
+          "format": "file"
+        },
+        {
+          "path": "Contents/_CodeSignature/CodeResources",
+          "artifact_id": "art_766e816441780202bbd92609b8c5bb04fc88e55ad0ef04536a474b0eff724e08",
+          "sha256": "e42de829b3c10f472355e497c9eb226e66bf86305203c753a9e2b0aeb4841b72",
+          "format": "file"
+        }
+      ],
+      "privileged_helpers": [],
+      "launchd_plists": [],
+      "helpers": []
+    },
+    "symlinks": [],
+    "runtime_families": [
+      "javascript",
+      "native"
+    ],
+    "bridge_candidates": [
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__af.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__am.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ar.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__az.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__be.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bg.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__bn.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ca.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cs.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__cy.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__da.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__de.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__el.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__en_gb.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__es_419.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__et.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__eu.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fa.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fi.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fil.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__fr_ca.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gl.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__gu.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hi.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hr.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hu.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__hy.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__id.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__is.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__it.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__iw.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ja.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ka.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kk.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__km.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__kn.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ko.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lo.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lt.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__lv.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ml.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mn.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__mr.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ms.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__my.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ne.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__nl.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__no.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pa.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pl.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_br.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__pt_pt.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ro.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ru.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__si.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sk.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sl.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sr.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sv.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__sw.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ta.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__te.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__th.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__tr.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__uk.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__ur.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__vi.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_cn.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_hk.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zh_tw.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/home_dialog__zu.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/jquery.min.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/MacOS/FinderHelper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/Applications/FinderHelper.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/Google Drive",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/account_export_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/crashpad_handler",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/dfd_mcp_server",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/diagnostic_tool",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/mount_helper",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/MacOS/switchblade_host",
+        "basis": "javascript-and-native-content"
+      },
+      {
+        "source_path": "Contents/Resources/material.min.js",
+        "native_path": "Contents/PlugIns/DFSFileProviderExtension.appex/Contents/MacOS/DFSFileProviderExtension",
+        "basis": "javascript-and-native-content"
+      }
+    ],
+    "bridge_candidate_coverage": {
+      "status": "complete",
+      "total_candidates": 760,
+      "emitted_candidates": 760,
+      "omitted_candidates": 0
+    },
+    "coverage": {
+      "status": "complete-within-inventory",
+      "inventory_complete": true
+    },
+    "limitations": [
+      "Bundle roles follow path conventions. Read each info_plist_path with inspect_plist for CFBundleExecutable, identifiers, and declared services.",
+      "Bundle identifiers and signing claims require dedicated plist and CMS parsing; this projection reports only exact paths and hashes.",
+      "Bridge candidates are path-based hypotheses, not observed runtime calls."
+    ]
+  },
+  "confidence": "inferred",
+  "authority": "analyst-inference",
+  "environment": null,
+  "limitations": [
+    "Bundle roles follow path conventions. Read each info_plist_path with inspect_plist for CFBundleExecutable, identifiers, and declared services.",
+    "Bundle identifiers and signing claims require dedicated plist and CMS parsing; this projection reports only exact paths and hashes.",
+    "Bridge candidates are path-based hypotheses, not observed runtime calls."
+  ],
+  "locations": [],
+  "evidence_links": [
+    "ev_0c54fa199b940e85dc911c3d8b09f4e98c64d2a1db41e5df272ed32b5f179c25"
+  ]
+}

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "데스크톱용 Google Drive에서 Microsoft 파일을 수정하고 있는 사용자를 확인할 수 있도록 실시간 편집 상태 기능을 제공하려면 Microsoft Office에 액세스해야 합니다.";
+"NSDesktopFolderUsageDescription" = "데스크톱용 Google Drive에서 파일을 동기화하고 사진과 동영상을 백업하려면 데스크톱 폴더에 있는 파일에 액세스해야 합니다.";
+"NSDocumentsFolderUsageDescription" = "데스크톱용 Google Drive에서 파일을 동기화하고 사진과 동영상을 백업하려면 문서 폴더에 있는 파일에 액세스해야 합니다.";
+"NSNetworkVolumesUsageDescription" = "데스크톱용 Google Drive에서 사진과 동영상을 백업하려면 네트워크 볼륨에 액세스해야 합니다.";
+"NSRemovableVolumesUsageDescription" = "데스크톱용 Google Drive에서 파일을 동기화하고 사진과 동영상을 백업하려면 USB 또는 다른 제거 가능한 미디어 기기에 액세스해야 합니다.";
+"NSPhotoLibraryUsageDescription" = "데스크톱용 Google Drive에서 파일을 동기화하고 사진과 동영상을 백업하려면 사진 라이브러리에 액세스해야 합니다.";
+"NSBluetoothAlwaysUsageDescription" = "블루투스 보안 키를 사용해 데스크톱용 Google Drive에 로그인하려면 Google Drive에 블루투스 액세스 권한을 부여하세요.";

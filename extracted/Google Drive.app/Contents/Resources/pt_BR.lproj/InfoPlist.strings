@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Se você quer ver quem está editando um arquivo da Microsoft, o Google Drive para computador precisa acessar o Microsoft Office para oferecer o recurso de acesso em tempo real.";
+"NSDesktopFolderUsageDescription" = "O Google Drive para computador precisa acessar os arquivos da sua pasta \"Computador\" para sincronizá-los e fazer backup de fotos e vídeos.";
+"NSDocumentsFolderUsageDescription" = "O Google Drive para computador precisa acessar os arquivos da sua pasta \"Documentos\" para sincronizá-los e fazer backup de fotos e vídeos.";
+"NSNetworkVolumesUsageDescription" = "O Google Drive para computador precisa acessar o volume da sua rede para fazer backup de fotos e vídeos.";
+"NSRemovableVolumesUsageDescription" = "O Google Drive para computador precisa acessar seu dispositivo USB ou outros dispositivos portáteis de mídia removíveis para sincronizar seus arquivos e fazer backup de fotos e vídeos.";
+"NSPhotoLibraryUsageDescription" = "O Google Drive para computador precisa acessar sua biblioteca de fotos para sincronizar seus arquivos e fazer backup de fotos e vídeos.";
+"NSBluetoothAlwaysUsageDescription" = "Para fazer login no Google Drive para computador usando uma chave de segurança Bluetooth, o Google Drive precisa ter acesso ao Bluetooth.";

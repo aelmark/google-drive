@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive för datorn behöver åtkomst till Microsoft Office för att kunna ge realtidsnärvaro så att du kan se vem som redigerar en Microsoft-fil";
+"NSDesktopFolderUsageDescription" = "Google Drive för datorn behöver åtkomst till filer i din mapp på datorn för att kunna synkronisera dina filer och säkerhetskopiera dina foton och videor";
+"NSDocumentsFolderUsageDescription" = "Google Drive för datorn behöver åtkomst till filer i din dokumentmapp för att kunna synkronisera dina filer och säkerhetskopiera dina foton och videor";
+"NSNetworkVolumesUsageDescription" = "Google Drive för datorn behöver åtkomst till din nätverksvolym för att kunna säkerhetskopiera dina foton och videor";
+"NSRemovableVolumesUsageDescription" = "Google Drive för datorn behöver åtkomst till ditt USB-minne eller en annan medieenhet som kan tas bort för att kunna synkronisera dina filer och säkerhetskopiera dina foton och videor";
+"NSPhotoLibraryUsageDescription" = "Google Drive för datorn behöver åtkomst till ditt fotobibliotek för att kunna synkronisera dina filer och säkerhetskopiera dina foton och videor";
+"NSBluetoothAlwaysUsageDescription" = "Ge Google Drive åtkomst till Bluetooth för att kunna logga in på Google Drive för datorn med en säkerhetsnyckel";

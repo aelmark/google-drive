@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./onboarding_dialog.css" />
+    <script src="./jquery.min.js"></script>
+    <script src="./onboarding_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <div id="onboarding-dialog">
+      <div id="onboarding-dialog-header">
+        <div id="logo-container">
+          <img alt="" src="drive_logo_24px.svg" />
+          <div id="logo-text" class="Gm3TitleLarge"></div>
+        </div>
+        <div id="app-menu">
+          <div id="menu-container">
+  <div id="menu-button"><!--- DFSIconButton --></div>
+  <div id="menu-anchor"><!-- DFSMenu --></div>
+</div>
+        </div>
+      </div>
+      <div id="onboarding-dialog-content">
+        <div id="onboarding-dialog-navigation-pane" class="hidden">
+          <div id="vertical-stepper"></div>
+        </div>
+        <div id="fixed-location-images">
+          <div id="sign-in-fixed-image" class="hidden">
+            <img class="hideInDarkMode sign-in-image flip-in-rtl" alt="" src="Onboarding-login.svg">
+            <img class="showInDarkMode sign-in-image flip-in-rtl" alt="" src="Onboarding-login-dark.svg">
+          </div>
+        </div>
+        <div id="onboarding-dialog-pane">
+          <div id="sign-in" class="hidden sign-in-enter">
+            <div id="sign-in-content">
+              <h1 id="sign-in-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="sign-in-text-1" class="Gm3LabelLarge"></div>
+              <div id="sign-in-button-container">
+                <div id="sign-in-button"><!-- DFSButton --></div>
+                <div id="create-account-button"><!-- DFSButton --></div>
+              </div>
+            </div>
+          </div>
+          <div id="pending-sign-in" class="hidden">
+            <div id="pending-sign-in-content">
+              <div id="pending-sign-in-spinner" aria-hidden="true"></div>
+              <h1 id="pending-sign-in-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="pending-sign-in-text-1" class="Gm3LabelLarge"></div>
+              <div id="pending-sign-in-text-2" class="Gm3LabelLarge"></div>
+              <div id="pending-sign-in-button-container">
+                <div id="pending-sign-in-get-link-button"><!-- DFSButton --></div>
+                <div id="pending-sign-in-back-button"><!-- DFSButton --></div>
+              </div>
+            </div>
+          </div>
+          <div id="processing-sign-in" class="hidden">
+            <div id="processing-sign-in-content">
+              <div id="processing-sign-in-spinner" aria-hidden="true"></div>
+              <h1 id="processing-sign-in-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="processing-sign-in-text-1" class="Gm3LabelLarge"></div>
+              <div id="processing-sign-in-text-2" class="Gm3LabelLarge"></div>
+              <div id="processing-sign-in-back-button"><!-- DFSButton --></div>
+            </div>
+            <img class="hideInDarkMode processing-sign-in-image flip-in-rtl" alt="" src="Setting-up.svg">
+            <img class="showInDarkMode processing-sign-in-image flip-in-rtl" alt="" src="Setting-up-dark.svg">
+          </div>
+          <div id="intro" class="hidden">
+            <div id="intro-content">
+              <div id="intro-heading-container">
+                <h1 id="intro-heading" tabindex="-1" class="a11y-focusable-text Gm3HeadlineMedium"></h1>
+                <div id="intro-heading-subtext" class="Gm3TitleSmall"></div>
+              </div>
+              <div id="intro-image-primary-wrapper">
+                <img class="hideInDarkMode intro-image-primary flip-in-rtl" alt="" src="Onboarding-welcome.svg">
+                <img class="showInDarkMode intro-image-primary flip-in-rtl" alt="" src="Onboarding-welcome-dark.svg">
+              </div>
+              <div id="intro-content-container">
+                <div id="intro-content-subcontainer">
+                  <img class="hideInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-1.svg">
+                  <img class="showInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-1-dark.svg">
+                  <div id="intro-text-1" class="Gm3TitleSmall intro-content-text"></div>
+                </div>
+                <div id="intro-content-subcontainer">
+                  <img class="hideInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-2.svg">
+                  <img class="showInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-2-dark.svg">
+                  <div id="intro-text-2" class="Gm3TitleSmall intro-content-text"></div>
+                </div>
+                <div id="intro-content-subcontainer">
+                  <img class="hideInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-3.svg">
+                  <img class="showInDarkMode intro-image-secondary flip-in-rtl" alt="" src="Selling-point-3-dark.svg">
+                  <div id="intro-text-3" class="Gm3TitleSmall intro-content-text"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="open-in-file-manager" class="hidden">
+            <div id="open-in-file-manager-content">
+              <h1 id="open-in-file-manager-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="open-in-file-manager-heading-subtext" class="Gm3TitleSmall hidden"></div>
+              <ul id="open-in-file-manager-drive-summary">
+                <li id="open-in-file-manager-my-drive-summary" class="Gm3LabelLarge hidden"></li>
+                <li id="open-in-file-manager-shared-drives-summary" class="Gm3LabelLarge hidden"></li>
+              </ul>
+              <div id="open-in-file-manager-container" class="horizontal-container">
+                <div id="open-in-file-manager-text-container-wrapper" class="vertical-container">
+                  <div id="open-in-file-manager-step-complete" class="horizontal-container">
+                    <img alt="" src="drive_logo_24px.svg" />
+                    <span class="Gm3SymbolFilled step-complete-dot stepper-1-animation" aria-hidden="true">fiber_manual_record</span>
+                    <span class="Gm3SymbolFilled step-complete-dot stepper-2-animation" aria-hidden="true">fiber_manual_record</span>
+                    <span class="Gm3SymbolFilled step-complete-dot stepper-3-animation" aria-hidden="true">fiber_manual_record</span>
+                    <span class="Gm3Symbol step-complete-image" aria-hidden="true">folder</span>
+                  </div>
+                  <div id="open-in-file-manager-button"><!-- DFSButton --></div>
+                </div>
+                <div id="open-in-file-manager-img-container-wrapper-mac" class="hidden">
+                  <img class="hideInDarkMode open-in-file-manager-img flip-in-rtl" alt="" src="macOS_mount_point.png">
+                  <img class="showInDarkMode open-in-file-manager-img flip-in-rtl" alt="" src="macOS_mount_point_dark.png">
+                </div>
+                <div id="open-in-file-manager-img-container-wrapper-windows" class="hidden">
+                  <img class="hideInDarkMode open-in-file-manager-img" alt="" src="Windows_mount_point.png">
+                  <img class="showInDarkMode open-in-file-manager-img" alt="" src="Windows_mount_point_dark.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="drive-roots" class="hidden">
+            <div id="drive-roots-content">
+              <h1 id="drive-roots-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="drive-roots-heading-subtext" class="Gm3TitleSmall hidden"></div>
+              <div id="drive-roots-helper-message" class="Gm3LabelLarge hidden"></div>
+              <div id="drive-roots-card">
+                <div id="drive-roots-list"><!--- DFSList --></div>
+              </div>
+              <div id="drive-roots-add-folder-button"><!-- DFSButton --></div>
+            </div>
+          </div>
+          <div id="photos-roots" class="hidden">
+            <div id="photos-roots-content">
+              <h1 id="photos-roots-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="photos-roots-heading-subtext" class="Gm3TitleSmall hidden"></div>
+              <div id="photos-roots-card">
+                <div id="photos-roots-list"><!--- DFSList --></div>
+              </div>
+              <div id="photos-roots-add-folder-button"><!-- DFSButton --></div>
+            </div>
+          </div>
+          <div id="roots-summary" class="hidden">
+            <div id="roots-summary-content">
+              <h1 id="roots-summary-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="roots-summary-helper-text" class="Gm3TitleSmall"></div>
+              <div id="roots-summary-roots-list-container">
+                <div id="drive-roots-summary-container">
+                  <div class="roots-summary-image-wrapper">
+                    <img alt="" src="drive_logo_24px.svg" />
+                  </div>
+                  <div id="drive-roots-summary-list" class="roots-summary-list"><!-- DFSNonInteractiveList --></div>
+                </div>
+                <div id="photos-roots-summary-container">
+                  <div class="roots-summary-image-wrapper">
+                    <img alt="" src="photos_logo_24px.svg" />
+                  </div>
+                  <div id="photos-roots-summary-list" class="roots-summary-list"><!-- DFSNonInteractiveList --></div>
+                </div>
+              </div>
+              <div id="roots-summary-text" class="Gm3LabelLarge"></div>
+            </div>
+          </div>
+          <div id="empty-roots-summary" class="hidden">
+            <div id="empty-roots-summary-content">
+              <h1 id="empty-roots-summary-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <img class="hideInDarkMode empty-roots-summary-image flip-in-rtl" alt="" src="Onboarding-success.svg">
+              <img class="showInDarkMode empty-roots-summary-image flip-in-rtl" alt="" src="Onboarding-success-dark.svg">
+              <div id="empty-roots-summary-text-1" class="Gm3LabelLarge"></div>
+            </div>
+          </div>
+          <div id="mirror-disabled-by-admin" class="hidden">
+            <div id="mirror-disabled-by-admin-content">
+              <h1 id="mirror-disabled-by-admin-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <img class="hideInDarkMode mirror-disabled-by-admin-image flip-in-rtl" alt="" src="Admin-disabled.svg">
+              <img class="showInDarkMode mirror-disabled-by-admin-image flip-in-rtl" alt="" src="Admin-disabled-dark.svg">
+              <div id="mirror-disabled-by-admin-text-1" class="Gm3LabelLarge"></div>
+            </div>
+          </div>
+          <div id="photos-disabled-by-admin" class="hidden">
+            <div id="photos-disabled-by-admin-content">
+              <h1 id="photos-disabled-by-admin-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <img class="hideInDarkMode photos-disabled-by-admin-image flip-in-rtl" alt="" src="Admin-disabled.svg">
+              <img class="showInDarkMode photos-disabled-by-admin-image flip-in-rtl" alt="" src="Admin-disabled-dark.svg">
+              <div id="photos-disabled-by-admin-text-1" class="Gm3LabelLarge"></div>
+            </div>
+          </div>
+          <div id="make-available-offline" class="hidden">
+            <div id="make-available-offline-content">
+              <h1 id="make-available-offline-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="make-available-offline-heading-subtext" class="Gm3TitleSmall"></div>
+              <div id="make-available-offline-text-1" class="Gm3LabelLarge"></div>
+              <div id="make-available-offline-container" class="horizontal-container">
+                <div id="make-available-offline-step-1">
+                  <div id="make-available-offline-step-1-subcontainer" class="horizontal-container">
+                    <div id="make-available-offline-text-2" class="Gm3TitleSmall"></div>
+                    <div id="make-available-offline-step-1-image-macos" class="hidden">
+                      <img class="hideInDarkMode folder-light-image" alt="" src="Folder-offline-mac-light-static.png">
+                      <img class="showInDarkMode folder-dark-image" alt="" src="Folder-offline-mac-dark-static.png">
+                    </div>
+                    <div id="make-available-offline-step-1-image-windows" class="hidden">
+                      <img class="hideInDarkMode folder-light-image" alt="" src="Folder-offline-windows-light-static.png">
+                      <img class="showInDarkMode folder-dark-image" alt="" src="Folder-offline-windows-dark-static.png">
+                    </div>
+                  </div>
+                  <div id="make-available-offline-learn-more-button"><!-- DFSButton --></div>
+                </div>
+                <div id="make-available-offline-step-2" class="horizontal-container">
+                  <div id="make-available-offline-text-3" class="Gm3TitleSmall"></div>
+                  <div id="make-available-offline-step-2-image-macos" class="hidden">
+                    <img class="hideInDarkMode" alt="" src="Folder-offline-mac-light-animated.gif">
+                    <img class="showInDarkMode" alt="" src="Folder-offline-mac-dark-animated.gif">
+                  </div>
+                  <div id="make-available-offline-step-2-image-windows" class="hidden">
+                    <img class="hideInDarkMode" alt="" src="Folder-offline-Windows-light-animated.gif">
+                    <img class="showInDarkMode" alt="" src="Folder-offline-Windows-dark-animated.gif">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="notification" class="hidden">
+            <div id="notification-content">
+              <div id="notification-icon" class="Gm3Symbol">error</div>
+              <h1 id="notification-heading" tabindex="-1" class="a11y-focusable-text Gm3TitleLarge"></h1>
+              <div id="notification-text-container" class="Gm3LabelLarge"></div>
+              <div id="notification-button-container">
+                <div id="notification-primary-button"><!-- DFSButton --></div>
+                <div id="notification-secondary-button"><!-- DFSButton --></div>
+              </div>
+            </div>
+            <img class="hideInDarkMode notification-image" alt="" src="Error.svg">
+            <img class="showInDarkMode notification-image" alt="" src="Error-dark.svg">
+          </div>
+        </div>
+      </div>
+      <div id="onboarding-dialog-footer" class="hidden">
+        <div id="skip-button"><!-- DFSButton --></div>
+        <div id="back-button"><!-- DFSButton --></div>
+        <div id="continue-button"><!-- DFSButton --></div>
+        <div id="open-drive-button"><!-- DFSButton --></div>
+      </div>
+    </div>
+    <div id="tip-container" class="hidden horizontal-container">
+      <div id="tip-image-container">
+        <img class="hideInDarkMode cat-genie-image flip-in-rtl hidden" alt="" src="Onboarding-genie.svg">
+        <img class="showInDarkMode cat-genie-image flip-in-rtl hidden" alt="" src="Onboarding-genie-dark.svg">
+        <img class="hideInDarkMode offline-image flip-in-rtl hidden" alt="" src="Onboarding-offline.svg">
+        <img class="showInDarkMode offline-image flip-in-rtl hidden" alt="" src="Onboarding-offline-dark.svg">
+        <img class="hideInDarkMode upload-summary-image flip-in-rtl hidden" alt="" src="Onboarding-upload-summary.svg">
+        <img class="showInDarkMode upload-summary-image flip-in-rtl hidden" alt="" src="Onboarding-upload-summary-dark.svg">
+        <img class="hideInDarkMode success-image flip-in-rtl hidden" alt="" src="Onboarding-success.svg">
+        <img class="showInDarkMode success-image flip-in-rtl hidden" alt="" src="Onboarding-success-dark.svg">
+        <img class="hideInDarkMode all-set-image flip-in-rtl hidden" alt="" src="Onboarding-all-set.svg">
+        <img class="showInDarkMode all-set-image flip-in-rtl hidden" alt="" src="Onboarding-all-set-dark.svg">
+      </div>
+      <div id="tip-text-container" class="horizontal-container">
+        <div id="tip-bubble-pointer"></div>
+        <div id="tip-text-bubble">
+          <div id="tip-text" class="Gm3LabelLarge"></div>
+        </div>
+      </div>
+    </div>
+    <div id="pending-action"><!--- DFSDialog ---></div>
+    <!-- Snackbar View -->
+    <div id="snackbar-view">
+      <div id="snackbar-view">
+  <!-- Set by the JS. -->
+</div>
+<!-- Template for #snackbar-view -->
+<div id="snackbar-template" class="GmStackableSnackbar mdc-snackbar mdc-snackbar--leading">
+  <div class="mdc-snackbar__surface">
+    <div class="mdc-snackbar__label"
+         role="status"
+         aria-live="polite">
+      <!-- Set by the JS. -->
+    </div>
+    <div id="snackbar-buttons" class="mdc-snackbar__actions" aria-atomic="true">
+      <button id="snackbar-action-button" type="button" class="mdc-button mdc-snackbar__action">
+        <div class="mdc-button__ripple"></div>
+        <span id="snackbar-button-text" class="mdc-button__label"><!-- Set by the JS. --></span>
+      </button>
+      <button id="snackbar-dismiss-button" type="button" class="mdc-icon-button mdc-snackbar__dismiss">
+        <div class="mdc-icon-button__ripple"></div>
+        <img class="mdc-icon-button__icon" aria-hidden="true" alt="" src="ic_close_grey600_24dp.svg">
+      </button>
+    </div>
+  </div>
+</div>
+    </div>
+    <div id="merge-folder-dialog"><!--- MergeFolderDialog ---></div>
+    <div id="popover"><!--- DFSDialog ---></div>
+  </body>
+</html>

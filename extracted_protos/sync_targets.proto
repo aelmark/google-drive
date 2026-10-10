@@ -1,0 +1,17 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/sync_targets.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/fs/app/account_token.proto";
+
+message SyncTargetsForAccount {
+  AccountToken account_token = 1;
+  string mount_point = 2;
+  repeated string mirror_root_paths = 3;
+}
+
+message SyncTargets {
+  repeated SyncTargetsForAccount sync_targets_for_accounts = 1;
+}
+

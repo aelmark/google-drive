@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive per a ordinadors necessita accés a Microsoft Office per proporcionar la presència en temps real i que així puguis veure qui està editant un fitxer de Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive per a ordinadors necessita accés als fitxers de la carpeta Escriptori per sincronitzar-los i crear còpies de seguretat de les teves fotos i dels teus vídeos";
+"NSDocumentsFolderUsageDescription" = "Google Drive per a ordinadors necessita accés als fitxers de la carpeta Documents per sincronitzar-los i crear còpies de seguretat de les teves fotos i dels teus vídeos";
+"NSNetworkVolumesUsageDescription" = "Google Drive per a ordinadors necessita accés al teu volum de xarxa per crear còpies de seguretat de les teves fotos i dels teus vídeos";
+"NSRemovableVolumesUsageDescription" = "Google Drive per a ordinadors necessita accés al teu USB o a un altre dispositiu multimèdia extraïble per sincronitzar els teus fitxers i crear còpies de seguretat de les teves fotos i dels teus vídeos";
+"NSPhotoLibraryUsageDescription" = "Google Drive per a ordinadors necessita accés a la teva biblioteca de fotos per sincronitzar els teus fitxers i crear còpies de seguretat de les teves fotos i dels teus vídeos";
+"NSBluetoothAlwaysUsageDescription" = "Per iniciar la sessió a Google Drive per a ordinadors utilitzant una clau de seguretat Bluetooth, permet que Google Drive accedeixi al Bluetooth";

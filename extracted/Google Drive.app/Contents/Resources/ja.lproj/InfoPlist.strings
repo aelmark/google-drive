@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Microsoft ファイルを編集中のユーザーを確認するためにリアルタイム プレゼンス機能を使用するには、パソコン版 Google ドライブに Microsoft Office へのアクセスを許可する必要があります";
+"NSDesktopFolderUsageDescription" = "ファイルを同期して写真や動画をバックアップするには、パソコン版 Google ドライブに「デスクトップ」フォルダへのアクセスを許可する必要があります";
+"NSDocumentsFolderUsageDescription" = "ファイルを同期して写真や動画をバックアップするには、パソコン版 Google ドライブに「ドキュメント」（または「書類」）フォルダへのアクセスを許可する必要があります";
+"NSNetworkVolumesUsageDescription" = "写真や動画をバックアップするには、パソコン版 Google ドライブにネットワーク ボリュームへのアクセスを許可する必要があります";
+"NSRemovableVolumesUsageDescription" = "ファイルを同期して写真や動画をバックアップするには、パソコン版 Google ドライブに USB（またはその他の外部メディア デバイス）へのアクセスを許可する必要があります";
+"NSPhotoLibraryUsageDescription" = "ファイルを同期して写真や動画をバックアップするには、パソコン版 Google ドライブにフォト ライブラリへのアクセスを許可する必要があります";
+"NSBluetoothAlwaysUsageDescription" = "Bluetooth セキュリティ キーを使用してパソコン版 Google ドライブにログインするには、Google ドライブに Bluetooth へのアクセスを許可する必要があります";

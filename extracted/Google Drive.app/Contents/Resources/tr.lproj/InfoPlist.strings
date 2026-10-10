@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Masaüstü için Google Drive'ın, gerçek zamanlı çalışma bilgisini sunarak bir Microsoft dosyasını kimin düzenlediğini görmenizi sağlamak üzere Microsoft Office'e erişmesi gerekiyor";
+"NSDesktopFolderUsageDescription" = "Masaüstü için Google Drive'ın, dosyalarınızı senkronize etmek ve fotoğraflar ile videolarınızı yedeklemek üzere Masaüstü klasörünüzdeki dosyalara erişmesi gerekiyor";
+"NSDocumentsFolderUsageDescription" = "Masaüstü için Google Drive'ın, dosyalarınızı senkronize etmek ve fotoğraflar ile videolarınızı yedeklemek üzere Belgeler klasörünüzdeki dosyalara erişmesi gerekiyor";
+"NSNetworkVolumesUsageDescription" = "Masaüstü için Google Drive'ın, fotoğraflar ile videolarınızı yedeklemek üzere ağ biriminize erişmesi gerekiyor";
+"NSRemovableVolumesUsageDescription" = "Masaüstü için Google Drive'ın, dosyalarınızı senkronize etmek ve fotoğraflar ile videolarınızı yedeklemek üzere USB veya diğer çıkarılabilir medya cihazınıza erişmesi gerekiyor";
+"NSPhotoLibraryUsageDescription" = "Masaüstü için Google Drive'ın, dosyalarınızı senkronize etmek ve fotoğraflar ile videolarınızı yedeklemek üzere fotoğraf kitaplığınıza erişmesi gerekiyor";
+"NSBluetoothAlwaysUsageDescription" = "Masaüstü için Google Drive'da bir Bluetooth güvenlik anahtarını kullanarak oturum açmak istiyorsanız Google Drive'ın Bluetooth'a erişmesine izin verin";

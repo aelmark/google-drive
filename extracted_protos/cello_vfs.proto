@@ -1,0 +1,36 @@
+// Extracted protobuf descriptor: apps/drive/fs/vfs/cello/cello_vfs.proto
+syntax = "editions";
+
+package cello.fs.vfs;
+
+import "apps/drive/fs/vfs/vfs.proto";
+
+enum BuiltInFileId {
+  BUILT_IN_FILE_ID_UNSET = 0;
+  BUILT_IN_FILE_ID_ROOT = 1;
+  BUILT_IN_FILE_ID_SHARED_DRIVES = 2;
+  BUILT_IN_FILE_ID_COMPUTERS = 3;
+}
+
+message CelloFileId {
+  int64 stable_id = 1;
+  string item_id = 2;
+  BuiltInFileId built_in_file_id = 3;
+  string containing_shared_drive_item_id = 4;
+  bool shared_drive_root = 5; [default = false]
+  string containing_computer_item_id = 6;
+  bool computer_root = 7; [default = false]
+  int64 transient_entry_id = 8;
+  bool files_by_id_subroot = 9; [default = false]
+}
+
+message CelloFileVersion {
+  int64 version = 1;
+  string head_revision_id = 2;
+  int64 change_id = 3;
+  string md5 = 4;
+  string legacy_file_provider_version = 5;
+}
+
+message CelloVFSExtensions {
+}

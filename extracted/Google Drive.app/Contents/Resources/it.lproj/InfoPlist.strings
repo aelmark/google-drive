@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive per computer deve avere accesso a Microsoft Office per fornire la funzionalità di presenza in tempo reale e consentirti così di vedere chi sta modificando un file Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive per computer deve avere accesso ai file nella tua cartella Desktop per sincronizzare i file ed effettuare il backup di foto e video";
+"NSDocumentsFolderUsageDescription" = "Google Drive per computer deve avere accesso ai file nella tua cartella Documenti per sincronizzare i file ed effettuare il backup di foto e video";
+"NSNetworkVolumesUsageDescription" = "Google Drive per computer deve avere accesso al tuo volume di rete per effettuare il backup di foto e video";
+"NSRemovableVolumesUsageDescription" = "Google Drive per computer deve avere accesso al tuo dispositivo USB o a un altro dispositivo multimediale rimovibile per sincronizzare i file ed effettuare il backup di foto e video";
+"NSPhotoLibraryUsageDescription" = "Google Drive per computer deve avere accesso alla tua raccolta di foto per sincronizzare i file ed effettuare il backup di foto e video";
+"NSBluetoothAlwaysUsageDescription" = "Per accedere a Google Drive per computer utilizzando un token di sicurezza Bluetooth, consenti l'accesso di Google Drive a Bluetooth";

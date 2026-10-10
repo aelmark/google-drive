@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "ඔබට Microsoft ගොනුවක් සංස්කරණ කරන්නේ කවුද යන්න බැලිය හැකි වීමට තථ්‍ය කාලීන පෙනී සිටීම සැපයීමට වැඩතලය සඳහා වන Google Drive හට Microsoft Office වෙත ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSDesktopFolderUsageDescription" = "ඔබේ ගොනු සමමුහූර්ත කිරීමටත් ඔබේ ඡායාරූප සහ වීඩියෝ උපස්ථ කිරීමටත් වැඩතලය සඳහා වන Google Drive හට ඔබේ Desktop ෆෝල්ඩරයේ ඇති ගොනුවලට ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSDocumentsFolderUsageDescription" = "ඔබේ ගොනු සමමුහූර්ත කිරීමටත් ඔබේ ඡායාරූප සහ වීඩියෝ උපස්ථ කිරීමටත් වැඩතලය සඳහා වන Google Drive හට ඔබේ Documents ෆෝල්ඩරයේ ඇති ගොනුවලට ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSNetworkVolumesUsageDescription" = "ඔබේ ඡායාරූප සහ වීඩියෝ උපස්ථ කිරීමට වැඩතලය සඳහා වන Google Drive හට ඔබේ ජාල පරිමාවට ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSRemovableVolumesUsageDescription" = "ඔබේ ගොනු සමමුහූර්ත කිරීමටත් ඔබේ ඡායාරූප සහ වීඩියෝ උපස්ථ කිරීමටත් වැඩතලය සඳහා වන Google Drive හට ඔබේ යූඑස්බී හෝ වෙනත් ඉවත් කළ හැකි මාධ්‍ය උපාංගය ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSPhotoLibraryUsageDescription" = "ඔබේ ගොනු සමමුහූර්ත කිරීමටත් ඔබේ ඡායාරූප සහ වීඩියෝ උපස්ථ කිරීමටත් වැඩතලය සඳහා වන Google Drive හට ඔබේ ඡායාරූප පුස්තකාලයට ප්‍රවේශ වීමට අවශ්‍යයි";
+"NSBluetoothAlwaysUsageDescription" = "බ්ලූටූත් ආරක්ෂක යතුරක් භාවිත කර වැඩතලය සඳහා වන Google Drive හට පුරන්නට, Google Drive හට බ්ලූටූත් වෙත ප්‍රවේශ වීමට ඉඩ දෙන්න";

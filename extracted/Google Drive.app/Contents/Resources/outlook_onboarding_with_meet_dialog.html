@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./outlook_onboarding_with_meet_dialog.css">
+    <script src="./outlook_onboarding_with_meet_dialog.bin"></script>
+  </head>
+  <body oncontextmenu="return false;" class="hidden">
+    <button id="close-button"
+            class="GmIconButton mdc-icon-button" aria-label="" onclick="outlookOnboardingDialog.close()">
+      <div class="mdc-icon-button__ripple"></div>
+      <!-- TODO(dsslater): Add alt text for close button. -->
+      <img id="close-button-icon"
+           class="mdc-icon-button__icon greyIcon flip-in-rtl"
+           aria-hidden="false"
+           alt=""
+           src="ic_close_grey600_24dp.svg">
+    </button>
+    <div id="main" class="vertical-container">
+      <img id="meet-icon"
+           class=""
+           aria-hidden="true"
+           alt=""
+           src="google_meet_icon.svg">
+      <div id="main-title" class="gmTypographyHeadline2"><!-- Set by the JS --></div>
+      <img class="hideInDarkMode meet-explanation-img" alt="" src="outlook_meet_plugin_example_light.png">
+      <img class="showInDarkMode meet-explanation-img" alt="" src="outlook_meet_plugin_example_dark.png">
+      <div id="explanation-title" class="gmTypographySubtitle2"><!-- Set by the JS --></div>
+      <div id="explanation-subtitle" class="gmTypographyBody2"><!-- Set by the JS --></div>
+    </div>
+    <div id="bottom-pane-container">
+      <div id="bottom-pane" class="horizontal-container">
+        <div id="user-info" class="vertical-container">
+          <div id="user-info-title" class="gmTypographyBody2"><!-- Set by the JS --></div>
+        </div>
+        <button id="connect-button" aria-labelledby="user-info-title" class="GmFillButton mdc-button" type="button" onclick="outlookOnboardingDialog.connect()">
+          <div class="mdc-button__ripple"></div>
+          <span id="connect-button-label" class="mdc-button__label">
+            <!-- Set by the JS. -->
+          </span>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google 雲端硬碟電腦版需要存取 Microsoft Office 才能提供即時狀態，讓你知道誰正在編輯 Microsoft 檔案";
+"NSDesktopFolderUsageDescription" = "Google 雲端硬碟電腦版需要存取「桌面」資料夾中的檔案，才能同步處理檔案以及備份相片和影片";
+"NSDocumentsFolderUsageDescription" = "Google 雲端硬碟電腦版需要存取「文件」資料夾中的檔案，才能同步處理檔案以及備份相片和影片";
+"NSNetworkVolumesUsageDescription" = "Google 雲端硬碟電腦版需要存取網路磁碟區，才能備份相片和影片";
+"NSRemovableVolumesUsageDescription" = "Google 雲端硬碟電腦版需要存取 USB 或其他卸除式媒體裝置，才能同步處理檔案以及備份相片和影片";
+"NSPhotoLibraryUsageDescription" = "Google 雲端硬碟電腦版需要存取相片庫，才能同步處理檔案以及備份相片和影片";
+"NSBluetoothAlwaysUsageDescription" = "請允許 Google 雲端硬碟存取藍牙，以便使用藍牙安全金鑰登入 Google 雲端硬碟電腦版";

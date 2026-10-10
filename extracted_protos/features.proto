@@ -1,0 +1,55 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/features.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/cello/proto/structured_log.proto";
+import "apps/drive/dataservice/proto/account.proto";
+import "apps/drive/fs/proto/account_feature_config.proto";
+import "apps/drive/fs/proto/global_feature_config.proto";
+import "storage/datapol/annotations/proto/semantic_annotations.proto";
+
+enum SnapshotStatus {
+  SNAPSHOT_STATUS_DEFAULT = 0;
+  SNAPSHOT_STATUS_UNIDENTIFIED = 1;
+  SNAPSHOT_STATUS_IDENTIFIED = 2;
+}
+
+message CoreFeatureConfig {
+  GlobalFeatureConfig global = 1;
+  AccountFeatureConfig account = 2;
+  DriveForDesktopSettings admin_settings = 3;
+  SecuritySettings security_settings = 4;
+  EnterpriseSettings enterprise_settings = 5;
+  GenAiSettings gen_ai_settings = 6;
+}
+
+message ExperimentSnapshot {
+  CoreFeatureConfig features = 1;
+  bytes experiment_token = 2;
+  bytes server_token = 9;
+  int64 server_timestamp_sec = 3;
+  string account_id = 5;
+  int64 num_accounts_active = 6;
+  string zwieback_cookie = 7;
+  bytes cello_server_token = 8;
+  bytes cello_experiment_token = 10;
+}
+
+message FeatureConfigStructuredLogExtensions {
+}
+
+message AccountFeatureConfigs {
+  repeated AccountFeatureConfig account = 1;
+  repeated DriveForDesktopSettings admin_settings = 2;
+  repeated bytes experiment_token = 3;
+}
+
+message ServerFeatureFlags {
+  message AccountConfigsEntry {
+    string key = 1;
+    CoreFeatureConfig value = 2;
+  }
+  GlobalFeatureConfig merged_global_config = 1;
+  repeated AccountConfigsEntry account_configs = 2;
+}

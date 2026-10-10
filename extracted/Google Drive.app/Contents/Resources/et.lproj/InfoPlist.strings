@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Rakendusel „Google Drive arvutile“ on reaalajas kohalolu pakkumiseks vaja juurdepääsu Microsoft Office'ile, selleks et näeksite, kes muudab Microsofti faili";
+"NSDesktopFolderUsageDescription" = "Rakendusel „Google Drive arvutile“ on vaja juurdepääsu kausta Töölaud failidele, selleks et sünkroonida faile ning varundada fotosid ja videoid";
+"NSDocumentsFolderUsageDescription" = "Rakendusel „Google Drive arvutile“ on vaja juurdepääsu kausta Dokumendid failidele, selleks et sünkroonida faile ning varundada fotosid ja videoid";
+"NSNetworkVolumesUsageDescription" = "Rakendusel „Google Drive arvutile“ on vaja juurdepääsu võrgukettale, selleks et varundada fotosid ja videoid";
+"NSRemovableVolumesUsageDescription" = "Rakendusel „Google Drive arvutile“ on vaja juurdepääsu USB-le või muule eemaldatavale meediaseadmele, selleks et sünkroonida faile ning varundada fotosid ja videoid";
+"NSPhotoLibraryUsageDescription" = "Rakendusel „Google Drive arvutile“ on vaja juurdepääsu fotokogule, selleks et sünkroonida faile ning varundada fotosid ja videoid";
+"NSBluetoothAlwaysUsageDescription" = "Selleks et logida rakendusse „Google Drive arvutile“ sisse Bluetoothi turvavõtit kasutades, lubage Google Drive'i juurdepääs Bluetoothile";

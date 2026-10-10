@@ -1,0 +1,98 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/context_menu.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/fs/proto/syncing_status.proto";
+
+message ContextMenuRequest {
+  enum KeyCombination {
+    COMBINATION_UNKNOWN = 0;
+    COMBINATION_DEBUG = 1;
+  }
+  repeated string path = 1;
+  KeyCombination key_combination = 2;
+  Source source = 3;
+}
+
+message ContextMenuItem {
+  enum Icon {
+    ICON_UNKNOWN = 0;
+    ICON_DRIVE = 1;
+    ICON_DRIVE_FS = 2;
+    ICON_PINNED = 3;
+    ICON_CLOUD = 4;
+    ICON_MIRROR_ROOT = 5;
+    ICON_SYNCING = 6;
+    ICON_BLACKLISTED = 7;
+    ICON_DOCS = 8;
+    ICON_SHEETS = 9;
+    ICON_SLIDES = 10;
+    ICON_CSE = 11;
+    ICON_ENCRYPTED_DOCS = 12;
+    ICON_ENCRYPTED_SHEETS = 13;
+    ICON_ENCRYPTED_SLIDES = 14;
+    ICON_GEMINI = 15;
+  }
+  enum Action {
+    ACTION_UNKNOWN = 0;
+    ACTION_COPY_DEBUG_INFO_TO_CLIPBOARD = 1;
+    ACTION_OPEN = 2;
+    ACTION_COPY_LINK = 3;
+    ACTION_SHARE = 4;
+    ACTION_ADD_SHORTCUT = 5;
+    ACTION_VIEW_TRASH = 6;
+    ACTION_FORCE_REFRESH_FOLDER = 7;
+    ACTION_PIN = 8;
+    ACTION_UNPIN = 9;
+    ACTION_OPEN_REVISION_FOLDER = 10;
+    ACTION_CREATE_SHARED_DRIVE = 11;
+    ACTION_CREATE_DOCS_FILE = 12;
+    ACTION_CREATE_SHEETS_FILE = 13;
+    ACTION_CREATE_SLIDES_FILE = 14;
+    ACTION_ENCRYPT_AND_UPLOAD = 15;
+    ACTION_ADD_TO_MIRROR_ACCOUNT_0 = 16;
+    ACTION_ADD_TO_MIRROR_ACCOUNT_1 = 17;
+    ACTION_ADD_TO_MIRROR_ACCOUNT_2 = 18;
+    ACTION_ADD_TO_MIRROR_ACCOUNT_3 = 19;
+    ACTION_UPLOAD_FOLDER = 20;
+    ACTION_CREATE_ENCRYPTED_DOCS_FILE = 21;
+    ACTION_CREATE_ENCRYPTED_SHEETS_FILE = 22;
+    ACTION_CREATE_ENCRYPTED_SLIDES_FILE = 23;
+    ACTION_REFRESH_SHARED_DRIVES_ROOT = 24;
+    ACTION_MANAGE_SHARED_DRIVES = 25;
+    ACTION_OPEN_GEMINI_WEB = 26;
+  }
+  enum CheckedState {
+    CHECKED_STATE_UNKNOWN = 0;
+    CHECKED_STATE_OFF = 1;
+    CHECKED_STATE_ON = 2;
+    CHECKED_STATE_MIXED = 3;
+  }
+  string title = 1;
+  Icon icon = 2;
+  Action action = 3;
+  bool disabled = 4;
+  CheckedState checked_state = 5;
+  repeated ContextMenuItem submenu_item = 6;
+}
+
+message ContextMenuResponse {
+  repeated ContextMenuItem item = 1;
+}
+
+message ContextMenuActionRequest {
+  repeated string path = 1;
+  Action action = 2;
+  Source source = 3;
+  repeated int64 entry_id = 4;
+}
+
+message ContextMenuActionResponse {
+  enum Status {
+    UNKNOWN = 0;
+    SUCCESS = 1;
+    FAILURE = 2;
+  }
+  Status status = 1;
+}

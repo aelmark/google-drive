@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn Microsoft Officeen, jotta voit nähdä reaaliaikaisen läsnäolon avulla, kuka muokkaa Microsoft-tiedostoa";
+"NSDesktopFolderUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn Työpöytä-kansion tiedostoihin voidakseen synkronoida tiedostosi ja varmuuskopioida kuvasi ja videosi";
+"NSDocumentsFolderUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn Tiedostot-kansion tiedostoihin voidakseen synkronoida tiedostosi ja varmuuskopioida kuvasi ja videosi";
+"NSNetworkVolumesUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn verkkoasemallesi voidakseen varmuuskopioida kuvasi ja videosi";
+"NSRemovableVolumesUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn USB-laitteelle tai muulle siirrettävälle medialaitteelle voidakseen synkronoida tiedostosi ja varmuuskopioida kuvasi ja videosi";
+"NSPhotoLibraryUsageDescription" = "Google Drive pöytäkoneille tarvitsee pääsyn kuvakirjastoosi voidakseen synkronoida tiedostosi ja varmuuskopioida kuvasi ja videosi";
+"NSBluetoothAlwaysUsageDescription" = "Jotta voit kirjautua Google Drive pöytäkoneille ‑sovellukseen Bluetooth-suojausavaimella, anna Google Drivelle pääsy Bluetoothiin";

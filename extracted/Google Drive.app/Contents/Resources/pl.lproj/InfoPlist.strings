@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do pakietu Microsoft Office, aby móc wyświetlać aktualizowane w czasie rzeczywistym informacje o obecności, dzięki czemu zobaczysz, kto edytuje plik w formacie firmy Microsoft";
+"NSDesktopFolderUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do plików w folderze Pulpit, aby móc synchronizować pliki oraz tworzyć kopie zapasowe zdjęć i filmów";
+"NSDocumentsFolderUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do plików w folderze Dokumenty, aby móc synchronizować pliki oraz tworzyć kopie zapasowe zdjęć i filmów";
+"NSNetworkVolumesUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do woluminu sieciowego, aby móc tworzyć kopie zapasowe zdjęć i filmów";
+"NSRemovableVolumesUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do zewnętrznego nośnika danych (np. dysku USB), aby móc synchronizować pliki oraz tworzyć kopie zapasowe zdjęć i filmów";
+"NSPhotoLibraryUsageDescription" = "Dysk Google na komputer potrzebuje dostępu do biblioteki zdjęć, aby móc synchronizować pliki oraz tworzyć kopie zapasowe zdjęć i filmów";
+"NSBluetoothAlwaysUsageDescription" = "Aby zalogować się na Dysku Google na komputer przy użyciu klucza bezpieczeństwa Bluetooth, zezwól Dyskowi Google na dostęp do Bluetooth";

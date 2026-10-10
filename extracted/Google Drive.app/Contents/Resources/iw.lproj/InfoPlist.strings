@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "כדי לספק פעילות במסמך בזמן אמת כך שתהיה לך אפשרות לראות מי עורך קובץ של Microsoft, יש לתת לאפליקציה 'Google Drive למחשב' גישה ל-Microsoft Office";
+"NSDesktopFolderUsageDescription" = "כדי לסנכרן את הקבצים ולגבות את התמונות והסרטונים, יש לתת לאפליקציה 'Google Drive למחשב' גישה לקבצים בתיקיית שולחן העבודה";
+"NSDocumentsFolderUsageDescription" = "כדי לסנכרן את הקבצים ולגבות את התמונות והסרטונים, יש לתת לאפליקציה 'Google Drive למחשב' גישה לקבצים בתיקיית המסמכים";
+"NSNetworkVolumesUsageDescription" = "כדי לסנכרן את הקבצים ולגבות את התמונות והסרטונים, יש לתת לאפליקציה 'Google Drive למחשב' גישה לנפח האחסון ברשת";
+"NSRemovableVolumesUsageDescription" = "כדי לסנכרן את הקבצים ולגבות את התמונות והסרטונים, יש לתת לאפליקציה 'Google Drive למחשב' גישה להתקן USB או להתקן נשלף אחר לאחסון מדיה";
+"NSPhotoLibraryUsageDescription" = "כדי לסנכרן את הקבצים ולגבות את התמונות והסרטונים, יש לתת לאפליקציה 'Google Drive למחשב' גישה לספריית התמונות";
+"NSBluetoothAlwaysUsageDescription" = "כדי להיכנס ל-'Google Drive למחשב' באמצעות מפתח אבטחה בחיבור Bluetooth, יש לתת ל-Google Drive גישה לחיבור Bluetooth";

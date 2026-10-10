@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "ডেস্কটপের জন্য Google Drive আপনাকে রিয়েল-টাইম উপস্থিতি জানাতে পারবে যার ফলে কে আপনার Microsoft ফাইল এডিট করছে তা জানতে পারবেন এবং এজন্য Microsoft Office-এর অ্যাক্সেস দিতে হবে";
+"NSDesktopFolderUsageDescription" = "আপনার ফাইল সিঙ্ক করতে ও ফটো এবং ভিডিওর ব্যাকআপ নিতে ডেস্কটপের জন্য Google Drive-কে আপনার ডেস্কটপ ফোল্ডারের ফাইলে অ্যাক্সেস দিতে হবে";
+"NSDocumentsFolderUsageDescription" = "আপনার ফাইল সিঙ্ক করতে ও ফটো এবং ভিডিওর ব্যাকআপ নিতে ডেস্কটপের জন্য Google Drive-কে আপনার ডকুমেন্ট ফোল্ডারের ফাইলে অ্যাক্সেস দিতে হবে";
+"NSNetworkVolumesUsageDescription" = "আপনার ফটো ও ভিডিওর ব্যাকআপ নিতে ডেস্কটপের জন্য Google Drive-কে আপনার 'নেটওয়ার্ক ভলিউম'-এর অ্যাক্সেস দিতে হবে";
+"NSRemovableVolumesUsageDescription" = "আপনার ফাইল সিঙ্ক করতে ও ফটো এবং ভিডিওর ব্যাকআপ নিতে ডেস্কটপের জন্য Google Drive-কে আপনার USB বা সরাতে পারবেন এমন মিডিয়া ডিভাইসগুলির অ্যাক্সেস দিতে হবে";
+"NSPhotoLibraryUsageDescription" = "আপনার ফাইল সিঙ্ক করতে ও ফটো এবং ভিডিওর ব্যাকআপ নিতে ডেস্কটপের জন্য Google Drive-কে আপনার ফটো লাইব্রেরির অ্যাক্সেস দিতে হবে";
+"NSBluetoothAlwaysUsageDescription" = "ব্লুটুথ নিরাপত্তা কী ব্যবহার করে ডেস্কটপের জন্য Google Drive-এ সাইন-ইন করতে Google Drive-কে ব্লুটুথ অ্যাক্সেস করার অনুমতি দিতে হবে";

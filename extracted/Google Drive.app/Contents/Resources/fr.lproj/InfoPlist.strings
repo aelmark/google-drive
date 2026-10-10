@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder à Microsoft Office afin de proposer la présence en temps réel et vous permettre de voir qui modifie un fichier Microsoft";
+"NSDesktopFolderUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder aux fichiers de votre dossier Desktop afin de synchroniser vos fichiers et sauvegarder vos photos et vidéos";
+"NSDocumentsFolderUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder aux fichiers de votre dossier Documents afin de synchroniser vos fichiers et sauvegarder vos photos et vidéos";
+"NSNetworkVolumesUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder à votre volume réseau afin de sauvegarder vos photos et vidéos";
+"NSRemovableVolumesUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder à votre périphérique USB ou autre périphérique multimédia amovible afin de synchroniser vos fichiers et sauvegarder vos photos et vidéos";
+"NSPhotoLibraryUsageDescription" = "Google Drive pour ordinateur a besoin d'accéder à votre bibliothèque afin de synchroniser vos fichiers et sauvegarder vos photos et vidéos";
+"NSBluetoothAlwaysUsageDescription" = "Autorisez Google Drive à accéder au Bluetooth afin de pouvoir vous connecter à Google Drive pour ordinateur à l'aide d'une clé de sécurité Bluetooth";

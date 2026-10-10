@@ -1,0 +1,137 @@
+// Extracted protobuf descriptor: apps/drive/fs/proto/shell_ipc.proto
+syntax = "editions";
+
+package cello.fs;
+
+import "apps/drive/dataservice/proto/item.proto";
+import "apps/drive/dataservice/proto/status.proto";
+import "apps/drive/fs/app/account_token.proto";
+import "apps/drive/fs/proto/context_menu.proto";
+import "apps/drive/fs/proto/meet.proto";
+import "apps/drive/fs/proto/mirror_sync_status.proto";
+import "apps/drive/fs/proto/syncing_status.proto";
+import "apps/rocket/eventcodes/drive_fs.proto";
+import "util/task/status.proto";
+
+message ShellIpcRequest {
+  enum RequestType {
+    IS_PINNED = 2;
+    CAN_PIN = 3;
+    GET_ITEM_ID = 5;
+    RECORD_IMPRESSION = 8;
+    GET_PROGRESS_DETAILS = 9;
+    GET_THUMBNAIL = 11;
+    IS_ONLINE = 13;
+    FIX_ACL = 16;
+    SWITCHBLADE_GET_VERSION = 17;
+    SWITCHBLADE_GET_APPS_FOR_ITEM_ID = 18;
+    SWITCHBLADE_OPEN_ITEM_ID_WITH_APP = 19;
+    DISPLAY_NOTIFICATION = 20;
+    GET_PATHS_BY_STABLE_IDS = 21;
+    RECORD_ERROR_IMPRESSION = 22;
+    DISPLAY_NOTIFICATION_WITH_FILE_PATH = 23;
+    DISPLAY_OUTLOOK_ONBOARDING_DIALOG = 24;
+    GET_OUTLOOK_ATTACHMENT_SIZE_THRESHOLD_MBYTES = 25;
+    SWITCHBLADE_GET_RESPONSE = 26;
+    GET_SIGNED_IN_EMAIL = 27;
+    GET_LOCALE = 28;
+    GET_MIRROR_SYNC_FILE_STATUS = 29;
+    GET_MIRROR_SYNC_DIRECTORY_STATUS = 30;
+    RECORD_LATENCY_EVENT = 31;
+    GET_MIME_TYPE = 34;
+    CONTEXT_MENU = 36;
+    CONTEXT_MENU_ACTION = 37;
+    CREATE_MEET = 38;
+    RECORD_UI_IMPRESSION = 39;
+    RECORD_UI_ERROR_IMPRESSION = 40;
+    GET_ITEM_PROTO = 41;
+    REQUEST_PROGRESS_NOTIFICATION = 42;
+    QUERY_ANCESTOR_CHAIN = 43;
+  }
+  message NotificationDetails {
+    string title = 1;
+    string message = 2;
+    string file_path = 3;
+  }
+  message SourcedStableId {
+    Source source = 1;
+    int64 stable_id = 2;
+  }
+  int64 request_id = 1;
+  RequestType request_type = 2;
+  string path = 3;
+  bool pinned = 4;
+  string item_id = 5;
+  DriveFs event_code = 6;
+  uint64 center_window_handle = 7;
+  repeated string recipient_emails = 8;
+  repeated string item_ids = 9;
+  string app_id = 10;
+  string email = 11;
+  NotificationDetails notification_details = 12;
+  int32 error_code = 14;
+  int32 switchblade_request_type = 16;
+  string switchblade_request = 17;
+  string mirror_path = 18;
+  int64 latency_ms = 19;
+  repeated SourcedStableId sourced_stable_id = 20;
+  ContextMenuRequest context_menu_request = 21;
+  ContextMenuActionRequest context_menu_action_request = 22;
+  CreateMeetRequest create_meet_request = 23;
+  AccountToken account_token = 24;
+  repeated string resource_keys = 25;
+  int32 width = 26;
+  int32 height = 27;
+}
+
+message CoreShellIpcRequest {
+  int64 request_id = 1;
+  RequestType request_type = 2;
+  string path = 3;
+  bool pinned = 4;
+  DriveFs event_code = 5;
+  int32 error_code = 6;
+  repeated SourcedStableId sourced_stable_id = 7;
+  string mirror_path = 8;
+  int64 latency_ms = 9;
+  uint64 center_window_handle = 10;
+  ContextMenuRequest context_menu_request = 11;
+  ContextMenuActionRequest context_menu_action_request = 12;
+  CreateMeetRequest create_meet_request = 13;
+  int32 width = 14;
+  int32 height = 15;
+}
+
+message ShellIpcResponse {
+  int64 request_id = 1;
+  Status status = 2;
+  bool pinned = 4;
+  bool can_pin = 5;
+  string item_id = 6;
+  string shared_drive_id = 7;
+  string proto_string = 8;
+  string progress_details = 9;
+  bool can_share = 10;
+  bytes thumbnail = 11;
+  bool is_online = 12;
+  bool can_manage_shared_drive_members = 13;
+  bool should_send = 14;
+  string switchblade_response = 15;
+  repeated string paths = 16;
+  uint32 threshold_mbytes = 17;
+  string email = 18;
+  string locale = 19;
+  Status mirror_sync_status = 20;
+  bool is_virtual_folder = 21;
+  bool is_gdoc = 22;
+  string mime_type = 23;
+  ContextMenuResponse context_menu_response = 25;
+  ContextMenuActionResponse context_menu_action_response = 26;
+  CreateMeetResponse create_meet_response = 27;
+  string item_proto = 28;
+  Item item = 29;
+  AccountToken account_token = 30;
+  bool is_directory = 31;
+  StatusProto response_status = 32;
+}
+

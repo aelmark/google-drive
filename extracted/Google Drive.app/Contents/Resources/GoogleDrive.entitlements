@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+  <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+  <true/>
+  <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+  <true/>
+  <key>com.apple.security.automation.apple-events</key>
+  <true/>
+  <key>com.apple.security.files.user-selected.read-write</key>
+  <true/>
+  <key>com.apple.security.personal-information.photos-library</key>
+  <true/>
+  <!-- We need this in order for the FileProvider extension to load, and the
+       Apple FileProvider infrastructure requires it to be prefixed by the
+       "team" ID (which in our case is Google-wide). -->
+  <key>com.apple.application-identifier</key>
+  <string>EQHXZ8M8AV.com.google.drivefs</string>
+  <key>com.apple.security.application-groups</key>
+  <array>
+    <string>EQHXZ8M8AV.group.com.google.drivefs</string>
+  </array>
+  
+</dict>
+</plist>

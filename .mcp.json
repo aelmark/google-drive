@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "om": {
+      "command": "node",
+      "args": [
+        "/home/marksterling/Development/Repositories/obsidian-mind/.claude/scripts/om-mcp.mjs"
+      ]
+    },
+    "rea": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "rea-agents@6.3.0",
+        "mcp"
+      ]
+    },
+    "google-drive": {
+      "command": "python3",
+      "args": [
+        "/home/marksterling/Development/Repositories/google-drive/linux_drive/dfd_mcp_server.py"
+      ]
+    }
+  }
+}

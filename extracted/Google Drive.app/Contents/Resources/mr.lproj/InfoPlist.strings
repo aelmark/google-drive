@@ -1,0 +1,7 @@
+"NSAppleEventsUsageDescription" = "Microsoft फाइल कोण संपादित करत आहे याची रीअल-टाइम उपस्थिती पुरवण्यासाठी Google Drive for desktop ला तुमच्या Microsoft Office चा अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSDesktopFolderUsageDescription" = "तुमच्या फाइल सिंक करण्यासाठी आणि तुमच्या फोटो व व्हिडिओचा बॅकअप घेण्यासाठी Google Drive for desktop ला तुमच्या डेस्कटॉप फोल्डरचा अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSDocumentsFolderUsageDescription" = "तुमच्या फाइल सिंक करण्यासाठी आणि तुमच्या फोटो व व्हिडिओचा बॅकअप घेण्यासाठी Google Drive for desktop ला तुमच्या दस्तऐवज फोल्डरमधील फाइलचा अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSNetworkVolumesUsageDescription" = "तुमच्या फाइल सिंक करण्यासाठी आणि तुमच्या फोटो व व्हिडिओचा बॅकअप घेण्यासाठी Google Drive for desktop ला तुमच्या network volume चा अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSRemovableVolumesUsageDescription" = "तुमच्या फाइल सिंक करण्यासाठी आणि तुमच्या फोटो व व्हिडिओचा बॅकअप घेण्यासाठी Google Drive for desktop ला तुमच्या USB चा किंवा काढून टाकता येणाऱ्या इतर मीडिया डिव्हाइस अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSPhotoLibraryUsageDescription" = "तुमच्या फाइल सिंक करण्यासाठी आणि तुमच्या फोटो व व्हिडिओचा बॅकअप घेण्यासाठी Google Drive for desktop ला तुमच्या फोटो लायब्ररीचा अ‍ॅक्सेस असणे आवश्यक आहे";
+"NSBluetoothAlwaysUsageDescription" = "ब्लूटूथ सिक्युरिटी की वापरून Google Drive for desktop मध्ये साइन इन करण्यासाठी Google Drive ला ब्लूटूथ अ‍ॅक्सेस करण्याची अनुमती द्या";
