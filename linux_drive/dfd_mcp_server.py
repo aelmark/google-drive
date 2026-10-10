@@ -122,6 +122,14 @@ TOOLS = [
             },
             "required": ["email", "item_id"]
         }
+    },
+    {
+        "name": "dfd_get_account_info",
+        "description": "Returns Google Drive account authentication status, connected user profile (email, name), and cloud storage quota metrics.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {}
+        }
     }
 ]
 
@@ -274,6 +282,33 @@ class DfdMcpServer:
                     }]
                 }
 
+            elif tool_name == "dfd_get_account_info":
+                from linux_drive.oauth import oauth_manager
+                from linux_drive.config import load_config
+                cfg = load_config()
+                acc = cfg.get("account", {})
+                is_auth = acc.get("authenticated", False) and oauth_manager.is_authenticated()
+                quota = acc.get("storage_quota", {})
+                limit_bytes = quota.get("limit", 0)
+                usage_bytes = quota.get("usage", 0)
+                info = {
+                    "authenticated": is_auth,
+                    "email": acc.get("email", "") if is_auth else "",
+                    "name": acc.get("name", "") if is_auth else "",
+                    "connected_at": acc.get("connected_at", "") if is_auth else "",
+                    "storage_quota": {
+                        "usage_gb": round(usage_bytes / (1024**3), 2) if limit_bytes else 0,
+                        "limit_gb": round(limit_bytes / (1024**3), 2) if limit_bytes else 0,
+                        "usage_percent": round((usage_bytes / limit_bytes) * 100, 1) if limit_bytes else 0
+                    }
+                }
+                return {
+                    "content": [{
+                        "type": "text",
+                        "text": json.dumps(info, indent=2)
+                    }]
+                }
+
             else:
                 return {
                     "isError": True,
@@ -359,6 +394,9 @@ class DfdMcpServer:
             sys.stdout.write(json.dumps(resp) + "\n")
             sys.stdout.flush()
 
-if __name__ == '__main__':
+def main():
     server = DfdMcpServer()
     server.run()
+
+if __name__ == '__main__':
+    main()

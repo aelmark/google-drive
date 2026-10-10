@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Google Drive
+Comment=Google Drive Desktop Client & MCP Server for Linux
+Exec=python3 /home/marksterling/Development/Repositories/google-drive/linux_drive/preferences_dialog.py
+Icon=/home/marksterling/Development/Repositories/google-drive/assets/icons/google-drive.png
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;Utility;
+StartupNotify=true
+Actions=Preferences;Status;
+
+[Desktop Action Preferences]
+Name=Preferences...
+Exec=python3 /home/marksterling/Development/Repositories/google-drive/linux_drive/preferences_dialog.py
+
+[Desktop Action Status]
+Name=Check Status
+Exec=gnome-terminal -- /home/marksterling/Development/Repositories/google-drive/drivectl status

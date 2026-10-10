@@ -84,14 +84,14 @@ def parse_protobuf_fields(buf: bytes):
 # --- McpIpcRequest Encoding & Decoding ---
 
 class McpIpcRequest:
-    def __init__(self, request_id: int = 0):
+    def __init__(self, request_id: int = 0, **kwargs):
         self.request_id = request_id
-        self.get_sync_status = None       # dict(path=...)
-        self.add_folder_to_sync = None    # dict(path=..., account_id=...)
-        self.get_drive_url = None         # dict(path=...)
-        self.list_tracked_folders = None  # True if present
-        self.fix_acl = None               # dict(email=..., item_id=..., account_id=...)
-        self.get_streaming_mount_points = None # dict(account_id=...)
+        self.get_sync_status = kwargs.get('get_sync_status')       # dict(path=...)
+        self.add_folder_to_sync = kwargs.get('add_folder_to_sync')    # dict(path=..., account_id=...)
+        self.get_drive_url = kwargs.get('get_drive_url')         # dict(path=...)
+        self.list_tracked_folders = kwargs.get('list_tracked_folders')  # True if present
+        self.fix_acl = kwargs.get('fix_acl')               # dict(email=..., item_id=..., account_id=...)
+        self.get_streaming_mount_points = kwargs.get('get_streaming_mount_points') # dict(account_id=...)
 
     def serialize(self) -> bytes:
         payload = bytearray()
@@ -164,14 +164,14 @@ class McpIpcRequest:
 # --- McpIpcResponse Encoding & Decoding ---
 
 class McpIpcResponse:
-    def __init__(self, request_id: int = 0):
+    def __init__(self, request_id: int = 0, **kwargs):
         self.request_id = request_id
-        self.get_sync_status = None       # dict(status=..., description=...)
-        self.add_folder_to_sync = None    # dict(success=..., error_message=...)
-        self.get_drive_url = None         # dict(drive_url=..., error_message=...)
-        self.list_tracked_folders = None  # dict(paths=[...], error_message=...)
-        self.fix_acl = None               # dict(success=..., error_message=...)
-        self.get_streaming_mount_points = None # dict(mount_points=[...], error_message=...)
+        self.get_sync_status = kwargs.get('get_sync_status')       # dict(status=..., description=...)
+        self.add_folder_to_sync = kwargs.get('add_folder_to_sync')    # dict(success=..., error_message=...)
+        self.get_drive_url = kwargs.get('get_drive_url')         # dict(drive_url=..., error_message=...)
+        self.list_tracked_folders = kwargs.get('list_tracked_folders')  # dict(paths=[...], error_message=...)
+        self.fix_acl = kwargs.get('fix_acl')               # dict(success=..., error_message=...)
+        self.get_streaming_mount_points = kwargs.get('get_streaming_mount_points') # dict(mount_points=[...], error_message=...)
 
     def serialize(self) -> bytes:
         payload = bytearray()

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+dist/google-drive-desktop_*_all/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.DS_Store
