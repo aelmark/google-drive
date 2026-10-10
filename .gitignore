@@ -9,3 +9,6 @@ dist/google-drive-desktop_*_all/
 *.egg
 .pytest_cache/
 .DS_Store
+google-*.json
+client_secrets*.json
+tokens.json
