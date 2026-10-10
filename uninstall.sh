@@ -54,7 +54,9 @@ rm -f "${HOME}/.local/bin/google-drive"
 rm -f "${HOME}/.local/bin/drivectl"
 rm -f "${HOME}/.local/bin/dfd_mcp_server"
 rm -f "${HOME}/.local/share/applications/google-drive.desktop"
+rm -f "${HOME}/.config/autostart/google-drive-autostart.desktop"
 rm -f "${HOME}/.config/systemd/user/google-drive.service"
+rm -f "${HOME}/.config/systemd/user/default.target.wants/google-drive.service"
 rm -rf "${HOME}/.local/share/google-drive/lib"
 
 if command -v systemctl >/dev/null 2>&1 && [ -d "/run/user/$(id -u)" ]; then

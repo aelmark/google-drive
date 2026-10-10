@@ -20,7 +20,8 @@ rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}/DEBIAN"
 mkdir -p "${BUILD_DIR}/usr/bin"
 mkdir -p "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive"
-mkdir -p "${BUILD_DIR}/usr/lib/systemd/user"
+mkdir -p "${BUILD_DIR}/usr/lib/systemd/user/default.target.wants"
+mkdir -p "${BUILD_DIR}/etc/xdg/autostart"
 mkdir -p "${BUILD_DIR}/usr/share/applications"
 mkdir -p "${BUILD_DIR}/usr/share/pixmaps"
 mkdir -p "${BUILD_DIR}/usr/share/doc/${PKG_NAME}"
@@ -47,8 +48,7 @@ echo "-> Creating binary wrappers in /usr/bin..."
 cat << 'EOF' > "${BUILD_DIR}/usr/bin/google-drive"
 #!/usr/bin/env python3
 import sys
-import subprocess
-from linux_drive.drivectl import is_daemon_running
+from linux_drive.drivectl import is_daemon_running, ensure_daemon_running
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "--daemon":
@@ -59,8 +59,7 @@ def main():
 
     # Check if daemon is running, if not start it in background
     if not is_daemon_running():
-        subprocess.Popen([sys.executable, "-m", "linux_drive.ipc_daemon"],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ensure_daemon_running(timeout=4.0)
 
     if len(sys.argv) > 1 and sys.argv[1] == "--status":
         from linux_drive.drivectl import cmd_status
@@ -93,12 +92,12 @@ if __name__ == '__main__':
 EOF
 chmod 755 "${BUILD_DIR}/usr/bin/dfd_mcp_server"
 
-# 3. Systemd User Service
+# 3. Systemd User Service & Reboot Autostart Enablement
 echo "-> Creating systemd user service..."
 cat << 'EOF' > "${BUILD_DIR}/usr/lib/systemd/user/google-drive.service"
 [Unit]
 Description=Google Drive for Linux - Core IPC Daemon & MCP Service
-Documentation=https://github.com/google-drive-linux
+Documentation=https://aisgit.armellini.net/aelmark/google-drive
 After=network.target
 
 [Service]
@@ -113,7 +112,26 @@ WantedBy=default.target
 EOF
 chmod 644 "${BUILD_DIR}/usr/lib/systemd/user/google-drive.service"
 
-# 4. Desktop Application Launcher
+# Symlink into default.target.wants to guarantee systemd auto-start on boot/login
+ln -sf "../google-drive.service" "${BUILD_DIR}/usr/lib/systemd/user/default.target.wants/google-drive.service"
+
+# 4. XDG Desktop Autostart (Guarantees auto-start on GUI login across GNOME/KDE/XFCE)
+echo "-> Creating XDG desktop autostart entry..."
+cat << 'EOF' > "${BUILD_DIR}/etc/xdg/autostart/google-drive-autostart.desktop"
+[Desktop Entry]
+Type=Application
+Name=Google Drive
+Comment=Google Drive Desktop Background Sync Daemon
+Exec=/usr/bin/google-drive --daemon
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+X-MATE-Autostart-enabled=true
+EOF
+chmod 644 "${BUILD_DIR}/etc/xdg/autostart/google-drive-autostart.desktop"
+
+# 5. Desktop Application Launcher
 echo "-> Creating desktop launcher..."
 cat << 'EOF' > "${BUILD_DIR}/usr/share/applications/google-drive.desktop"
 [Desktop Entry]
@@ -214,12 +232,42 @@ if [ "$1" = "configure" ]; then
     if which update-desktop-database >/dev/null 2>&1; then
         update-desktop-database -q /usr/share/applications || true
     fi
-    # Reload systemd user daemon definition globally
+    # Enable systemd user daemon globally for all users across reboots
     if [ -d /run/systemd/system ]; then
         systemctl --global daemon-reload || true
+        systemctl --global enable google-drive.service || true
     fi
+
+    # Immediately activate the daemon for active user session(s)
+    TARGET_USERS=""
+    if [ -n "$SUDO_USER" ] && [ "$SUDO_USER" != "root" ]; then
+        TARGET_USERS="$SUDO_USER"
+    fi
+    for user_dir in /run/user/*; do
+        if [ -d "$user_dir" ]; then
+            u_id=$(basename "$user_dir")
+            if [ "$u_id" -ge 1000 ] 2>/dev/null; then
+                u_name=$(id -nu "$u_id" 2>/dev/null || true)
+                if [ -n "$u_name" ] && [ "$u_name" != "root" ]; then
+                    case " $TARGET_USERS " in
+                        *" $u_name "*) ;;
+                        *) TARGET_USERS="$TARGET_USERS $u_name" ;;
+                    esac
+                fi
+            fi
+        fi
+    done
+
+    for u in $TARGET_USERS; do
+        u_id=$(id -u "$u" 2>/dev/null || true)
+        if [ -n "$u_id" ] && [ -d "/run/user/$u_id" ]; then
+            echo "Starting Google Drive background daemon for $u..."
+            su - "$u" -c "XDG_RUNTIME_DIR=/run/user/$u_id systemctl --user daemon-reload && XDG_RUNTIME_DIR=/run/user/$u_id systemctl --user enable --now google-drive" >/dev/null 2>&1 || \
+            su - "$u" -c "nohup /usr/bin/google-drive --daemon >/dev/null 2>&1 &" || true
+        fi
+    done
+
     echo "Google Drive Desktop installed successfully."
-    echo "To start the background daemon: systemctl --user enable --now google-drive"
     echo "To open preferences: google-drive"
     echo "To control via CLI: drivectl status"
 fi
@@ -233,8 +281,20 @@ cat << 'EOF' > "${BUILD_DIR}/DEBIAN/prerm"
 set -e
 
 if [ "$1" = "remove" ]; then
+    for user_dir in /run/user/*; do
+        if [ -d "$user_dir" ]; then
+            u_id=$(basename "$user_dir")
+            if [ "$u_id" -ge 1000 ] 2>/dev/null; then
+                u_name=$(id -nu "$u_id" 2>/dev/null || true)
+                if [ -n "$u_name" ]; then
+                    su - "$u_name" -c "XDG_RUNTIME_DIR=/run/user/$u_id systemctl --user stop google-drive" >/dev/null 2>&1 || true
+                fi
+            fi
+        fi
+    done
     pkill -f "linux_drive.ipc_daemon" || true
     pkill -f "linux_drive/ipc_daemon.py" || true
+    pkill -f "/usr/bin/google-drive --daemon" || true
 fi
 
 exit 0
@@ -253,8 +313,10 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
         update-desktop-database -q /usr/share/applications || true
     fi
     if [ -d /run/systemd/system ]; then
+        systemctl --global disable google-drive.service >/dev/null 2>&1 || true
         systemctl --global daemon-reload || true
     fi
+    rm -f /etc/xdg/autostart/google-drive-autostart.desktop || true
 fi
 
 exit 0

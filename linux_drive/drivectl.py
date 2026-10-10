@@ -9,6 +9,8 @@ import sys
 import json
 import argparse
 import subprocess
+import shutil
+import time
 from pathlib import Path
 
 # Add project root to path
@@ -29,7 +31,6 @@ from linux_drive.ipc_wire import (
     read_framed_message
 )
 from linux_drive.oauth import oauth_manager
-import time
 
 def get_socket_path() -> str:
     return f"/tmp/drivefs_ipc.{os.getuid()}"
@@ -48,6 +49,75 @@ def is_daemon_running() -> bool:
     except Exception:
         return False
 
+def ensure_daemon_running(timeout: float = 4.0) -> bool:
+    """Ensure the Google Drive IPC daemon is running.
+    If not running, attempts to start it via systemd --user or as a detached
+    background process, waiting up to `timeout` seconds for socket readiness.
+    """
+    if is_daemon_running():
+        return True
+
+    # 1. Try starting via systemd user service if available
+    started_via_systemd = False
+    if shutil.which("systemctl") and ("DBUS_SESSION_BUS_ADDRESS" in os.environ or os.path.exists(f"/run/user/{os.getuid()}")):
+        try:
+            res = subprocess.run(
+                ["systemctl", "--user", "start", "google-drive"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=3.0
+            )
+            if res.returncode == 0:
+                started_via_systemd = True
+                # Wait up to 1 second for systemd-spawned daemon to bind socket
+                for _ in range(10):
+                    if is_daemon_running():
+                        return True
+                    time.sleep(0.1)
+        except Exception:
+            pass
+
+    # 2. If systemd didn't start it or is unavailable, spawn direct background process
+    if not is_daemon_running():
+        cmd = None
+        gd_bin = shutil.which("google-drive")
+        if gd_bin:
+            cmd = [gd_bin, "--daemon"]
+        else:
+            local_bin = Path.home() / ".local" / "bin" / "google-drive"
+            if local_bin.exists() and os.access(str(local_bin), os.X_OK):
+                cmd = [str(local_bin), "--daemon"]
+            else:
+                daemon_py = ROOT_DIR / "linux_drive" / "ipc_daemon.py"
+                if daemon_py.exists():
+                    cmd = [sys.executable, str(daemon_py)]
+                else:
+                    cmd = [sys.executable, "-m", "linux_drive.ipc_daemon"]
+
+        env = os.environ.copy()
+        env["PYTHONPATH"] = f"{ROOT_DIR}:{env.get('PYTHONPATH', '')}".rstrip(":")
+        try:
+            subprocess.Popen(
+                cmd,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                close_fds=True,
+                env=env,
+                start_new_session=True
+            )
+        except Exception:
+            pass
+
+    # 3. Wait up to `timeout` seconds for socket readiness
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if is_daemon_running():
+            return True
+        time.sleep(0.15)
+
+    return is_daemon_running()
+
 def send_ipc(req: McpIpcRequest) -> McpIpcResponse:
     sock_path = get_socket_path()
     if not os.path.exists(sock_path):
@@ -65,6 +135,11 @@ def send_ipc(req: McpIpcRequest) -> McpIpcResponse:
         s.close()
 
 def cmd_status(args):
+    # Automatically start daemon if not already running
+    auto_started = False
+    if not is_daemon_running() and not getattr(args, "no_start", False):
+        auto_started = ensure_daemon_running(timeout=3.0)
+
     running = is_daemon_running()
     cfg = load_config()
     acc = cfg.get("account", {})
@@ -73,7 +148,11 @@ def cmd_status(args):
     print("=" * 50)
     print(" Google Drive for Linux - Status")
     print("=" * 50)
-    print(f" Daemon State     : {'🟢 RUNNING' if running else '🔴 STOPPED'}")
+    if running:
+        state_str = "🟢 RUNNING (auto-started)" if auto_started else "🟢 RUNNING"
+    else:
+        state_str = "🔴 STOPPED"
+    print(f" Daemon State     : {state_str}")
     print(f" IPC Socket       : {get_socket_path()}")
     print(f" Config File      : {CONFIG_FILE}")
     print(f" Account Status   : {auth_str}")
@@ -135,6 +214,7 @@ def cmd_add(args):
         print(f"Error: Path does not exist: {path}")
         sys.exit(1)
     
+    ensure_daemon_running(timeout=3.0)
     # Send to daemon if running
     if is_daemon_running():
         resp = send_ipc(McpIpcRequest(
@@ -159,6 +239,7 @@ def cmd_add(args):
             print(f"Folder already tracked: {path}")
 
 def cmd_list(args):
+    ensure_daemon_running(timeout=3.0)
     if is_daemon_running():
         resp = send_ipc(McpIpcRequest(request_id=1, list_tracked_folders={}))
         paths = resp.list_tracked_folders.get("paths", []) if resp.list_tracked_folders else []
@@ -184,17 +265,11 @@ def cmd_start(args):
     if is_daemon_running():
         print("Google Drive daemon is already running.")
         return
-    daemon_script = ROOT_DIR / "linux_drive" / "ipc_daemon.py"
-    proc = subprocess.Popen([sys.executable, str(daemon_script)],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print(f"Starting Google Drive daemon (PID {proc.pid})...")
-    import time
-    for _ in range(10):
-        time.sleep(0.3)
-        if is_daemon_running():
-            print("✓ Google Drive daemon is up and listening.")
-            return
-    print("Daemon launched. Check logs if socket did not appear.")
+    print("Starting Google Drive daemon...")
+    if ensure_daemon_running(timeout=4.0):
+        print("✓ Google Drive daemon is up and listening.")
+    else:
+        print("Daemon launched. Check logs if socket did not appear.")
 
 def cmd_stop(args):
     sock_path = get_socket_path()
@@ -298,6 +373,7 @@ def main():
 
     # status
     p_status = subparsers.add_parser("status", help="Show daemon status, sync mode, and configuration")
+    p_status.add_argument("--no-start", action="store_true", help="Do not attempt to auto-start daemon if stopped")
     p_status.set_defaults(func=cmd_status)
 
     # auth

@@ -133,12 +133,17 @@ TOOLS = [
     }
 ]
 
+from linux_drive.drivectl import ensure_daemon_running
+
 class DfdIpcClient:
     def __init__(self):
         self.uid = os.getuid()
         self.socket_path = f"/tmp/drivefs_ipc.{self.uid}"
 
     def send_request(self, req: McpIpcRequest) -> McpIpcResponse:
+        if not os.path.exists(self.socket_path):
+            ensure_daemon_running(timeout=3.0)
+
         if not os.path.exists(self.socket_path):
             raise ConnectionError(f"Google Drive is not running (Can't connect to socket at: {self.socket_path}). Please start Google Drive.")
 

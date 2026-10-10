@@ -177,10 +177,20 @@ class DriveIpcDaemon:
 
     def start(self):
         if os.path.exists(self.socket_path):
+            # Check if active daemon is already listening on this socket
             try:
-                os.unlink(self.socket_path)
-            except OSError:
-                pass
+                test_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                test_sock.settimeout(0.5)
+                test_sock.connect(self.socket_path)
+                test_sock.close()
+                logging.info(f"Google Drive IPC Daemon is already running on {self.socket_path}. Exiting duplicate instance.")
+                return
+            except Exception:
+                # Stale socket file, unlink it
+                try:
+                    os.unlink(self.socket_path)
+                except OSError:
+                    pass
 
         self.server_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.server_sock.bind(self.socket_path)

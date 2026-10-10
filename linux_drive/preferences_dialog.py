@@ -28,6 +28,7 @@ from linux_drive.config import (
 )
 from linux_drive.drivectl import (
     is_daemon_running,
+    ensure_daemon_running,
     send_ipc,
     get_socket_path
 )
@@ -61,6 +62,9 @@ class PreferencesWindow(Gtk.Window):
                     pass
 
         self.config = load_config()
+
+        # Ensure daemon is running so GUI connects to active IPC
+        ensure_daemon_running(timeout=2.0)
 
         # Header bar
         header = Gtk.HeaderBar()
@@ -646,9 +650,26 @@ class PreferencesWindow(Gtk.Window):
         lbl_title.set_xalign(0)
         box.pack_start(lbl_title, False, False, 0)
 
+        self.lbl_mcp_info = Gtk.Label()
+        self.lbl_mcp_info.set_xalign(0)
+        self._refresh_mcp_status()
+        box.pack_start(self.lbl_mcp_info, False, False, 0)
+
+        btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        btn_test = Gtk.Button(label="Test IPC Connection")
+        btn_test.connect("clicked", self._on_test_ipc)
+        btn_box.pack_start(btn_test, False, False, 0)
+
+        btn_daemon = Gtk.Button(label="Restart Background Daemon")
+        btn_daemon.connect("clicked", self._on_restart_daemon)
+        btn_box.pack_start(btn_daemon, False, False, 0)
+
+        box.pack_start(btn_box, False, False, 0)
+        return box
+
+    def _refresh_mcp_status(self):
         running = is_daemon_running()
         sock = get_socket_path()
-
         status_text = (
             f"<b>Daemon State:</b> {'<span color=\"#2e7d32\">🟢 RUNNING</span>' if running else '<span color=\"#c62828\">🔴 STOPPED</span>'}\n"
             f"<b>IPC Socket:</b> <tt>{sock}</tt>\n"
@@ -658,19 +679,26 @@ class PreferencesWindow(Gtk.Window):
             "  2. <tt>dfd_add_folder_to_sync</tt> — Track new folder for sync\n"
             "  3. <tt>dfd_get_drive_url</tt> — Get shareable Google Drive web URL\n"
             "  4. <tt>dfd_list_tracked_folders</tt> — List all synchronized paths\n"
-            "  5. <tt>dfd_open_acl_dialog</tt> — Launch interactive sharing permissions UI"
+            "  5. <tt>dfd_open_acl_dialog</tt> — Launch interactive sharing permissions UI\n"
+            "  6. <tt>dfd_get_account_info</tt> — Query account and storage quota"
         )
+        if hasattr(self, 'lbl_mcp_info'):
+            self.lbl_mcp_info.set_markup(status_text)
 
-        lbl_info = Gtk.Label()
-        lbl_info.set_markup(status_text)
-        lbl_info.set_xalign(0)
-        box.pack_start(lbl_info, False, False, 0)
-
-        btn_test = Gtk.Button(label="Test IPC Connection")
-        btn_test.connect("clicked", self._on_test_ipc)
-        box.pack_start(btn_test, False, False, 0)
-
-        return box
+    def _on_restart_daemon(self, widget):
+        ensure_daemon_running(timeout=3.0)
+        self._refresh_mcp_status()
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.INFO,
+            buttons=Gtk.ButtonsType.OK,
+            text="Daemon Check Complete"
+        )
+        st = "Running" if is_daemon_running() else "Could not start"
+        dialog.format_secondary_text(f"Daemon Status: {st} on {get_socket_path()}")
+        dialog.run()
+        dialog.destroy()
 
     def _on_test_ipc(self, widget):
         try:
@@ -723,6 +751,7 @@ class PreferencesWindow(Gtk.Window):
         dialog.destroy()
 
 def main():
+    ensure_daemon_running(timeout=2.0)
     win = PreferencesWindow()
     win.connect("destroy", Gtk.main_quit)
     win.show_all()

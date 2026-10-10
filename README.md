@@ -17,7 +17,8 @@ A native Linux desktop client, background synchronization engine, and Model Cont
 - **Embedded MCP Server (`dfd_mcp_server`)**: Exposes native Model Context Protocol tools directly to AI coding assistants (Google Antigravity, Claude Desktop, Cursor, Zed) for automated syncing, file sharing, URL resolution, and quota tracking.
 - **Seamless OAuth 2.0 PKCE Flow**: Zero-configuration out of the box using built-in official desktop credentials or custom Google Cloud Console project credentials. Automates browser consent and loopback token capture on `127.0.0.1:8085`.
 - **Zero Third-Party Pip Dependencies**: Engineered strictly with the Python 3.10+ standard library (`urllib`, `http.server`, `hashlib`, `secrets`, `sqlite3`), ensuring zero dependency conflicts and ultra-fast Debian `.deb` packaging.
-- **Systemd User Service**: Automatic daemon management via `systemctl --user enable --now google-drive` with crash recovery and socket health checking.
+- **Auto-Starting Background Daemon**: If any interface (`google-drive`, Preferences GUI, `drivectl`, or `dfd_mcp_server`) is invoked while the background daemon is inactive, it automatically starts the service without manual intervention.
+- **Persistent Reboot & Post-Install Activation**: Starts immediately upon installation and autostarts on reboot via dual integration: systemd user units (`default.target.wants`) and XDG Autostart (`~/.config/autostart`).
 - **Comprehensive CLI (`drivectl`)**: Control daemon state, manage synced folders, inspect live cloud storage quotas, and configure streaming parameters directly from the terminal.
 
 ---

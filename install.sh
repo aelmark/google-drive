@@ -135,11 +135,19 @@ install_system() {
     ${SUDO} apt-get update -qq || true
     ${SUDO} apt-get install -y --fix-broken "${DEB_PATH}"
 
-    # Setup user systemd service if running in interactive user session
-    if [ "$(id -u)" -ne 0 ] && command -v systemctl >/dev/null 2>&1 && [ -d "/run/user/$(id -u)" ]; then
-        echo -e "${GREEN}-> Enabling Google Drive user systemd service...${RESET}"
-        systemctl --user daemon-reload || true
-        systemctl --user enable --now google-drive || true
+    # Enable systemd user service and activate for the desktop user session
+    TARGET_USER="${SUDO_USER:-$(id -un)}"
+    TARGET_UID="$(id -u "${TARGET_USER}" 2>/dev/null || echo "")"
+
+    if [ -n "${TARGET_UID}" ] && [ "${TARGET_UID}" -ge 1000 ] 2>/dev/null && [ -d "/run/user/${TARGET_UID}" ]; then
+        echo -e "${GREEN}-> Activating Google Drive service for user ${TARGET_USER}...${RESET}"
+        if [ "$(id -u)" -eq 0 ]; then
+            su - "${TARGET_USER}" -c "XDG_RUNTIME_DIR=/run/user/${TARGET_UID} systemctl --user daemon-reload && XDG_RUNTIME_DIR=/run/user/${TARGET_UID} systemctl --user enable --now google-drive" 2>/dev/null || \
+            su - "${TARGET_USER}" -c "nohup /usr/bin/google-drive --daemon >/dev/null 2>&1 &" || true
+        else
+            systemctl --user daemon-reload || true
+            systemctl --user enable --now google-drive || true
+        fi
     fi
 }
 
@@ -205,8 +213,7 @@ lib_dir = Path.home() / ".local" / "share" / "google-drive" / "lib"
 if str(lib_dir) not in sys.path:
     sys.path.insert(0, str(lib_dir))
 
-import subprocess
-from linux_drive.drivectl import is_daemon_running
+from linux_drive.drivectl import is_daemon_running, ensure_daemon_running
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "--daemon":
@@ -217,8 +224,7 @@ def main():
 
     # Check if daemon is running, if not start it in background
     if not is_daemon_running():
-        subprocess.Popen([sys.executable, "-m", "linux_drive.ipc_daemon"],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        ensure_daemon_running(timeout=4.0)
 
     if len(sys.argv) > 1 and sys.argv[1] == "--status":
         from linux_drive.drivectl import cmd_status
@@ -279,7 +285,8 @@ StartupNotify=true
 EOF
     chmod 644 "${USER_APPS}/google-drive.desktop"
 
-    # Create user systemd service
+    # Create user systemd service & enable on reboot
+    mkdir -p "${USER_SYSTEMD}/default.target.wants"
     cat << EOF > "${USER_SYSTEMD}/google-drive.service"
 [Unit]
 Description=Google Drive for Linux - Core IPC Daemon & MCP Service
@@ -296,8 +303,25 @@ Environment=PYTHONUNBUFFERED=1
 [Install]
 WantedBy=default.target
 EOF
+    chmod 644 "${USER_SYSTEMD}/google-drive.service"
+    ln -sf "../google-drive.service" "${USER_SYSTEMD}/default.target.wants/google-drive.service"
 
-    # Reload systemd and enable service
+    # Create XDG desktop autostart entry for graphical login reboot
+    USER_AUTOSTART="${HOME}/.config/autostart"
+    mkdir -p "${USER_AUTOSTART}"
+    cat << EOF > "${USER_AUTOSTART}/google-drive-autostart.desktop"
+[Desktop Entry]
+Type=Application
+Name=Google Drive
+Comment=Google Drive Desktop Background Sync Daemon
+Exec=${USER_BIN}/google-drive --daemon
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+EOF
+    chmod 644 "${USER_AUTOSTART}/google-drive-autostart.desktop"
+
+    # Reload systemd and enable/start service immediately
     if command -v systemctl >/dev/null 2>&1 && [ -d "/run/user/$(id -u)" ]; then
         echo -e "${GREEN}-> Enabling Google Drive user service in systemd...${RESET}"
         systemctl --user daemon-reload || true
@@ -336,8 +360,11 @@ echo -e "  • ${BLUE}Model Context Protocol (MCP):${RESET} dfd_mcp_server"
 echo ""
 echo -e "${BLUE}${BOLD}======================================================${RESET}"
 
-# Run initial status if drivectl is reachable
-if command -v drivectl >/dev/null 2>&1; then
+# Run initial status (run as invoking desktop user if running via sudo)
+echo -e "${CYAN}-> Verifying active service status...${RESET}"
+if [ "$(id -u)" -eq 0 ] && [ -n "${SUDO_USER:-}" ] && [ "${SUDO_USER}" != "root" ]; then
+    su - "${SUDO_USER}" -c "drivectl status" || true
+elif command -v drivectl >/dev/null 2>&1; then
     drivectl status || true
 elif [ -x "${HOME}/.local/bin/drivectl" ]; then
     "${HOME}/.local/bin/drivectl" status || true
