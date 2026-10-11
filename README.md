@@ -213,7 +213,13 @@ The `drivectl` utility provides complete command-line control:
 | `drivectl auth set-credentials` | `<CLIENT_ID> <CLIENT_SECRET>` | Configure custom Google Cloud Console OAuth client |
 | `drivectl auth import-credentials` | `<PATH_TO_JSON>` | Import Google Cloud `client_secret_*.json` |
 | `drivectl auth reset-credentials` | - | Reset to default official desktop client credentials |
-| `drivectl add` | `<PATH> [--mode mirror\|stream] [--account ID]` | Add a local directory to Google Drive synchronization |
+| `drivectl selective-sync list` | `[--account ID]` | List My Drive and all Shared Drives with their sync status |
+| `drivectl selective-sync enable` | `<NAME_OR_ID> [--account ID]` | Enable synchronization for a specific Shared Drive or 'my-drive' |
+| `drivectl selective-sync disable` | `<NAME_OR_ID> [--account ID]` | Disable synchronization for a specific Shared Drive or 'my-drive' |
+| `drivectl selective-sync toggle-my-drive` | `[on\|off] [--account ID]` | Toggle My Drive personal file synchronization |
+| `drivectl selective-sync select-all` | `[--account ID]` | Select all available Shared Drives for synchronization |
+| `drivectl selective-sync deselect-all` | `[--account ID]` | Deselect all Shared Drives from synchronization |
+| `drivectl add` | `<PATH> [--mode mirror|stream] [--account ID]` | Add a local directory to Google Drive synchronization |
 | `drivectl remove` / `rm` | `<PATH>` | Remove a directory from Google Drive synchronization |
 | `drivectl sync` | `[--account ID]` | Trigger immediate background sync cycle |
 | `drivectl list` | `[--account ID]` | List all currently tracked directories and sync states |
@@ -224,6 +230,18 @@ The `drivectl` utility provides complete command-line control:
 | `drivectl config set` | `<KEY> <VALUE>` | Update specific setting (e.g. `storage.sync_mode`) |
 
 ---
+
+## Selective Sync & Shared Drives (Google Workspace)
+
+To safeguard local storage when connecting enterprise Google Workspace accounts with multiple terabytes of data:
+- **My Drive & Shared Drives Separation**: `My Drive` and Google Workspace `Shared drives` are cleanly mounted side-by-side without redundant nesting (`~/GoogleDrive - {email}/My Drive/` and `~/GoogleDrive - {email}/Shared drives/`).
+- **Selective Syncing**: Users choose precisely which Shared Drives to synchronize locally. Unselected Shared Drives do not consume disk space or network bandwidth.
+- **Configurable via GUI & CLI**:
+  - In the GTK Preferences GUI under **Google Drive**, use the **Selective Sync** card to check or uncheck individual Shared Drives or My Drive.
+  - In the terminal, use `drivectl selective-sync list` and `drivectl selective-sync enable/disable "<Name>"`.
+- **Large File Protection**: Individual files larger than 250 MB are skipped during bulk synchronization passes to protect disk space.
+- **Disk Space Safeguard**: Sync operations pause automatically if available local disk space falls below 1 GB.
+
 
 ## Model Context Protocol (MCP) Integration
 

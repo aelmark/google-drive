@@ -33,6 +33,10 @@ from linux_drive.config import (
     add_tracked_folder,
     remove_tracked_folder,
     ensure_mount_point_exists,
+    get_selective_sync,
+    set_selective_sync,
+    enable_shared_drive,
+    disable_shared_drive,
     CONFIG_FILE,
     CONFIG_DIR,
     ACCOUNTS_DIR
@@ -528,6 +532,97 @@ def cmd_stop(args):
             pass
     print("Google Drive daemon stopped.")
 
+def cmd_selective_sync(args):
+    action = getattr(args, "action", "list") or "list"
+    target_account = getattr(args, "account", None)
+    cfg = load_config()
+    target_id = target_account or cfg.get("active_account_id", "primary")
+    acc = get_account_by_id(target_id, cfg)
+    email = acc.get("email", target_id) if acc else target_id
+
+    curr_cfg = get_selective_sync(target_account)
+    sync_my_drive = curr_cfg.get("sync_my_drive", True)
+    selected_sds = curr_cfg.get("shared_drives", [])
+
+    token = oauth_manager.get_valid_access_token(target_account)
+
+    if action == "list":
+        print("=" * 65)
+        print(f" Selective Sync Configuration for: {email}")
+        print("=" * 65)
+        print(f"  [{'x' if sync_my_drive else ' '}] My Drive (Google Drive personal root)")
+        print("\n Shared Drives:")
+        if not token:
+            print("  (Account not authenticated or unable to acquire access token)")
+            return
+
+        from linux_drive.sync_engine import SyncEngine
+        engine = SyncEngine()
+        all_drives = engine._list_shared_drives(token)
+        if not all_drives:
+            print("  (No Shared Drives found for this account)")
+        else:
+            for idx, d in enumerate(all_drives, 1):
+                did = d.get("id", "")
+                dname = d.get("name", "Shared Drive")
+                is_sel = did in selected_sds or dname in selected_sds
+                mark = "x" if is_sel else " "
+                print(f"  [{mark}] {idx:2d}. {dname} (ID: {did})")
+        print("=" * 65)
+        print("Commands to modify:")
+        print("  drivectl selective-sync enable <name_or_id>")
+        print("  drivectl selective-sync disable <name_or_id>")
+        print("  drivectl selective-sync toggle-my-drive [on|off]")
+        print("=" * 65)
+
+    elif action == "enable":
+        item = getattr(args, "identifier", None)
+        if not item:
+            print("Error: Specify Shared Drive name or ID to enable.")
+            return
+        if item.lower() in ("my-drive", "mydrive", "my drive"):
+            set_selective_sync(sync_my_drive=True, account_id=target_account)
+            print("✓ Enabled sync for: My Drive")
+        else:
+            enable_shared_drive(item, account_id=target_account)
+            print(f"✓ Enabled sync for Shared Drive: {item}")
+
+    elif action == "disable":
+        item = getattr(args, "identifier", None)
+        if not item:
+            print("Error: Specify Shared Drive name or ID to disable.")
+            return
+        if item.lower() in ("my-drive", "mydrive", "my drive"):
+            set_selective_sync(sync_my_drive=False, account_id=target_account)
+            print("✓ Disabled sync for: My Drive")
+        else:
+            disable_shared_drive(item, account_id=target_account)
+            print(f"✓ Disabled sync for Shared Drive: {item}")
+
+    elif action == "toggle-my-drive":
+        state = getattr(args, "state", None)
+        if state is None:
+            new_val = not sync_my_drive
+        else:
+            new_val = state.lower() in ("on", "true", "yes", "1", "enable")
+        set_selective_sync(sync_my_drive=new_val, account_id=target_account)
+        print(f"✓ My Drive sync set to: {'ENABLED' if new_val else 'DISABLED'}")
+
+    elif action == "select-all":
+        if not token:
+            print("Error: Not authenticated.")
+            return
+        from linux_drive.sync_engine import SyncEngine
+        engine = SyncEngine()
+        all_drives = engine._list_shared_drives(token)
+        all_ids = [d.get("id") for d in all_drives if d.get("id")]
+        set_selective_sync(shared_drives=all_ids, account_id=target_account)
+        print(f"✓ Selected all {len(all_ids)} Shared Drives for synchronization.")
+
+    elif action == "deselect-all":
+        set_selective_sync(shared_drives=[], account_id=target_account)
+        print("✓ Deselected all Shared Drives.")
+
 def cmd_auth(args):
     action = getattr(args, "auth_action", None)
     if not action or action == "status":
@@ -699,6 +794,39 @@ def main():
     p_sync.add_argument("path", nargs="?", help="Optional specific folder path to sync")
     p_sync.add_argument("--account", help="Optional account email or ID to sync")
     p_sync.set_defaults(func=cmd_sync)
+
+    # selective-sync
+    p_sel = subparsers.add_parser("selective-sync", help="Configure selective sync for Shared Drives & My Drive")
+    p_sel_sub = p_sel.add_subparsers(dest="action", help="Selective sync action")
+
+    p_sel_list = p_sel_sub.add_parser("list", help="List all Shared Drives and sync selection status")
+    p_sel_list.add_argument("--account", help="Optional account email or ID")
+    p_sel_list.set_defaults(func=cmd_selective_sync)
+
+    p_sel_en = p_sel_sub.add_parser("enable", help="Enable sync for a Shared Drive or 'my-drive'")
+    p_sel_en.add_argument("identifier", help="Shared Drive name, ID, or 'my-drive'")
+    p_sel_en.add_argument("--account", help="Optional account email or ID")
+    p_sel_en.set_defaults(func=cmd_selective_sync)
+
+    p_sel_dis = p_sel_sub.add_parser("disable", help="Disable sync for a Shared Drive or 'my-drive'")
+    p_sel_dis.add_argument("identifier", help="Shared Drive name, ID, or 'my-drive'")
+    p_sel_dis.add_argument("--account", help="Optional account email or ID")
+    p_sel_dis.set_defaults(func=cmd_selective_sync)
+
+    p_sel_my = p_sel_sub.add_parser("toggle-my-drive", help="Toggle My Drive sync on or off")
+    p_sel_my.add_argument("state", nargs="?", choices=["on", "off"], help="State (on/off)")
+    p_sel_my.add_argument("--account", help="Optional account email or ID")
+    p_sel_my.set_defaults(func=cmd_selective_sync)
+
+    p_sel_all = p_sel_sub.add_parser("select-all", help="Select all Shared Drives for sync")
+    p_sel_all.add_argument("--account", help="Optional account email or ID")
+    p_sel_all.set_defaults(func=cmd_selective_sync)
+
+    p_sel_none = p_sel_sub.add_parser("deselect-all", help="Deselect all Shared Drives from sync")
+    p_sel_none.add_argument("--account", help="Optional account email or ID")
+    p_sel_none.set_defaults(func=cmd_selective_sync)
+
+    p_sel.set_defaults(func=cmd_selective_sync)
 
     # list
     p_list = subparsers.add_parser("list", help="List tracked sync folders")

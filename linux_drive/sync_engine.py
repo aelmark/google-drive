@@ -1073,65 +1073,83 @@ class SyncEngine(threading.Thread):
             my_drive_dir = mount_path / "My Drive"
             shared_drives_dir = mount_path / "Shared drives"
 
+            # Check selective sync settings
+            selective_cfg = acc_info.get("selective_sync", {})
+            sync_my_drive = selective_cfg.get("sync_my_drive", True)
+            selected_shared_drives = selective_cfg.get("shared_drives", None)
+
             # 1A. Sync My Drive (Remote -> Local)
-            try:
-                self.current_folder = str(my_drive_dir)
-                self._sync_remote_to_local_drive(
-                    account_id=aid,
-                    email=email,
-                    access_token=access_token,
-                    target_local_dir=my_drive_dir,
-                    drive_id=None,
-                    drive_name="My Drive",
-                )
-            except Exception as e:
-                logger.exception(f"Error syncing My Drive remote->local for {email}: {e}")
-                cycle_had_errors = True
-
-            # 1B. Sync My Drive (Local -> Remote)
-            try:
-                self._sync_local_to_remote_drive(
-                    account_id=aid,
-                    access_token=access_token,
-                    target_local_dir=my_drive_dir,
-                    drive_id=None,
-                )
-            except Exception as e:
-                logger.exception(f"Error syncing My Drive local->remote for {email}: {e}")
-                cycle_had_errors = True
-
-            # 1C. Sync Shared Drives
-            try:
-                shared_drives = self._list_shared_drives(access_token)
-                for sd in shared_drives:
-                    if self._stop_event.is_set():
-                        break
-                    sd_id = sd.get("id")
-                    sd_name = sd.get("name", "Shared Drive")
-                    safe_sd_name = sanitize_filename(sd_name)
-                    local_sd_dir = shared_drives_dir / safe_sd_name
-                    local_sd_dir.mkdir(parents=True, exist_ok=True)
-
-                    self.current_folder = str(local_sd_dir)
-                    # Remote -> Local
+            if sync_my_drive:
+                try:
+                    self.current_folder = str(my_drive_dir)
                     self._sync_remote_to_local_drive(
                         account_id=aid,
                         email=email,
                         access_token=access_token,
-                        target_local_dir=local_sd_dir,
-                        drive_id=sd_id,
-                        drive_name=sd_name,
+                        target_local_dir=my_drive_dir,
+                        drive_id=None,
+                        drive_name="My Drive",
                     )
-                    # Local -> Remote
+                except Exception as e:
+                    logger.exception(f"Error syncing My Drive remote->local for {email}: {e}")
+                    cycle_had_errors = True
+
+                # 1B. Sync My Drive (Local -> Remote)
+                try:
                     self._sync_local_to_remote_drive(
                         account_id=aid,
                         access_token=access_token,
-                        target_local_dir=local_sd_dir,
-                        drive_id=sd_id,
+                        target_local_dir=my_drive_dir,
+                        drive_id=None,
                     )
-            except Exception as e:
-                logger.exception(f"Error syncing Shared Drives for {email}: {e}")
-                cycle_had_errors = True
+                except Exception as e:
+                    logger.exception(f"Error syncing My Drive local->remote for {email}: {e}")
+                    cycle_had_errors = True
+            else:
+                logger.info(f"Selective sync: skipping My Drive for {email}")
+
+            # 1C. Sync Shared Drives
+            if selected_shared_drives is None or len(selected_shared_drives) > 0:
+                try:
+                    shared_drives = self._list_shared_drives(access_token)
+                    if selected_shared_drives is not None:
+                        shared_drives = [
+                            sd for sd in shared_drives
+                            if sd.get("id") in selected_shared_drives or sd.get("name") in selected_shared_drives
+                        ]
+                        logger.info(f"Selective sync: syncing {len(shared_drives)} selected Shared Drives for {email}")
+
+                    for sd in shared_drives:
+                        if self._stop_event.is_set():
+                            break
+                        sd_id = sd.get("id")
+                        sd_name = sd.get("name", "Shared Drive")
+                        safe_sd_name = sanitize_filename(sd_name)
+                        local_sd_dir = shared_drives_dir / safe_sd_name
+                        local_sd_dir.mkdir(parents=True, exist_ok=True)
+
+                        self.current_folder = str(local_sd_dir)
+                        # Remote -> Local
+                        self._sync_remote_to_local_drive(
+                            account_id=aid,
+                            email=email,
+                            access_token=access_token,
+                            target_local_dir=local_sd_dir,
+                            drive_id=sd_id,
+                            drive_name=sd_name,
+                        )
+                        # Local -> Remote
+                        self._sync_local_to_remote_drive(
+                            account_id=aid,
+                            access_token=access_token,
+                            target_local_dir=local_sd_dir,
+                            drive_id=sd_id,
+                        )
+                except Exception as e:
+                    logger.exception(f"Error syncing Shared Drives for {email}: {e}")
+                    cycle_had_errors = True
+            else:
+                logger.info(f"Selective sync: no Shared Drives selected for {email} (skipping)")
 
             # -------------------------------------------------------------
             # Part 2: Tracked Folders ('Folders from your computer')

@@ -61,7 +61,11 @@ def make_default_account_dict(email: str = "", name: str = "", is_primary: bool 
             "usage": 0,
             "usage_in_drive": 0
         },
-        "tracked_folders": []
+        "tracked_folders": [],
+        "selective_sync": {
+            "sync_my_drive": True,
+            "shared_drives": []
+        }
     }
 
 DEFAULT_CONFIG: Dict[str, Any] = {
@@ -432,4 +436,65 @@ def remove_tracked_folder(path: str, account_id: Optional[str] = None) -> bool:
     if removed:
         save_config(cfg)
     return removed
+
+def get_selective_sync(account_id: Optional[str] = None) -> Dict[str, Any]:
+    """Returns selective sync configuration for an account."""
+    cfg = load_config()
+    target_id = account_id or cfg.get("active_account_id", "primary")
+    acc = get_account_by_id(target_id, cfg)
+    if acc and "selective_sync" in acc:
+        return dict(acc["selective_sync"])
+    return {"sync_my_drive": True, "shared_drives": []}
+
+def set_selective_sync(
+    sync_my_drive: Optional[bool] = None,
+    shared_drives: Optional[List[str]] = None,
+    account_id: Optional[str] = None
+) -> Dict[str, Any]:
+    """Updates selective sync configuration for an account."""
+    cfg = load_config()
+    target_id = account_id or cfg.get("active_account_id", "primary")
+    accounts = cfg.get("accounts", {})
+    target_key = None
+    if target_id in accounts:
+        target_key = target_id
+    else:
+        for k, v in accounts.items():
+            if v.get("email") == target_id or v.get("sub") == target_id:
+                target_key = k
+                break
+    if not target_key and accounts:
+        target_key = cfg.get("active_account_id") or next(iter(accounts.keys()))
+
+    if target_key and target_key in accounts:
+        acc = accounts[target_key]
+        if "selective_sync" not in acc:
+            acc["selective_sync"] = {"sync_my_drive": True, "shared_drives": []}
+        if sync_my_drive is not None:
+            acc["selective_sync"]["sync_my_drive"] = sync_my_drive
+        if shared_drives is not None:
+            acc["selective_sync"]["shared_drives"] = shared_drives
+        save_config(cfg)
+        return dict(acc["selective_sync"])
+    return {"sync_my_drive": True, "shared_drives": []}
+
+def enable_shared_drive(drive_identifier: str, account_id: Optional[str] = None) -> bool:
+    """Enables syncing for a specific Shared Drive (by ID or name)."""
+    curr = get_selective_sync(account_id)
+    sds = list(curr.get("shared_drives", []))
+    if drive_identifier not in sds:
+        sds.append(drive_identifier)
+        set_selective_sync(shared_drives=sds, account_id=account_id)
+        return True
+    return False
+
+def disable_shared_drive(drive_identifier: str, account_id: Optional[str] = None) -> bool:
+    """Disables syncing for a specific Shared Drive (by ID or name)."""
+    curr = get_selective_sync(account_id)
+    sds = list(curr.get("shared_drives", []))
+    if drive_identifier in sds:
+        sds = [d for d in sds if d != drive_identifier]
+        set_selective_sync(shared_drives=sds, account_id=account_id)
+        return True
+    return False
 

@@ -43,6 +43,10 @@ from linux_drive.config import (
     get_tracked_folders,
     add_tracked_folder,
     remove_tracked_folder,
+    get_selective_sync,
+    set_selective_sync,
+    enable_shared_drive,
+    disable_shared_drive,
     CONFIG_FILE
 )
 from linux_drive.drivectl import (
@@ -474,6 +478,9 @@ class PreferencesWindow(Gtk.Window):
         # 4. Update Settings Tab Account Card
         self._populate_account_card()
 
+        # 5. Update Selective Sync Data
+        self._load_selective_sync_data(account_id)
+
         self._updating_widgets = False
 
     # -------------------------------------------------------------------------
@@ -581,6 +588,11 @@ class PreferencesWindow(Gtk.Window):
         mount_card.pack_start(self.lbl_mount_status, False, False, 0)
 
         box.pack_start(mount_card, False, False, 0)
+
+        # Selective Sync Card
+        selective_card = self._create_selective_sync_card()
+        box.pack_start(selective_card, True, True, 0)
+
         return scrolled
 
     def _on_sync_mode_toggled(self, widget, mode_name: str):
@@ -684,6 +696,186 @@ class PreferencesWindow(Gtk.Window):
                     subprocess.Popen(["gio", "open", target])
                 except Exception as e:
                     print(f"Failed to open folder: {e}")
+
+    # -------------------------------------------------------------------------
+    # Selective Sync (My Drive & Shared Drives)
+    # -------------------------------------------------------------------------
+    def _create_selective_sync_card(self) -> Gtk.Widget:
+        card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        card.get_style_context().add_class("card")
+
+        lbl_title = Gtk.Label()
+        lbl_title.set_markup("<b>Selective Sync (My Drive &amp; Shared Drives)</b>")
+        lbl_title.set_xalign(0)
+        card.pack_start(lbl_title, False, False, 0)
+
+        lbl_desc = Gtk.Label(
+            label="Select which spaces to synchronize locally to save disk space.\n"
+                  "Unselected spaces will not download to this computer."
+        )
+        lbl_desc.set_xalign(0)
+        card.pack_start(lbl_desc, False, False, 0)
+
+        # My Drive Checkbox
+        self.chk_my_drive = Gtk.CheckButton(label="Sync My Drive (Personal Google Drive root)")
+        self.chk_my_drive.connect("toggled", self._on_my_drive_toggled)
+        card.pack_start(self.chk_my_drive, False, False, 0)
+
+        card.pack_start(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL), False, False, 4)
+
+        # Shared Drives header + action buttons
+        sd_header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        lbl_sd_title = Gtk.Label()
+        lbl_sd_title.set_markup("<b>Google Workspace Shared Drives:</b>")
+        lbl_sd_title.set_xalign(0)
+        sd_header.pack_start(lbl_sd_title, False, False, 0)
+
+        self.lbl_sd_count = Gtk.Label(label="(Loading...)")
+        self.lbl_sd_count.get_style_context().add_class("dim-label")
+        sd_header.pack_start(self.lbl_sd_count, False, False, 0)
+
+        sd_header.pack_start(Gtk.Box(), True, True, 0)
+
+        btn_select_all = Gtk.Button(label="Select All")
+        btn_select_all.connect("clicked", self._on_select_all_shared_drives)
+        sd_header.pack_start(btn_select_all, False, False, 0)
+
+        btn_deselect_all = Gtk.Button(label="Deselect All")
+        btn_deselect_all.connect("clicked", self._on_deselect_all_shared_drives)
+        sd_header.pack_start(btn_deselect_all, False, False, 0)
+
+        btn_refresh_sd = Gtk.Button(label="↻ Refresh")
+        btn_refresh_sd.connect("clicked", lambda w: self._load_selective_sync_data(self.current_account_id, force_fetch=True))
+        sd_header.pack_start(btn_refresh_sd, False, False, 0)
+
+        card.pack_start(sd_header, False, False, 0)
+
+        # Scrolled window with TreeView for Shared Drives: [bool (active), str (name), str (id)]
+        self.shared_drives_store = Gtk.ListStore(bool, str, str)
+        self.shared_drives_tree = Gtk.TreeView(model=self.shared_drives_store)
+
+        # Column 0: Toggle checkbox
+        renderer_toggle = Gtk.CellRendererToggle()
+        renderer_toggle.connect("toggled", self._on_shared_drive_row_toggled)
+        col_toggle = Gtk.TreeViewColumn("Sync", renderer_toggle, active=0)
+        self.shared_drives_tree.append_column(col_toggle)
+
+        # Column 1: Shared Drive Name
+        renderer_name = Gtk.CellRendererText()
+        col_name = Gtk.TreeViewColumn("Shared Drive Name", renderer_name, text=1)
+        col_name.set_expand(True)
+        col_name.set_resizable(True)
+        self.shared_drives_tree.append_column(col_name)
+
+        # Column 2: Drive ID
+        renderer_id = Gtk.CellRendererText()
+        col_id = Gtk.TreeViewColumn("Drive ID", renderer_id, text=2)
+        col_id.set_resizable(True)
+        self.shared_drives_tree.append_column(col_id)
+
+        sd_scroll = Gtk.ScrolledWindow()
+        sd_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        sd_scroll.set_min_content_height(160)
+        sd_scroll.add(self.shared_drives_tree)
+        card.pack_start(sd_scroll, True, True, 0)
+
+        # Status feedback
+        self.lbl_selective_feedback = Gtk.Label()
+        self.lbl_selective_feedback.set_xalign(0)
+        card.pack_start(self.lbl_selective_feedback, False, False, 0)
+
+        return card
+
+    def _load_selective_sync_data(self, account_id: str, force_fetch: bool = False):
+        if not hasattr(self, "chk_my_drive"):
+            return
+        selective = get_selective_sync(account_id)
+        self.chk_my_drive.set_active(selective.get("sync_my_drive", True))
+
+        def fetch_worker():
+            try:
+                token = oauth_manager.get_valid_access_token(account_id)
+                if not token:
+                    token = oauth_manager.get_valid_access_token()
+                if not token:
+                    GLib.idle_add(self._update_shared_drives_ui, [], selective)
+                    return
+
+                from linux_drive.sync_engine import SyncEngine
+                engine = SyncEngine()
+                drives = engine._list_shared_drives(token)
+                GLib.idle_add(self._update_shared_drives_ui, drives, selective)
+            except Exception as e:
+                print(f"Error fetching shared drives for {account_id}: {e}")
+                GLib.idle_add(self._update_shared_drives_ui, [], selective)
+
+        threading.Thread(target=fetch_worker, daemon=True).start()
+
+    def _update_shared_drives_ui(self, drives: List[Dict[str, Any]], selective: Dict[str, Any]):
+        self._updating_widgets = True
+        self.shared_drives_store.clear()
+        selected_list = selective.get("shared_drives", [])
+
+        for d in drives:
+            d_name = d.get("name", "")
+            d_id = d.get("id", "")
+            is_checked = (selected_list is None) or (d_name in selected_list) or (d_id in selected_list)
+            self.shared_drives_store.append([is_checked, d_name, d_id])
+
+        self.lbl_sd_count.set_text(f"({len(drives)} drives available)")
+        self._updating_widgets = False
+
+    def _on_my_drive_toggled(self, widget):
+        if self._updating_widgets:
+            return
+        val = widget.get_active()
+        aid = self.current_account_id or get_active_account_id(self.config)
+        set_selective_sync(sync_my_drive=val, account_id=aid)
+        self._show_selective_feedback(f"My Drive sync set to {'Enabled' if val else 'Disabled'}")
+
+    def _on_shared_drive_row_toggled(self, cell, path_str):
+        if self._updating_widgets:
+            return
+        model = self.shared_drives_store
+        tree_iter = model.get_iter_from_string(path_str)
+        curr_val = model.get_value(tree_iter, 0)
+        new_val = not curr_val
+        model.set_value(tree_iter, 0, new_val)
+
+        checked_drives = []
+        for row in model:
+            if row[0]:
+                checked_drives.append(row[1])
+
+        aid = self.current_account_id or get_active_account_id(self.config)
+        set_selective_sync(shared_drives=checked_drives, account_id=aid)
+        self._show_selective_feedback(f"Saved: {len(checked_drives)} Shared Drives selected")
+
+    def _on_select_all_shared_drives(self, widget):
+        if self._updating_widgets:
+            return
+        model = self.shared_drives_store
+        checked_drives = []
+        for row in model:
+            row[0] = True
+            checked_drives.append(row[1])
+        aid = self.current_account_id or get_active_account_id(self.config)
+        set_selective_sync(shared_drives=checked_drives, account_id=aid)
+        self._show_selective_feedback(f"All {len(checked_drives)} Shared Drives selected")
+
+    def _on_deselect_all_shared_drives(self, widget):
+        if self._updating_widgets:
+            return
+        model = self.shared_drives_store
+        for row in model:
+            row[0] = False
+        aid = self.current_account_id or get_active_account_id(self.config)
+        set_selective_sync(shared_drives=[], account_id=aid)
+        self._show_selective_feedback("All Shared Drives deselected")
+
+    def _show_selective_feedback(self, msg: str):
+        self.lbl_selective_feedback.set_markup(f"<span foreground='#137333'><b>✓</b> {msg}</span>")
+        GLib.timeout_add(3000, lambda: self.lbl_selective_feedback.set_text("") or False)
 
     # -------------------------------------------------------------------------
     # Tab 2: Folders from your computer (Continuous Folder Sync)
