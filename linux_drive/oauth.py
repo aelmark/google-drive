@@ -54,6 +54,19 @@ def generate_pkce_pair() -> Tuple[str, str]:
     challenge = base64url_encode(digest)
     return verifier, challenge
 
+def sanitize_account_id(account_id: Optional[str]) -> str:
+    """
+    Sanitize account identifier (e.g. email or username) for safe filesystem path usage.
+    Replaces unsafe characters while preserving readable identifiers.
+    """
+    if not account_id:
+        return "primary"
+    aid = str(account_id).strip()
+    if not aid or aid in ("primary", "default"):
+        return "primary"
+    safe = "".join(c if (c.isalnum() or c in ("-", "_", ".", "@")) else "_" for c in aid)
+    return safe or "primary"
+
 def find_available_port(start_port: int = 8085, max_attempts: int = 20) -> int:
     """Find an available TCP port for the loopback redirect server."""
     for port in range(start_port, start_port + max_attempts):
@@ -348,7 +361,9 @@ class OAuthManager:
         port: Optional[int] = None,
         timeout_seconds: int = 180,
         open_browser: bool = True,
-        url_callback: Optional[Callable[[str], None]] = None
+        url_callback: Optional[Callable[[str], None]] = None,
+        account_id: Optional[str] = None,
+        make_active: bool = True
     ) -> Dict[str, Any]:
         """
         Executes complete OAuth 2.0 PKCE flow:
@@ -357,7 +372,8 @@ class OAuthManager:
         3. Captures code callback
         4. Exchanges code for tokens
         5. Fetches profile and storage quota
-        6. Saves credentials securely in ~/.config/google-drive/tokens.json
+        6. Saves credentials securely in ~/.config/google-drive/accounts/{sanitized_id}/tokens.json
+           and updates active tokens.json if make_active=True
         """
         client_id, client_secret = self.get_client_credentials()
         actual_port = port if port else find_available_port()
@@ -400,13 +416,17 @@ class OAuthManager:
         profile = self.fetch_user_profile(token_data["access_token"])
         quota = self.fetch_storage_quota(token_data["access_token"])
 
+        # Determine effective account identifier
+        effective_id = account_id or profile.get("email") or profile.get("sub") or "primary"
+
         # Save tokens and update config
-        self.save_tokens(token_data, profile, quota)
+        self.save_tokens(token_data, profile, quota, account_id=effective_id, make_active=make_active)
 
         return {
             "token": token_data,
             "profile": profile,
-            "quota": quota
+            "quota": quota,
+            "account_id": effective_id
         }
 
     def exchange_code(
@@ -445,9 +465,9 @@ class OAuthManager:
         data["expires_at"] = time.time() + data.get("expires_in", 3600)
         return data
 
-    def refresh_access_token(self) -> str:
+    def refresh_access_token(self, account_id: Optional[str] = None, make_active: Optional[bool] = None) -> str:
         """Refreshes the stored access token using the refresh_token."""
-        tokens = self.load_tokens()
+        tokens = self.load_tokens(account_id=account_id)
         refresh_token = tokens.get("refresh_token")
         if not refresh_token:
             raise RuntimeError("No refresh_token found. User must re-authenticate.")
@@ -481,19 +501,25 @@ class OAuthManager:
         if "refresh_token" in new_tokens:
             tokens["refresh_token"] = new_tokens["refresh_token"]
 
-        self.save_tokens(tokens)
+        from linux_drive.config import get_active_account_id
+        if make_active is None:
+            active_id = get_active_account_id()
+            make_active = (not account_id or account_id == active_id)
+
+        self.save_tokens(tokens, account_id=account_id, make_active=make_active)
         return tokens["access_token"]
 
-    def get_valid_access_token(self) -> str:
+    def get_valid_access_token(self, account_id: Optional[str] = None, make_active: Optional[bool] = None) -> str:
         """Returns a valid access token, automatically refreshing it if expired or expiring within 60s."""
-        tokens = self.load_tokens()
+        tokens = self.load_tokens(account_id=account_id)
         if not tokens or "access_token" not in tokens:
-            raise RuntimeError("Not authenticated. Run 'drivectl auth login' or connect via Preferences.")
+            target_str = f" for account '{account_id}'" if account_id else ""
+            raise RuntimeError(f"Not authenticated{target_str}. Run 'drivectl auth login' or connect via Preferences.")
 
         expires_at = tokens.get("expires_at", 0)
         # Refresh if token expires in less than 60 seconds
         if time.time() >= (expires_at - 60):
-            return self.refresh_access_token()
+            return self.refresh_access_token(account_id=account_id, make_active=make_active)
 
         return tokens["access_token"]
 
@@ -575,64 +601,117 @@ class OAuthManager:
         except Exception:
             return {"limit": 0, "usage": 0, "usage_in_drive": 0}
 
+    def _get_token_file(self, account_id: Optional[str] = None, check_exists: bool = False) -> Path:
+        """
+        Determines the appropriate tokens.json path for the given account_id.
+        Checks:
+        1. ~/.config/google-drive/accounts/{sanitized_id}/tokens.json
+        2. ~/.config/google-drive/accounts/{account_id}/tokens.json
+        3. ~/.config/google-drive/tokens_{sanitized_id}.json
+        4. ~/.config/google-drive/tokens.json (legacy / active fallback)
+        """
+        target_id = account_id
+        if not target_id:
+            from linux_drive.config import get_active_account_id
+            target_id = get_active_account_id()
+
+        sanitized = sanitize_account_id(target_id)
+        if sanitized and sanitized not in ("primary", "default"):
+            acc_dir_file = CONFIG_DIR / "accounts" / sanitized / "tokens.json"
+            if acc_dir_file.exists():
+                return acc_dir_file
+            if target_id:
+                raw_acc_file = CONFIG_DIR / "accounts" / str(target_id) / "tokens.json"
+                if raw_acc_file.exists():
+                    return raw_acc_file
+            alt_file = CONFIG_DIR / f"tokens_{sanitized}.json"
+            if alt_file.exists():
+                return alt_file
+            if not check_exists:
+                return acc_dir_file
+
+        primary_dir_file = CONFIG_DIR / "accounts" / "primary" / "tokens.json"
+        if primary_dir_file.exists():
+            return primary_dir_file
+        return TOKENS_FILE
+
     def save_tokens(
         self,
         tokens: Dict[str, Any],
         profile: Optional[Dict[str, Any]] = None,
-        quota: Optional[Dict[str, Any]] = None
+        quota: Optional[Dict[str, Any]] = None,
+        account_id: Optional[str] = None,
+        make_active: bool = True
     ) -> None:
-        """Saves tokens with 0600 permissions and updates config.json."""
-        CONFIG_DIR.mkdir(parents=True, exist_ok=True)
-        with open(TOKENS_FILE, "w", encoding="utf-8") as f:
-            json.dump(tokens, f, indent=2)
-        os.chmod(TOKENS_FILE, 0o600)
-
-        # Update config.json with account info
-        from linux_drive.config import load_config, save_config
-        cfg = load_config()
-
+        """
+        Saves tokens with 0600 permissions in ~/.config/google-drive/accounts/{sanitized_id}/tokens.json
+        and updates top-level tokens.json when make_active=True.
+        Also registers or updates the account in config.json.
+        """
         email = profile.get("email", "") if profile else tokens.get("email", "")
-        name = profile.get("name", "") if profile else ""
-        avatar = profile.get("picture", "") if profile else ""
-        sub = profile.get("sub", "") if profile else ""
+        name = profile.get("name", "") if profile else tokens.get("name", "")
+        avatar = profile.get("picture", "") if profile else tokens.get("picture", "")
+        sub = profile.get("sub", "") if profile else tokens.get("sub", "")
 
-        if "account" not in cfg:
-            cfg["account"] = {}
+        effective_id = account_id or email or sub or "primary"
+        sanitized = sanitize_account_id(effective_id)
 
-        if email:
-            cfg["account"]["email"] = email
-        if name:
-            cfg["account"]["name"] = name
-        if avatar:
-            cfg["account"]["avatar_url"] = avatar
-        if sub:
-            cfg["account"]["sub"] = sub
-        cfg["account"]["authenticated"] = True
-        cfg["account"]["connected_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        # 1. Save to account-specific tokens file
+        acc_tokens_file = CONFIG_DIR / "accounts" / sanitized / "tokens.json"
+        acc_tokens_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(acc_tokens_file, "w", encoding="utf-8") as f:
+            json.dump(tokens, f, indent=2)
+        os.chmod(acc_tokens_file, 0o600)
 
+        # 2. If make_active or primary, also write to TOKENS_FILE
+        if make_active or effective_id in ("primary", "default"):
+            TOKENS_FILE.parent.mkdir(parents=True, exist_ok=True)
+            with open(TOKENS_FILE, "w", encoding="utf-8") as f:
+                json.dump(tokens, f, indent=2)
+            os.chmod(TOKENS_FILE, 0o600)
+
+        # 3. Update config.json with account info
+        from linux_drive.config import add_or_update_account, load_config, save_config
+        acc_dict = {
+            "email": email,
+            "name": name,
+            "avatar_url": avatar,
+            "sub": sub,
+            "authenticated": True,
+            "connected_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        }
         if quota:
-            cfg["account"]["storage_quota"] = quota
+            acc_dict["storage_quota"] = quota
 
-        save_config(cfg)
+        add_or_update_account(acc_dict, make_active=make_active)
 
-    def load_tokens(self) -> Dict[str, Any]:
-        """Loads tokens from ~/.config/google-drive/tokens.json."""
-        if not TOKENS_FILE.exists():
-            return {}
+    def load_tokens(self, account_id: Optional[str] = None) -> Dict[str, Any]:
+        """Loads tokens from account-specific path or ~/.config/google-drive/tokens.json."""
+        token_file = self._get_token_file(account_id, check_exists=True)
+        if not token_file.exists():
+            if TOKENS_FILE.exists():
+                token_file = TOKENS_FILE
+            else:
+                return {}
         try:
-            with open(TOKENS_FILE, "r", encoding="utf-8") as f:
+            with open(token_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception:
             return {}
 
-    def is_authenticated(self) -> bool:
-        """Checks if a valid token or refresh token is available."""
-        tokens = self.load_tokens()
+    def is_authenticated(self, account_id: Optional[str] = None) -> bool:
+        """Checks if a valid token or refresh token is available for the account."""
+        tokens = self.load_tokens(account_id)
         return bool(tokens.get("access_token") or tokens.get("refresh_token"))
 
-    def revoke_tokens(self) -> bool:
-        """Revokes token with Google and cleans up local credentials."""
-        tokens = self.load_tokens()
+    def revoke_tokens(self, account_id: Optional[str] = None) -> bool:
+        """Revokes token with Google and cleans up local credentials for the specified account."""
+        from linux_drive.config import get_active_account_id, remove_account, load_config, save_config
+        active_id = get_active_account_id()
+        target_id = account_id or active_id
+
+        token_file = self._get_token_file(target_id, check_exists=True)
+        tokens = self.load_tokens(target_id)
         token_to_revoke = tokens.get("refresh_token") or tokens.get("access_token")
 
         if token_to_revoke:
@@ -647,21 +726,59 @@ class OAuthManager:
             except Exception:
                 pass
 
-        if TOKENS_FILE.exists():
+        if token_file.exists():
             try:
-                TOKENS_FILE.unlink()
+                token_file.unlink()
             except OSError:
                 pass
 
-        from linux_drive.config import load_config, save_config
-        cfg = load_config()
-        if "account" in cfg:
-            cfg["account"]["authenticated"] = False
-            cfg["account"]["email"] = ""
-            cfg["account"]["name"] = ""
-            cfg["account"]["avatar_url"] = ""
-            cfg["account"]["storage_quota"] = {"limit": 0, "usage": 0}
-        save_config(cfg)
+        sanitized = sanitize_account_id(target_id)
+        acc_dir = CONFIG_DIR / "accounts" / sanitized
+        if acc_dir.exists():
+            try:
+                acc_tokens = acc_dir / "tokens.json"
+                if acc_tokens.exists():
+                    acc_tokens.unlink()
+                if not any(acc_dir.iterdir()):
+                    acc_dir.rmdir()
+            except OSError:
+                pass
+
+        is_revoking_active = (not account_id or target_id == active_id)
+        if is_revoking_active:
+            if TOKENS_FILE.exists():
+                try:
+                    TOKENS_FILE.unlink()
+                except OSError:
+                    pass
+
+        # Update config.json
+        if target_id and target_id not in ("primary", "default"):
+            remove_account(target_id)
+        else:
+            cfg = load_config()
+            if "account" in cfg:
+                cfg["account"]["authenticated"] = False
+                cfg["account"]["email"] = ""
+                cfg["account"]["name"] = ""
+                cfg["account"]["avatar_url"] = ""
+                cfg["account"]["storage_quota"] = {"limit": 0, "usage": 0}
+            save_config(cfg)
+
+        # If an active account still exists, copy its tokens into TOKENS_FILE
+        new_active_id = get_active_account_id()
+        if new_active_id and new_active_id != target_id:
+            new_tokens_file = self._get_token_file(new_active_id, check_exists=True)
+            if new_tokens_file.exists() and new_tokens_file != TOKENS_FILE:
+                try:
+                    with open(new_tokens_file, "r", encoding="utf-8") as sf:
+                        data = sf.read()
+                    with open(TOKENS_FILE, "w", encoding="utf-8") as df:
+                        df.write(data)
+                    os.chmod(TOKENS_FILE, 0o600)
+                except Exception:
+                    pass
+
         return True
 
 

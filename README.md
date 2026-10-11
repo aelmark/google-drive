@@ -12,14 +12,16 @@ A native Linux desktop client, background synchronization engine, and Model Cont
 
 ## Highlights
 
-- **Native Desktop Integration**: Pure GTK 3 configuration interface (`google-drive`) following GNOME Human Interface Guidelines, complete with high-resolution app icons and desktop menu launchers.
-- **Reverse-Engineered IPC Protocol**: Drop-in compatible with the official Google Drive C++ core engine (`Cello`) using length-delimited Protocol Buffers over local UNIX domain sockets (`/tmp/drivefs_ipc.<UID>`) with kernel `SO_PEERCRED` UID security validation.
+- **Multi-Account Concurrency**: Connect multiple Google Accounts (e.g., Google Workspace + personal Gmail) simultaneously on the same machine, each with independent sync modes (Stream vs Mirror), isolated mount points (`~/GoogleDrive`, `~/GoogleDrive - user@domain.com`), and dedicated token storage.
+- **Pure-Python Sync Engine**: Background file sync engine built strictly with the Python standard library; compares MD5/mtime/size hashes in SQLite, uploads changes via Drive API v3 multipart upload, and provides live sync progress tracking.
+- **Modernized Desktop Interface**: Polished GTK 3 interface following Google Material and GNOME Adwaita design language, featuring instant sync mode auto-saving, account switching, dynamic folder removal, and quick file manager shortcuts.
+- **Reverse-Engineered IPC Protocol**: Drop-in compatible with the official Google Drive C++ core engine (`Cello`) using length-delimited Protocol Buffers over local UNIX domain sockets (`/tmp/drivefs_ipc.<UID>`) with kernel `SO_PEERCRED` UID security validation and extended request tags for real-time control.
 - **Embedded MCP Server (`dfd_mcp_server`)**: Exposes native Model Context Protocol tools directly to AI coding assistants (Google Antigravity, Claude Desktop, Cursor, Zed) for automated syncing, file sharing, URL resolution, and quota tracking.
 - **Seamless OAuth 2.0 PKCE Flow**: Zero-configuration out of the box using built-in official desktop credentials or custom Google Cloud Console project credentials. Automates browser consent and loopback token capture on `127.0.0.1:8085`.
 - **Zero Third-Party Pip Dependencies**: Engineered strictly with the Python 3.10+ standard library (`urllib`, `http.server`, `hashlib`, `secrets`, `sqlite3`), ensuring zero dependency conflicts and ultra-fast Debian `.deb` packaging.
 - **Auto-Starting Background Daemon**: If any interface (`google-drive`, Preferences GUI, `drivectl`, or `dfd_mcp_server`) is invoked while the background daemon is inactive, it automatically starts the service without manual intervention.
 - **Persistent Reboot & Post-Install Activation**: Starts immediately upon installation and autostarts on reboot via dual integration: systemd user units (`default.target.wants`) and XDG Autostart (`~/.config/autostart`).
-- **Comprehensive CLI (`drivectl`)**: Control daemon state, manage synced folders, inspect live cloud storage quotas, and configure streaming parameters directly from the terminal.
+- **Comprehensive CLI (`drivectl`)**: Control daemon state, manage synced folders, inspect live cloud storage quotas, switch accounts, trigger manual syncs, and configure streaming parameters directly from the terminal.
 
 ---
 
@@ -146,11 +148,11 @@ Output:
 
 ### Custom Google Cloud Project Credentials (Optional)
 
-By default, the client uses the extracted official Google Drive Desktop credentials. If you prefer to use your own Google Cloud Console OAuth 2.0 Client:
+By default, the client uses the built-in official Google Drive Desktop credentials. If you prefer to use your own Google Cloud Console OAuth 2.0 Client (e.g., for an internal Workspace domain):
 
 1. Create a project in [Google Cloud Console](https://console.cloud.google.com/).
 2. Enable the **Google Drive API**.
-3. Create an **OAuth 2.0 Client ID** with type **Desktop app**.
+3. Create an **OAuth 2.0 Client ID** with Application type **Desktop app**.
 4. Set credentials via CLI:
    ```bash
    drivectl auth set-credentials <CLIENT_ID> <CLIENT_SECRET>
@@ -162,24 +164,62 @@ By default, the client uses the extracted official Google Drive Desktop credenti
 
 ---
 
+## Multi-Account Concurrency
+
+You can connect and sync multiple Google Accounts simultaneously (for example, your company Google Workspace account alongside your personal Gmail account).
+
+### In the Desktop Interface (`google-drive`)
+- **Account Switcher**: Located prominently at the top of the Preferences window.
+- **Switch Accounts**: Use the drop-down menu to switch between connected accounts instantly.
+- **Add Another Account**: Select **"+ Add Account..."** to initiate an OAuth flow in your browser. The new account is added alongside existing accounts without overwriting them.
+- **Independent Configuration**: Each account maintains its own:
+  - Google Drive mount location (e.g. `~/GoogleDrive` for primary, `~/GoogleDrive - user@domain.com` for secondary)
+  - Sync Mode (**Stream files** vs **Mirror files**)
+  - Tracked folder list under "My Computer"
+  - Token credentials and cache database
+- **Disconnect**: Safely log out and remove an account by selecting it and clicking **Disconnect**.
+
+### Via the Command Line (`drivectl`)
+```bash
+# List all connected accounts and their sync modes / mount points
+drivectl account list
+
+# Add a secondary Google account via browser login
+drivectl account add
+
+# Switch active account
+drivectl account switch user@domain.com
+
+# Remove an account and revoke tokens
+drivectl account remove user@domain.com
+```
+
+---
+
 ## CLI Reference: `drivectl`
 
 The `drivectl` utility provides complete command-line control:
 
 | Command | Arguments | Description |
 |---|---|---|
-| `drivectl status` | `[--json]` | Show background daemon health, account status, and tracked folders |
+| `drivectl status` | `[--json]` | Show background daemon health, account status, live sync status, and tracked folders |
+| `drivectl account list` | - | List all connected Google accounts, active status, mount points, and quotas |
+| `drivectl account switch` | `<EMAIL_OR_ID>` | Switch active account in configuration |
+| `drivectl account add` | `[--port PORT]` | Authenticate and register an additional Google account |
+| `drivectl account remove` | `<EMAIL_OR_ID>` | Disconnect and revoke credentials for a specific account |
 | `drivectl auth login` | `[--no-browser] [--port PORT]` | Authenticate Google Account via browser PKCE flow |
 | `drivectl auth status` | - | Display OAuth connection, email, and live cloud storage quota |
 | `drivectl auth logout` | - | Revoke Google tokens and disconnect active account |
 | `drivectl auth set-credentials` | `<CLIENT_ID> <CLIENT_SECRET>` | Configure custom Google Cloud Console OAuth client |
 | `drivectl auth import-credentials` | `<PATH_TO_JSON>` | Import Google Cloud `client_secret_*.json` |
 | `drivectl auth reset-credentials` | - | Reset to default official desktop client credentials |
-| `drivectl add` | `<PATH> [--mode mirror\|stream]` | Add a local directory to Google Drive synchronization |
-| `drivectl list` | - | List all currently tracked directories and sync states |
+| `drivectl add` | `<PATH> [--mode mirror\|stream] [--account ID]` | Add a local directory to Google Drive synchronization |
+| `drivectl remove` / `rm` | `<PATH>` | Remove a directory from Google Drive synchronization |
+| `drivectl sync` | `[--account ID]` | Trigger immediate background sync cycle |
+| `drivectl list` | `[--account ID]` | List all currently tracked directories and sync states |
 | `drivectl settings` | - | Open native GTK 3 Preferences configuration dialog |
-| `drivectl start` | - | Launch background IPC daemon |
-| `drivectl stop` | - | Terminate running IPC daemon |
+| `drivectl start` | - | Launch background IPC daemon & sync engine |
+| `drivectl stop` | - | Terminate running IPC daemon & sync engine |
 | `drivectl config show` | - | Print entire active JSON configuration |
 | `drivectl config set` | `<KEY> <VALUE>` | Update specific setting (e.g. `storage.sync_mode`) |
 

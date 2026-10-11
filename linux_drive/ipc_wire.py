@@ -92,6 +92,9 @@ class McpIpcRequest:
         self.list_tracked_folders = kwargs.get('list_tracked_folders')  # True if present
         self.fix_acl = kwargs.get('fix_acl')               # dict(email=..., item_id=..., account_id=...)
         self.get_streaming_mount_points = kwargs.get('get_streaming_mount_points') # dict(account_id=...)
+        self.remove_folder_from_sync = kwargs.get('remove_folder_from_sync') # dict(path=..., account_id=...)
+        self.set_sync_mode = kwargs.get('set_sync_mode') # dict(sync_mode=..., account_id=...)
+        self.trigger_sync = kwargs.get('trigger_sync') # dict(account_id=...)
 
     def serialize(self) -> bytes:
         payload = bytearray()
@@ -118,6 +121,20 @@ class McpIpcRequest:
         elif self.get_streaming_mount_points is not None:
             sub = encode_string(1, self.get_streaming_mount_points.get('account_id', ''))
             payload.extend(encode_submessage(7, sub))
+        elif self.remove_folder_from_sync:
+            sub = (encode_string(1, self.remove_folder_from_sync.get('path', '')) +
+                   encode_string(2, self.remove_folder_from_sync.get('account_id', '')))
+            payload.extend(encode_submessage(8, sub))
+        elif self.trigger_sync is not None:
+            path = self.trigger_sync.get('path', '') if isinstance(self.trigger_sync, dict) else ''
+            account_id = self.trigger_sync.get('account_id', '') if isinstance(self.trigger_sync, dict) else ''
+            sub = (encode_string(1, path) +
+                   encode_string(2, account_id))
+            payload.extend(encode_submessage(9, sub))
+        elif self.set_sync_mode:
+            sub = (encode_string(1, self.set_sync_mode.get('sync_mode', '')) +
+                   encode_string(2, self.set_sync_mode.get('account_id', '')))
+            payload.extend(encode_submessage(10, sub))
             
         return bytes(payload)
 
@@ -158,6 +175,24 @@ class McpIpcRequest:
                 req.get_streaming_mount_points = {'account_id': ''}
                 for snum, swire, sval in subfields:
                     if snum == 1: req.get_streaming_mount_points['account_id'] = sval.decode('utf-8', errors='replace')
+            elif num == 8 and wire == 2:
+                subfields = parse_protobuf_fields(val)
+                req.remove_folder_from_sync = {'path': '', 'account_id': ''}
+                for snum, swire, sval in subfields:
+                    if snum == 1: req.remove_folder_from_sync['path'] = sval.decode('utf-8', errors='replace')
+                    elif snum == 2: req.remove_folder_from_sync['account_id'] = sval.decode('utf-8', errors='replace')
+            elif num == 9 and wire == 2:
+                subfields = parse_protobuf_fields(val)
+                req.trigger_sync = {'path': '', 'account_id': ''}
+                for snum, swire, sval in subfields:
+                    if snum == 1: req.trigger_sync['path'] = sval.decode('utf-8', errors='replace')
+                    elif snum == 2: req.trigger_sync['account_id'] = sval.decode('utf-8', errors='replace')
+            elif num == 10 and wire == 2:
+                subfields = parse_protobuf_fields(val)
+                req.set_sync_mode = {'sync_mode': '', 'account_id': ''}
+                for snum, swire, sval in subfields:
+                    if snum == 1: req.set_sync_mode['sync_mode'] = sval.decode('utf-8', errors='replace')
+                    elif snum == 2: req.set_sync_mode['account_id'] = sval.decode('utf-8', errors='replace')
         return req
 
 
@@ -172,6 +207,9 @@ class McpIpcResponse:
         self.list_tracked_folders = kwargs.get('list_tracked_folders')  # dict(paths=[...], error_message=...)
         self.fix_acl = kwargs.get('fix_acl')               # dict(success=..., error_message=...)
         self.get_streaming_mount_points = kwargs.get('get_streaming_mount_points') # dict(mount_points=[...], error_message=...)
+        self.remove_folder_from_sync = kwargs.get('remove_folder_from_sync') # dict(success=..., error_message=...)
+        self.set_sync_mode = kwargs.get('set_sync_mode') # dict(success=..., error_message=...)
+        self.trigger_sync = kwargs.get('trigger_sync') # dict(success=..., error_message=...)
 
     def serialize(self) -> bytes:
         payload = bytearray()
@@ -211,6 +249,20 @@ class McpIpcResponse:
             if self.get_streaming_mount_points.get('error_message'):
                 sub.extend(encode_string(2, self.get_streaming_mount_points['error_message']))
             payload.extend(encode_submessage(7, bytes(sub)))
+        elif self.remove_folder_from_sync:
+            sub = (encode_bool(1, self.remove_folder_from_sync.get('success', False)) +
+                   encode_string(2, self.remove_folder_from_sync.get('error_message', '')))
+            payload.extend(encode_submessage(8, sub))
+        elif self.trigger_sync:
+            sub = (encode_bool(1, self.trigger_sync.get('success', False)) +
+                   encode_string(2, self.trigger_sync.get('status', 'synced')) +
+                   encode_string(3, self.trigger_sync.get('error_message', '')) +
+                   encode_int64(4, self.trigger_sync.get('items_synced', 0)))
+            payload.extend(encode_submessage(9, sub))
+        elif self.set_sync_mode:
+            sub = (encode_bool(1, self.set_sync_mode.get('success', False)) +
+                   encode_string(2, self.set_sync_mode.get('error_message', '')))
+            payload.extend(encode_submessage(10, sub))
             
         return bytes(payload)
 
@@ -265,7 +317,28 @@ class McpIpcResponse:
                         resp.get_streaming_mount_points['mount_points'].append(mp)
                     elif snum == 2:
                         resp.get_streaming_mount_points['error_message'] = sval.decode('utf-8', errors='replace')
+            elif num == 8 and wire == 2:
+                sub = parse_protobuf_fields(val)
+                resp.remove_folder_from_sync = {'success': False, 'error_message': ''}
+                for snum, swire, sval in sub:
+                    if snum == 1: resp.remove_folder_from_sync['success'] = bool(sval)
+                    elif snum == 2: resp.remove_folder_from_sync['error_message'] = sval.decode('utf-8', errors='replace')
+            elif num == 9 and wire == 2:
+                sub = parse_protobuf_fields(val)
+                resp.trigger_sync = {'success': False, 'status': '', 'error_message': '', 'items_synced': 0}
+                for snum, swire, sval in sub:
+                    if snum == 1: resp.trigger_sync['success'] = bool(sval)
+                    elif snum == 2: resp.trigger_sync['status'] = sval.decode('utf-8', errors='replace')
+                    elif snum == 3: resp.trigger_sync['error_message'] = sval.decode('utf-8', errors='replace')
+                    elif snum == 4: resp.trigger_sync['items_synced'] = int(sval)
+            elif num == 10 and wire == 2:
+                sub = parse_protobuf_fields(val)
+                resp.set_sync_mode = {'success': False, 'error_message': ''}
+                for snum, swire, sval in sub:
+                    if snum == 1: resp.set_sync_mode['success'] = bool(sval)
+                    elif snum == 2: resp.set_sync_mode['error_message'] = sval.decode('utf-8', errors='replace')
         return resp
+
 
 
 def frame_message(payload: bytes) -> bytes:

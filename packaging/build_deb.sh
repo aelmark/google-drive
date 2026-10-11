@@ -41,6 +41,7 @@ cp "${REPO_ROOT}/linux_drive/dfd_mcp_server.py" "${BUILD_DIR}/usr/lib/python3/di
 cp "${REPO_ROOT}/linux_drive/drivectl.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
 cp "${REPO_ROOT}/linux_drive/preferences_dialog.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
 cp "${REPO_ROOT}/linux_drive/oauth.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
+cp "${REPO_ROOT}/linux_drive/sync_engine.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
 
 # 2. Create Executable CLI & GUI wrappers in /usr/bin
 echo "-> Creating binary wrappers in /usr/bin..."
