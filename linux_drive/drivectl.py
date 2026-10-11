@@ -231,7 +231,8 @@ def cmd_status(args):
     print("-" * 60)
     if running:
         try:
-            resp = send_ipc(McpIpcRequest(request_id=1, list_tracked_folders=True))
+            req_arg = {"account_id": active_id} if active_id else True
+            resp = send_ipc(McpIpcRequest(request_id=1, list_tracked_folders=req_arg))
             tracked = resp.list_tracked_folders.get("paths", []) if resp.list_tracked_folders else []
             if tracked:
                 for p in tracked:

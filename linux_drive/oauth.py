@@ -509,16 +509,16 @@ class OAuthManager:
         self.save_tokens(tokens, account_id=account_id, make_active=make_active)
         return tokens["access_token"]
 
-    def get_valid_access_token(self, account_id: Optional[str] = None, make_active: Optional[bool] = None) -> str:
-        """Returns a valid access token, automatically refreshing it if expired or expiring within 60s."""
+    def get_valid_access_token(self, account_id: Optional[str] = None, make_active: Optional[bool] = None, force_refresh: bool = False) -> str:
+        """Returns a valid access token, automatically refreshing it if expired, forced, or expiring within 60s."""
         tokens = self.load_tokens(account_id=account_id)
         if not tokens or "access_token" not in tokens:
             target_str = f" for account '{account_id}'" if account_id else ""
             raise RuntimeError(f"Not authenticated{target_str}. Run 'drivectl auth login' or connect via Preferences.")
 
         expires_at = tokens.get("expires_at", 0)
-        # Refresh if token expires in less than 60 seconds
-        if time.time() >= (expires_at - 60):
+        # Refresh if forced or token expires in less than 60 seconds
+        if force_refresh or time.time() >= (expires_at - 60):
             return self.refresh_access_token(account_id=account_id, make_active=make_active)
 
         return tokens["access_token"]

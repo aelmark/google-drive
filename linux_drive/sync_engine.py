@@ -460,6 +460,16 @@ class SyncEngine(threading.Thread):
 
         # Map folder_id -> Path
         folder_map: Dict[str, Path] = {root_id: target_local_dir}
+        if not drive_id:
+            try:
+                status, root_data, _ = self._api_request(
+                    f"{self.DRIVE_FILES_API}/root?fields=id",
+                    headers={"Authorization": f"Bearer {access_token}"},
+                )
+                if status == 200 and root_data and root_data.get("id"):
+                    folder_map[root_data["id"]] = target_local_dir
+            except Exception as e:
+                logger.debug(f"Could not fetch root folder ID: {e}")
 
         folders = [it for it in items if it.get("mimeType") == "application/vnd.google-apps.folder"]
         files = [it for it in items if it.get("mimeType") != "application/vnd.google-apps.folder"]
@@ -1158,10 +1168,10 @@ class SyncEngine(threading.Thread):
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute("PRAGMA busy_timeout=5000;")
                 rows = conn.execute(
-                    "SELECT path FROM tracked_folders WHERE account_id = ? OR account_id = 'default'",
+                    "SELECT path FROM tracked_folders WHERE account_id = ?",
                     (aid,),
                 ).fetchall()
-                tracked_paths = [r[0] for r in rows]
+                tracked_paths = [r[0] for r in rows if os.path.exists(r[0])]
 
             for tf_path in tracked_paths:
                 if self._stop_event.is_set():
