@@ -16,13 +16,17 @@ CONFIG_FILE = CONFIG_DIR / "config.json"
 ACCOUNTS_DIR = CONFIG_DIR / "accounts"
 
 def ensure_mount_point_exists(mount_point: str) -> bool:
-    """Ensures that the mount point and its 'My Drive' subdirectory exist on disk."""
+    """Ensures that the mount point and its 'My Drive' and 'Shared drives' subdirectories exist on disk."""
     if not mount_point:
         return False
     try:
         mp = Path(mount_point).expanduser().resolve()
+        # If the path passed already ends with "My Drive" or "Shared drives", normalize to parent mount point
+        if mp.name in ("My Drive", "Shared drives"):
+            mp = mp.parent
         mp.mkdir(parents=True, exist_ok=True)
         (mp / "My Drive").mkdir(parents=True, exist_ok=True)
+        (mp / "Shared drives").mkdir(parents=True, exist_ok=True)
         return True
     except Exception as e:
         logging.error(f"Failed to create mount point directory {mount_point}: {e}")

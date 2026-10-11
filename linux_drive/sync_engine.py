@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-Google Drive Linux - Pure Python Sync Engine
-Performs recursive local directory scanning, MD5 and mtime comparison against
-SQLite state cache, and multipart uploads to Google Drive via Drive API v3.
+Google Drive Linux - Pure Python Two-Way Sync Engine
+Performs bidirectional synchronization between Google Drive (My Drive & Shared Drives)
+and local Linux mount folders (~/GoogleDrive...), as well as tracked local folders.
+Handles binary file downloading/uploading, Google Docs/Sheets shortcuts (.desktop & .gdoc),
+file metadata caching in SQLite, and Shared Drives discovery via Drive API v3.
 Runs in a background thread or standalone. Zero external pip dependencies.
 """
 
@@ -21,7 +23,7 @@ import urllib.request
 import urllib.parse
 import urllib.error
 from pathlib import Path
-from typing import Optional, Dict, Any, List, Tuple
+from typing import Optional, Dict, Any, List, Tuple, Set
 
 # Add project root to sys.path
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +31,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from linux_drive.oauth import oauth_manager
-from linux_drive.config import load_config, save_config
+from linux_drive.config import load_config, save_config, ensure_mount_point_exists, get_active_account_id
 
 logger = logging.getLogger("DriveSyncEngine")
 
@@ -37,23 +39,98 @@ logger = logging.getLogger("DriveSyncEngine")
 def calculate_md5(filepath: str) -> str:
     """Calculate the MD5 checksum of a local file in 64KB chunks."""
     hasher = hashlib.md5()
-    with open(filepath, "rb") as f:
-        while True:
-            chunk = f.read(65536)
-            if not chunk:
-                break
-            hasher.update(chunk)
-    return hasher.hexdigest()
+    try:
+        with open(filepath, "rb") as f:
+            while True:
+                chunk = f.read(65536)
+                if not chunk:
+                    break
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    except Exception as e:
+        logger.debug(f"Error calculating MD5 for {filepath}: {e}")
+        return ""
+
+
+def sanitize_filename(name: str) -> str:
+    """Sanitize filename to prevent illegal filesystem characters."""
+    if not name:
+        return "Untitled"
+    clean = name.replace("/", "-").replace("\x00", "").strip()
+    return clean if clean else "Untitled"
+
+
+def get_google_app_info(mime_type: str) -> Tuple[str, str, str]:
+    """Returns (extension, icon_name, generic_type_name) for Google Workspace cloud files."""
+    mapping = {
+        "application/vnd.google-apps.document": (".gdoc", "x-office-document", "Google Docs Document"),
+        "application/vnd.google-apps.spreadsheet": (".gsheet", "x-office-spreadsheet", "Google Sheets Spreadsheet"),
+        "application/vnd.google-apps.presentation": (".gslides", "x-office-presentation", "Google Slides Presentation"),
+        "application/vnd.google-apps.form": (".gform", "application-vnd.google-apps.form", "Google Forms Form"),
+        "application/vnd.google-apps.drawing": (".gdraw", "image-x-generic", "Google Drawings Drawing"),
+        "application/vnd.google-apps.site": (".gsite", "text-html", "Google Sites Site"),
+    }
+    return mapping.get(mime_type, (".glink", "text-html", "Google Drive Item"))
+
+
+def write_shortcut_files(
+    dest_dir: Path,
+    stem_name: str,
+    url: str,
+    mime_type: str,
+    file_id: str,
+    email: str = "",
+) -> Tuple[str, str]:
+    """
+    Creates both a Linux .desktop link (with native office icons) and a .gdoc/.gsheet JSON link.
+    Returns (desktop_path, json_link_path).
+    """
+    ext, icon_name, desc = get_google_app_info(mime_type)
+    desktop_file = dest_dir / f"{stem_name}.desktop"
+    json_file = dest_dir / f"{stem_name}{ext}"
+
+    desktop_content = (
+        "[Desktop Entry]\n"
+        "Version=1.0\n"
+        "Type=Link\n"
+        f"Name={stem_name}\n"
+        f"Comment={desc}\n"
+        f"URL={url}\n"
+        f"Icon={icon_name}\n"
+    )
+    try:
+        with open(desktop_file, "w", encoding="utf-8") as f:
+            f.write(desktop_content)
+        try:
+            os.chmod(desktop_file, 0o755)
+        except Exception:
+            pass
+    except Exception as e:
+        logger.warning(f"Could not write desktop shortcut {desktop_file}: {e}")
+
+    try:
+        meta = {"url": url, "doc_id": file_id, "email": email}
+        with open(json_file, "w", encoding="utf-8") as f:
+            json.dump(meta, f, indent=2)
+    except Exception as e:
+        logger.warning(f"Could not write json companion link {json_file}: {e}")
+
+    return str(desktop_file), str(json_file)
 
 
 class SyncEngine(threading.Thread):
     """
-    Background synchronization engine for Google Drive on Linux.
+    Background two-way synchronization engine for Google Drive on Linux.
+    Synchronizes:
+      1. 'My Drive' (bidirectional)
+      2. 'Shared drives' (bidirectional)
+      3. Tracked folders / 'Folders from your computer' (backup/mirror to Google Drive)
     Runs as a daemon thread or standalone CLI process.
     """
 
     DRIVE_FILES_API = "https://www.googleapis.com/drive/v3/files"
     DRIVE_UPLOAD_API = "https://www.googleapis.com/upload/drive/v3/files"
+    DRIVE_DRIVES_API = "https://www.googleapis.com/drive/v3/drives"
 
     # Ignored directory names during recursive walk
     IGNORED_DIRS = {
@@ -116,7 +193,6 @@ class SyncEngine(threading.Thread):
                 );
             """)
 
-            # Ensure columns exist if table was created by older version
             cols = [r[1] for r in conn.execute("PRAGMA table_info(tracked_folders)").fetchall()]
             if "last_synced" not in cols:
                 try:
@@ -154,6 +230,32 @@ class SyncEngine(threading.Thread):
                     drive_url TEXT NOT NULL
                 );
             """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS remote_items (
+                    file_id TEXT PRIMARY KEY,
+                    account_id TEXT NOT NULL,
+                    drive_id TEXT,
+                    name TEXT NOT NULL,
+                    mime_type TEXT,
+                    parent_id TEXT,
+                    md5 TEXT,
+                    size INTEGER,
+                    modified_time TEXT,
+                    web_view_link TEXT,
+                    local_path TEXT,
+                    trashed INTEGER DEFAULT 0
+                );
+            """)
+
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS sync_tokens (
+                    account_id TEXT PRIMARY KEY,
+                    page_token TEXT NOT NULL,
+                    last_checked REAL
+                );
+            """)
+
             conn.commit()
 
     def _api_request(
@@ -164,10 +266,7 @@ class SyncEngine(threading.Thread):
         data: Optional[bytes] = None,
         timeout: int = 60,
     ) -> Tuple[int, Optional[Dict[str, Any]], bytes]:
-        """
-        Execute an HTTP request using urllib.request.
-        Returns (status_code, parsed_json_or_None, raw_body_bytes).
-        """
+        """Execute an HTTP request using urllib.request."""
         req_headers = headers.copy() if headers else {}
         req = urllib.request.Request(url, data=data, headers=req_headers, method=method)
 
@@ -187,6 +286,9 @@ class SyncEngine(threading.Thread):
             except Exception:
                 err_json = None
             return e.code, err_json, err_body
+        except Exception as e:
+            logger.debug(f"API request failed ({method} {url}): {e}")
+            return 0, None, str(e).encode("utf-8")
 
     def _get_valid_token(self, account_id: Optional[str] = None, force_refresh: bool = False) -> Optional[str]:
         """Obtain a valid access token via oauth_manager."""
@@ -196,16 +298,417 @@ class SyncEngine(threading.Thread):
             logger.debug(f"Failed to acquire valid access token for account '{account_id}': {e}")
             return None
 
+    def _list_shared_drives(self, access_token: str) -> List[Dict[str, Any]]:
+        """Fetch all Google Workspace Shared Drives accessible by the account."""
+        drives: List[Dict[str, Any]] = []
+        page_token: Optional[str] = None
+        headers = {"Authorization": f"Bearer {access_token}"}
+
+        while True:
+            params = {"pageSize": "100"}
+            if page_token:
+                params["pageToken"] = page_token
+            url = f"{self.DRIVE_DRIVES_API}?{urllib.parse.urlencode(params)}"
+            status, data, _ = self._api_request(url, headers=headers)
+            if status != 200 or not data:
+                break
+            drives.extend(data.get("drives", []))
+            page_token = data.get("nextPageToken")
+            if not page_token:
+                break
+
+        logger.info(f"Discovered {len(drives)} Shared Drives.")
+        return drives
+
+    def _list_drive_files(
+        self,
+        access_token: str,
+        drive_id: Optional[str] = None,
+        page_limit: int = 15,
+        page_size: int = 100,
+    ) -> List[Dict[str, Any]]:
+        """
+        Fetch non-trashed files and folders for My Drive or a specific Shared Drive.
+        """
+        items: List[Dict[str, Any]] = []
+        headers = {"Authorization": f"Bearer {access_token}"}
+        page_token: Optional[str] = None
+        pages_fetched = 0
+
+        while pages_fetched < page_limit:
+            params: Dict[str, str] = {
+                "supportsAllDrives": "true",
+                "includeItemsFromAllDrives": "true",
+                "q": "trashed = false",
+                "pageSize": str(page_size),
+                "fields": "nextPageToken,files(id,name,mimeType,parents,size,md5Checksum,modifiedTime,webViewLink,trashed)",
+            }
+            if drive_id:
+                params["corpora"] = "drive"
+                params["driveId"] = drive_id
+            else:
+                params["corpora"] = "user"
+                # Exclude items that have driveId (belonging to shared drives) from user drive query
+                params["q"] = "trashed = false and 'me' in owners"
+
+            if page_token:
+                params["pageToken"] = page_token
+
+            url = f"{self.DRIVE_FILES_API}?{urllib.parse.urlencode(params)}"
+            status, data, err_body = self._api_request(url, headers=headers)
+            if status != 200 or not data:
+                logger.warning(f"Error listing files (drive_id={drive_id}): HTTP {status} {err_body}")
+                break
+
+            batch = data.get("files", [])
+            items.extend(batch)
+            pages_fetched += 1
+            page_token = data.get("nextPageToken")
+            if not page_token:
+                break
+
+        return items
+
+    def _download_remote_file(
+        self,
+        file_id: str,
+        dest_path: Path,
+        access_token: str,
+        expected_size: Optional[int] = None,
+        expected_md5: Optional[str] = None,
+    ) -> bool:
+        """
+        Download a binary file from Google Drive using alt=media.
+        Supports atomic replace and MD5 verification.
+        """
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Skip download if local file matches expected size and MD5
+        if dest_path.exists():
+            try:
+                local_size = dest_path.stat().st_size
+                if expected_size is not None and local_size == expected_size:
+                    if expected_md5:
+                        if calculate_md5(str(dest_path)) == expected_md5:
+                            return True
+                    else:
+                        return True
+            except Exception:
+                pass
+
+        # Check free disk space: abort if less than 1GB free
+        try:
+            statvfs = os.statvfs(str(dest_path.parent))
+            free_bytes = statvfs.f_frsize * statvfs.f_bavail
+            if free_bytes < 1024 * 1024 * 1024:  # < 1 GB
+                logger.warning(f"Disk space critically low. Skipping download of {dest_path}")
+                return False
+        except Exception:
+            pass
+
+        # Skip very large files (> 250MB) to conserve bandwidth unless needed
+        if expected_size and expected_size > 250 * 1024 * 1024:
+            logger.info(f"Skipping large binary file (>250MB): {dest_path.name} ({expected_size / (1024*1024):.1f}MB)")
+            return True
+
+        url = f"{self.DRIVE_FILES_API}/{file_id}?alt=media&supportsAllDrives=true"
+        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {access_token}"})
+        tmp_path = dest_path.parent / f".tmp_{dest_path.name}_{uuid.uuid4().hex[:8]}"
+
+        try:
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                with open(tmp_path, "wb") as f_out:
+                    while True:
+                        chunk = resp.read(65536)
+                        if not chunk:
+                            break
+                        f_out.write(chunk)
+            # Atomically replace destination
+            tmp_path.replace(dest_path)
+            return True
+        except Exception as e:
+            logger.warning(f"Failed to download remote file '{dest_path.name}': {e}")
+            if tmp_path.exists():
+                try:
+                    tmp_path.unlink()
+                except Exception:
+                    pass
+            return False
+
+    def _sync_remote_to_local_drive(
+        self,
+        account_id: str,
+        email: str,
+        access_token: str,
+        target_local_dir: Path,
+        drive_id: Optional[str] = None,
+        drive_name: Optional[str] = None,
+    ) -> bool:
+        """
+        Synchronize files and folders from Google Drive to local directory.
+        Works for both My Drive (drive_id=None) and Shared Drives.
+        """
+        target_local_dir.mkdir(parents=True, exist_ok=True)
+        root_id = drive_id if drive_id else "root"
+        display_name = drive_name if drive_name else "My Drive"
+        logger.info(f"Syncing remote -> local for '{display_name}' ({target_local_dir})...")
+
+        items = self._list_drive_files(access_token=access_token, drive_id=drive_id)
+        if not items:
+            logger.info(f"No items found in '{display_name}'.")
+            return True
+
+        # Map folder_id -> Path
+        folder_map: Dict[str, Path] = {root_id: target_local_dir}
+
+        folders = [it for it in items if it.get("mimeType") == "application/vnd.google-apps.folder"]
+        files = [it for it in items if it.get("mimeType") != "application/vnd.google-apps.folder"]
+
+        # Pass 1: Build directory tree
+        unresolved = folders.copy()
+        last_count = -1
+        while unresolved and len(unresolved) != last_count:
+            last_count = len(unresolved)
+            remaining = []
+            for fld in unresolved:
+                fld_id = fld["id"]
+                parents = fld.get("parents") or [root_id]
+                parent_id = parents[0]
+                if parent_id in folder_map:
+                    safe_name = sanitize_filename(fld["name"])
+                    folder_path = folder_map[parent_id] / safe_name
+                    folder_path.mkdir(parents=True, exist_ok=True)
+                    folder_map[fld_id] = folder_path
+                else:
+                    remaining.append(fld)
+            unresolved = remaining
+
+        # Any orphaned folders fall back to target_local_dir
+        for fld in unresolved:
+            safe_name = sanitize_filename(fld["name"])
+            folder_path = target_local_dir / safe_name
+            folder_path.mkdir(parents=True, exist_ok=True)
+            folder_map[fld["id"]] = folder_path
+
+        # Pass 2: Sync files
+        seen_file_paths: Set[str] = set()
+
+        for file_meta in files:
+            if self._stop_event.is_set():
+                break
+
+            file_id = file_meta["id"]
+            raw_name = file_meta.get("name", "Untitled")
+            mime_type = file_meta.get("mimeType", "application/octet-stream")
+            parents = file_meta.get("parents") or [root_id]
+            parent_id = parents[0]
+            dest_dir = folder_map.get(parent_id, target_local_dir)
+            web_link = file_meta.get("webViewLink") or f"https://drive.google.com/file/d/{file_id}/view"
+            md5_remote = file_meta.get("md5Checksum")
+            size_remote = int(file_meta.get("size", 0)) if file_meta.get("size") else None
+
+            stem_name = sanitize_filename(raw_name)
+
+            if mime_type.startswith("application/vnd.google-apps."):
+                # Cloud-native Google Doc/Sheet/Slide
+                desktop_p, json_p = write_shortcut_files(
+                    dest_dir=dest_dir,
+                    stem_name=stem_name,
+                    url=web_link,
+                    mime_type=mime_type,
+                    file_id=file_id,
+                    email=email,
+                )
+                seen_file_paths.add(desktop_p)
+                seen_file_paths.add(json_p)
+
+                with sqlite3.connect(self.db_path) as conn:
+                    conn.execute("PRAGMA busy_timeout=5000;")
+                    conn.execute(
+                        """
+                        INSERT OR REPLACE INTO tracked_files
+                        (path, folder_path, file_id, md5, mtime, size, status, last_synced)
+                        VALUES (?, ?, ?, ?, ?, ?, 'synced', ?)
+                        """,
+                        (desktop_p, str(target_local_dir), file_id, "shortcut", time.time(), 0, time.time()),
+                    )
+                    conn.execute(
+                        "INSERT OR REPLACE INTO file_urls (path, item_id, drive_url) VALUES (?, ?, ?)",
+                        (desktop_p, file_id, web_link),
+                    )
+                    conn.commit()
+
+                with self._lock:
+                    self.files_synced += 1
+
+            else:
+                # Binary file
+                dest_file = dest_dir / stem_name
+                seen_file_paths.add(str(dest_file))
+                self.current_file = str(dest_file)
+
+                download_ok = self._download_remote_file(
+                    file_id=file_id,
+                    dest_path=dest_file,
+                    access_token=access_token,
+                    expected_size=size_remote,
+                    expected_md5=md5_remote,
+                )
+
+                if download_ok and dest_file.exists():
+                    stat = dest_file.stat()
+                    local_md5 = md5_remote or calculate_md5(str(dest_file))
+
+                    with sqlite3.connect(self.db_path) as conn:
+                        conn.execute("PRAGMA busy_timeout=5000;")
+                        conn.execute(
+                            """
+                            INSERT OR REPLACE INTO tracked_files
+                            (path, folder_path, file_id, md5, mtime, size, status, last_synced)
+                            VALUES (?, ?, ?, ?, ?, ?, 'synced', ?)
+                            """,
+                            (str(dest_file), str(target_local_dir), file_id, local_md5, stat.st_mtime, stat.st_size, time.time()),
+                        )
+                        conn.execute(
+                            "INSERT OR REPLACE INTO file_urls (path, item_id, drive_url) VALUES (?, ?, ?)",
+                            (str(dest_file), file_id, web_link),
+                        )
+                        conn.commit()
+
+                    with self._lock:
+                        self.files_synced += 1
+                        if size_remote:
+                            self.bytes_synced += size_remote
+
+        return True
+
+    def _sync_local_to_remote_drive(
+        self,
+        account_id: str,
+        access_token: str,
+        target_local_dir: Path,
+        drive_id: Optional[str] = None,
+    ) -> bool:
+        """
+        Upload locally created or modified files from local mount point to Google Drive.
+        """
+        if not target_local_dir.exists():
+            return True
+
+        root_id = drive_id if drive_id else "root"
+        folder_cache: Dict[str, str] = {"": root_id}
+
+        for root, dirs, files in os.walk(str(target_local_dir)):
+            dirs[:] = [d for d in dirs if not d.startswith(".") and d not in self.IGNORED_DIRS]
+
+            rel_dir = os.path.relpath(root, str(target_local_dir))
+            if rel_dir == ".":
+                rel_dir = ""
+
+            # Ensure parent remote folder exists
+            if rel_dir not in folder_cache:
+                parent_rel, sub_name = os.path.split(rel_dir)
+                parent_remote_id = folder_cache.get(parent_rel, root_id)
+                sub_id, _ = self._find_or_create_remote_folder(
+                    folder_name=sub_name,
+                    parent_id=parent_remote_id,
+                    access_token=access_token,
+                    drive_id=drive_id,
+                )
+                if sub_id:
+                    folder_cache[rel_dir] = sub_id
+                else:
+                    continue
+
+            current_parent_remote_id = folder_cache.get(rel_dir, root_id)
+
+            for filename in files:
+                if filename.startswith("."):
+                    continue
+                if any(filename.endswith(ext) for ext in self.IGNORED_EXTS):
+                    continue
+                # Skip desktop shortcuts and json companions
+                if filename.endswith(".desktop") or filename.endswith((".gdoc", ".gsheet", ".gslides", ".gform")):
+                    continue
+
+                local_path = os.path.join(root, filename)
+                try:
+                    stat = os.stat(local_path)
+                    mtime = stat.st_mtime
+                    size = stat.st_size
+                except OSError:
+                    continue
+
+                # Query database cache
+                with sqlite3.connect(self.db_path) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cached = conn.execute(
+                        "SELECT file_id, md5, mtime, size, status FROM tracked_files WHERE path = ?",
+                        (local_path,),
+                    ).fetchone()
+
+                existing_file_id = None
+                needs_upload = False
+
+                if cached:
+                    existing_file_id = cached["file_id"]
+                    if cached["status"] == "synced" and abs(cached["mtime"] - mtime) < 0.001 and cached["size"] == size:
+                        continue
+                    local_md5 = calculate_md5(local_path)
+                    if cached["md5"] == local_md5 and cached["status"] == "synced":
+                        with sqlite3.connect(self.db_path) as conn:
+                            conn.execute("UPDATE tracked_files SET mtime = ?, size = ? WHERE path = ?", (mtime, size, local_path))
+                            conn.commit()
+                        continue
+                    needs_upload = True
+                else:
+                    local_md5 = calculate_md5(local_path)
+                    needs_upload = True
+
+                if needs_upload:
+                    logger.info(f"Uploading local file '{filename}' to Google Drive...")
+                    upload_res = self._upload_file_multipart(
+                        local_path=local_path,
+                        filename=filename,
+                        parent_id=current_parent_remote_id,
+                        existing_file_id=existing_file_id,
+                        access_token=access_token,
+                        drive_id=drive_id,
+                    )
+                    if upload_res and upload_res.get("id"):
+                        remote_file_id = upload_res["id"]
+                        drive_url = upload_res.get("webViewLink") or f"https://drive.google.com/file/d/{remote_file_id}/view"
+                        returned_md5 = upload_res.get("md5Checksum") or local_md5
+
+                        with sqlite3.connect(self.db_path) as conn:
+                            conn.execute(
+                                """
+                                INSERT OR REPLACE INTO tracked_files
+                                (path, folder_path, file_id, md5, mtime, size, status, last_synced)
+                                VALUES (?, ?, ?, ?, ?, ?, 'synced', ?)
+                                """,
+                                (local_path, str(target_local_dir), remote_file_id, returned_md5, mtime, size, time.time()),
+                            )
+                            conn.execute(
+                                "INSERT OR REPLACE INTO file_urls (path, item_id, drive_url) VALUES (?, ?, ?)",
+                                (local_path, remote_file_id, drive_url),
+                            )
+                            conn.commit()
+
+                        with self._lock:
+                            self.files_synced += 1
+                            self.bytes_synced += size
+
+        return True
+
     def _find_or_create_remote_folder(
         self,
         folder_name: str,
         parent_id: Optional[str],
         access_token: str,
+        drive_id: Optional[str] = None,
     ) -> Tuple[Optional[str], Optional[str]]:
-        """
-        Search for or create a remote folder in Google Drive.
-        Returns (folder_id, web_view_link).
-        """
+        """Search for or create a remote folder in Google Drive or Shared Drive."""
         escaped_name = folder_name.replace("'", "\\'")
         query_parts = [
             f"name = '{escaped_name}'",
@@ -218,12 +721,17 @@ class SyncEngine(threading.Thread):
             query_parts.append("'root' in parents")
 
         q_str = " and ".join(query_parts)
-        params = {
+        params: Dict[str, str] = {
             "q": q_str,
             "fields": "files(id, name, webViewLink)",
-            "spaces": "drive",
             "pageSize": "1",
+            "supportsAllDrives": "true",
+            "includeItemsFromAllDrives": "true",
         }
+        if drive_id:
+            params["corpora"] = "drive"
+            params["driveId"] = drive_id
+
         url = f"{self.DRIVE_FILES_API}?{urllib.parse.urlencode(params)}"
         headers = {"Authorization": f"Bearer {access_token}"}
 
@@ -232,7 +740,6 @@ class SyncEngine(threading.Thread):
             file_meta = data["files"][0]
             return file_meta.get("id"), file_meta.get("webViewLink")
 
-        # Not found, create remote folder
         create_meta: Dict[str, Any] = {
             "name": folder_name,
             "mimeType": "application/vnd.google-apps.folder",
@@ -241,7 +748,7 @@ class SyncEngine(threading.Thread):
             create_meta["parents"] = [parent_id]
 
         create_body = json.dumps(create_meta).encode("utf-8")
-        create_url = f"{self.DRIVE_FILES_API}?fields=id,name,webViewLink"
+        create_url = f"{self.DRIVE_FILES_API}?supportsAllDrives=true&fields=id,name,webViewLink"
         headers["Content-Type"] = "application/json; charset=UTF-8"
 
         status, create_data, err = self._api_request(create_url, method="POST", headers=headers, data=create_body)
@@ -259,11 +766,9 @@ class SyncEngine(threading.Thread):
         parent_id: Optional[str],
         existing_file_id: Optional[str],
         access_token: str,
+        drive_id: Optional[str] = None,
     ) -> Optional[Dict[str, Any]]:
-        """
-        Upload local file using Drive API v3 multipart upload.
-        Uses POST for new files or PATCH for existing files.
-        """
+        """Upload local file using Drive API v3 multipart upload."""
         try:
             stat = os.stat(local_path)
             file_size = stat.st_size
@@ -271,7 +776,6 @@ class SyncEngine(threading.Thread):
             logger.warning(f"Cannot stat local file '{local_path}': {e}")
             return None
 
-        # Guard against extremely large files if necessary (> 250MB in one chunk)
         if file_size > 250 * 1024 * 1024:
             logger.warning(f"Skipping large file '{local_path}' ({file_size / (1024*1024):.1f}MB exceeds 250MB limit)")
             return None
@@ -310,15 +814,14 @@ class SyncEngine(threading.Thread):
         }
 
         if existing_file_id:
-            url = f"{self.DRIVE_UPLOAD_API}/{existing_file_id}?uploadType=multipart&fields=id,name,md5Checksum,webViewLink"
+            url = f"{self.DRIVE_UPLOAD_API}/{existing_file_id}?uploadType=multipart&supportsAllDrives=true&fields=id,name,md5Checksum,webViewLink"
             method = "PATCH"
         else:
-            url = f"{self.DRIVE_UPLOAD_API}?uploadType=multipart&fields=id,name,md5Checksum,webViewLink"
+            url = f"{self.DRIVE_UPLOAD_API}?uploadType=multipart&supportsAllDrives=true&fields=id,name,md5Checksum,webViewLink"
             method = "POST"
 
         status, data, err_body = self._api_request(url, method=method, headers=headers, data=bytes(body))
 
-        # If existing_file_id returned 404 (file deleted remotely), fallback to creating as new
         if existing_file_id and status == 404:
             logger.info(f"Remote file '{existing_file_id}' not found; recreating as new file.")
             return self._upload_file_multipart(
@@ -327,6 +830,7 @@ class SyncEngine(threading.Thread):
                 parent_id=parent_id,
                 existing_file_id=None,
                 access_token=access_token,
+                drive_id=drive_id,
             )
 
         if status in (200, 201) and data:
@@ -341,9 +845,7 @@ class SyncEngine(threading.Thread):
         account_id: Optional[str],
         access_token: str,
     ) -> bool:
-        """
-        Recursively synchronise a single local folder into Google Drive.
-        """
+        """Recursively synchronise a single local folder into Google Drive (Tracked Folders)."""
         folder_path = os.path.abspath(folder_path)
         if not os.path.isdir(folder_path):
             logger.warning(f"Tracked path is not a directory or does not exist: {folder_path}")
@@ -373,7 +875,6 @@ class SyncEngine(threading.Thread):
                 conn.commit()
             return False
 
-        # Store remote root folder url
         if remote_root_url:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute(
@@ -382,25 +883,17 @@ class SyncEngine(threading.Thread):
                 )
                 conn.commit()
 
-        # Cache of relative subdirectory paths to remote folder IDs
-        # key: relative path string, e.g. "" or "sub1" or "sub1/sub2"
         folder_id_cache: Dict[str, str] = {"": remote_root_id}
-
         seen_local_files = set()
         folder_has_errors = False
 
         for root, dirs, files in os.walk(folder_path):
-            # Prune hidden and ignored directories in-place
-            dirs[:] = [
-                d for d in dirs
-                if not d.startswith(".") and d not in self.IGNORED_DIRS
-            ]
+            dirs[:] = [d for d in dirs if not d.startswith(".") and d not in self.IGNORED_DIRS]
 
             rel_dir = os.path.relpath(root, folder_path)
             if rel_dir == ".":
                 rel_dir = ""
 
-            # Ensure parent remote folder exists
             if rel_dir not in folder_id_cache:
                 parent_rel, sub_name = os.path.split(rel_dir)
                 parent_remote_id = folder_id_cache.get(parent_rel, remote_root_id)
@@ -410,7 +903,6 @@ class SyncEngine(threading.Thread):
                     access_token=access_token,
                 )
                 if not sub_remote_id:
-                    logger.error(f"Cannot create remote directory for '{rel_dir}'")
                     folder_has_errors = True
                     continue
                 folder_id_cache[rel_dir] = sub_remote_id
@@ -424,11 +916,8 @@ class SyncEngine(threading.Thread):
 
             current_remote_parent_id = folder_id_cache[rel_dir]
 
-            # Process files in directory
             for filename in files:
-                if filename.startswith("."):
-                    continue
-                if any(filename.endswith(ext) for ext in self.IGNORED_EXTS):
+                if filename.startswith(".") or any(filename.endswith(ext) for ext in self.IGNORED_EXTS):
                     continue
 
                 local_file_path = os.path.join(root, filename)
@@ -443,7 +932,6 @@ class SyncEngine(threading.Thread):
 
                 self.current_file = local_file_path
 
-                # Check state cache in SQLite
                 with sqlite3.connect(self.db_path) as conn:
                     conn.row_factory = sqlite3.Row
                     cached = conn.execute(
@@ -456,18 +944,11 @@ class SyncEngine(threading.Thread):
 
                 if cached:
                     existing_file_id = cached["file_id"]
-                    # If mtime and size match exactly and status was 'synced', file is unchanged
-                    if (
-                        cached["status"] == "synced"
-                        and abs(cached["mtime"] - mtime) < 0.001
-                        and cached["size"] == size
-                    ):
+                    if cached["status"] == "synced" and abs(cached["mtime"] - mtime) < 0.001 and cached["size"] == size:
                         continue
 
-                    # If mtime/size differ, compute MD5 to verify content change
                     local_md5 = calculate_md5(local_file_path)
                     if cached["md5"] == local_md5 and cached["status"] == "synced":
-                        # Content is identical, just mtime was touched; update metadata
                         with sqlite3.connect(self.db_path) as conn:
                             conn.execute(
                                 "UPDATE tracked_files SET mtime = ?, size = ? WHERE path = ?",
@@ -475,7 +956,6 @@ class SyncEngine(threading.Thread):
                             )
                             conn.commit()
                         continue
-
                     needs_upload = True
                 else:
                     local_md5 = calculate_md5(local_file_path)
@@ -516,32 +996,7 @@ class SyncEngine(threading.Thread):
                             self.bytes_synced += size
                     else:
                         folder_has_errors = True
-                        with sqlite3.connect(self.db_path) as conn:
-                            conn.execute(
-                                """
-                                INSERT OR REPLACE INTO tracked_files
-                                (path, folder_path, file_id, md5, mtime, size, status, last_synced)
-                                VALUES (?, ?, ?, ?, ?, ?, 'error', ?)
-                                """,
-                                (local_file_path, folder_path, existing_file_id or "", local_md5, mtime, size, time.time()),
-                            )
-                            conn.commit()
 
-        # Clean up tracked_files that have been deleted locally
-        with sqlite3.connect(self.db_path) as conn:
-            conn.row_factory = sqlite3.Row
-            rows = conn.execute(
-                "SELECT path FROM tracked_files WHERE folder_path = ?",
-                (folder_path,),
-            ).fetchall()
-            for r in rows:
-                p = r["path"]
-                if p not in seen_local_files and not os.path.exists(p):
-                    conn.execute("DELETE FROM tracked_files WHERE path = ?", (p,))
-                    conn.execute("DELETE FROM file_urls WHERE path = ?", (p,))
-            conn.commit()
-
-        # Update folder final status
         final_status = "error" if folder_has_errors else "synced"
         with sqlite3.connect(self.db_path) as conn:
             conn.execute(
@@ -554,8 +1009,10 @@ class SyncEngine(threading.Thread):
 
     def run_sync_cycle(self, account_id: Optional[str] = None) -> Dict[str, Any]:
         """
-        Execute one complete synchronization cycle across tracked folders.
-        Gracefully handles offline/disconnected state and authentication failures.
+        Execute one complete synchronization cycle across:
+          1. Mount Point: My Drive (bidirectional)
+          2. Mount Point: Shared Drives (bidirectional)
+          3. Tracked folders / Folders from your computer
         """
         with self._lock:
             self.state = "syncing"
@@ -563,95 +1020,145 @@ class SyncEngine(threading.Thread):
             self.files_synced = 0
             self.bytes_synced = 0
 
-        logger.info(f"Starting sync cycle (account filter: {account_id or 'all'})...")
+        cfg = load_config()
+        active_id = account_id or get_active_account_id(cfg)
+        logger.info(f"Starting sync cycle (active account: {active_id})...")
 
-        # Check authentication & obtain access token
-        access_token = self._get_valid_token(account_id=account_id)
-        if not access_token:
-            logger.warning("Google Drive authentication unavailable or token expired. Setting state to disconnected.")
+        # Discover accounts to sync
+        accounts_to_process: List[Tuple[str, Dict[str, Any]]] = []
+        if account_id and account_id in cfg.get("accounts", {}):
+            accounts_to_process.append((account_id, cfg["accounts"][account_id]))
+        elif cfg.get("accounts"):
+            for aid, acc in cfg["accounts"].items():
+                if acc.get("authenticated"):
+                    accounts_to_process.append((aid, acc))
+        else:
+            # Fallback for single-account config
+            acc = cfg.get("account", {})
+            if acc.get("authenticated"):
+                accounts_to_process.append(("primary", acc))
+
+        if not accounts_to_process:
+            logger.info("No authenticated Google accounts configured for synchronization.")
             with self._lock:
                 self.state = "disconnected"
-                self.last_error = "Authentication unavailable or refresh token invalid."
-            return self.get_sync_progress()
-
-        # Fetch tracked folders from SQLite
-        folders_to_sync: List[Tuple[str, Optional[str]]] = []
-        with sqlite3.connect(self.db_path) as conn:
-            conn.execute("PRAGMA busy_timeout=5000;")
-            if account_id:
-                rows = conn.execute(
-                    "SELECT path, account_id FROM tracked_folders WHERE account_id = ?",
-                    (account_id,),
-                ).fetchall()
-            else:
-                rows = conn.execute("SELECT path, account_id FROM tracked_folders").fetchall()
-            folders_to_sync = [(r[0], r[1]) for r in rows]
-
-        # If SQLite table is empty, check config.json and populate
-        if not folders_to_sync:
-            cfg = load_config()
-            imported_folders = []
-            for aid, acc in cfg.get("accounts", {}).items():
-                for tf in acc.get("tracked_folders", []):
-                    tf_path = tf.get("path") if isinstance(tf, dict) else tf
-                    if tf_path:
-                        imported_folders.append((tf_path, aid))
-            if not imported_folders:
-                for tf in cfg.get("tracked_folders", []):
-                    tf_path = tf.get("path") if isinstance(tf, dict) else tf
-                    if tf_path:
-                        imported_folders.append((tf_path, cfg.get("active_account_id", "primary")))
-
-            if imported_folders:
-                with sqlite3.connect(self.db_path) as conn:
-                    conn.execute("PRAGMA busy_timeout=5000;")
-                    for p, aid in imported_folders:
-                        conn.execute(
-                            "INSERT OR IGNORE INTO tracked_folders (path, account_id, sync_mode, status) VALUES (?, ?, 'mirror', 'synced')",
-                            (p, aid),
-                        )
-                    conn.commit()
-                folders_to_sync = imported_folders
-
-        if not folders_to_sync:
-            logger.info("No tracked folders configured for synchronization.")
-            with self._lock:
-                self.state = "idle"
-                self.last_sync_time = time.time()
+                self.last_error = "No authenticated accounts configured."
             return self.get_sync_progress()
 
         cycle_had_errors = False
 
-        for f_path, f_account in folders_to_sync:
+        for aid, acc_info in accounts_to_process:
             if self._stop_event.is_set():
                 break
 
-            target_account = f_account or account_id
-            target_token = access_token
-            # If folder belongs to a different specific account, get its token
-            if target_account and target_account != account_id:
-                t = self._get_valid_token(account_id=target_account)
-                if t:
-                    target_token = t
+            email = acc_info.get("email", aid)
+            logger.info(f"Processing sync for account: {email} ({aid})")
+            access_token = self._get_valid_token(account_id=aid)
+            if not access_token:
+                logger.warning(f"Could not acquire access token for {email}. Skipping.")
+                cycle_had_errors = True
+                continue
 
+            # -------------------------------------------------------------
+            # Part 1: Mount Point Sync (My Drive & Shared Drives)
+            # -------------------------------------------------------------
+            mount_point_str = acc_info.get("mount_point")
+            if not mount_point_str and aid == active_id:
+                mount_point_str = cfg.get("storage", {}).get("mount_point")
+            if not mount_point_str:
+                mount_point_str = str(Path.home() / f"GoogleDrive - {email}")
+
+            ensure_mount_point_exists(mount_point_str)
+            mount_path = Path(mount_point_str).expanduser()
+            my_drive_dir = mount_path / "My Drive"
+            shared_drives_dir = mount_path / "Shared drives"
+
+            # 1A. Sync My Drive (Remote -> Local)
             try:
-                success = self._sync_folder(
-                    folder_path=f_path,
-                    account_id=target_account,
-                    access_token=target_token,
+                self.current_folder = str(my_drive_dir)
+                self._sync_remote_to_local_drive(
+                    account_id=aid,
+                    email=email,
+                    access_token=access_token,
+                    target_local_dir=my_drive_dir,
+                    drive_id=None,
+                    drive_name="My Drive",
                 )
-                if not success:
+            except Exception as e:
+                logger.exception(f"Error syncing My Drive remote->local for {email}: {e}")
+                cycle_had_errors = True
+
+            # 1B. Sync My Drive (Local -> Remote)
+            try:
+                self._sync_local_to_remote_drive(
+                    account_id=aid,
+                    access_token=access_token,
+                    target_local_dir=my_drive_dir,
+                    drive_id=None,
+                )
+            except Exception as e:
+                logger.exception(f"Error syncing My Drive local->remote for {email}: {e}")
+                cycle_had_errors = True
+
+            # 1C. Sync Shared Drives
+            try:
+                shared_drives = self._list_shared_drives(access_token)
+                for sd in shared_drives:
+                    if self._stop_event.is_set():
+                        break
+                    sd_id = sd.get("id")
+                    sd_name = sd.get("name", "Shared Drive")
+                    safe_sd_name = sanitize_filename(sd_name)
+                    local_sd_dir = shared_drives_dir / safe_sd_name
+                    local_sd_dir.mkdir(parents=True, exist_ok=True)
+
+                    self.current_folder = str(local_sd_dir)
+                    # Remote -> Local
+                    self._sync_remote_to_local_drive(
+                        account_id=aid,
+                        email=email,
+                        access_token=access_token,
+                        target_local_dir=local_sd_dir,
+                        drive_id=sd_id,
+                        drive_name=sd_name,
+                    )
+                    # Local -> Remote
+                    self._sync_local_to_remote_drive(
+                        account_id=aid,
+                        access_token=access_token,
+                        target_local_dir=local_sd_dir,
+                        drive_id=sd_id,
+                    )
+            except Exception as e:
+                logger.exception(f"Error syncing Shared Drives for {email}: {e}")
+                cycle_had_errors = True
+
+            # -------------------------------------------------------------
+            # Part 2: Tracked Folders ('Folders from your computer')
+            # -------------------------------------------------------------
+            tracked_paths: List[str] = []
+            with sqlite3.connect(self.db_path) as conn:
+                conn.execute("PRAGMA busy_timeout=5000;")
+                rows = conn.execute(
+                    "SELECT path FROM tracked_folders WHERE account_id = ? OR account_id = 'default'",
+                    (aid,),
+                ).fetchall()
+                tracked_paths = [r[0] for r in rows]
+
+            for tf_path in tracked_paths:
+                if self._stop_event.is_set():
+                    break
+                try:
+                    ok = self._sync_folder(
+                        folder_path=tf_path,
+                        account_id=aid,
+                        access_token=access_token,
+                    )
+                    if not ok:
+                        cycle_had_errors = True
+                except Exception as ex:
+                    logger.warning(f"Error syncing tracked folder {tf_path}: {ex}")
                     cycle_had_errors = True
-            except (urllib.error.URLError, ConnectionError, OSError) as net_err:
-                logger.warning(f"Network error syncing folder '{f_path}': {net_err}")
-                cycle_had_errors = True
-                with self._lock:
-                    self.last_error = f"Network connection lost: {net_err}"
-            except Exception as ex:
-                logger.exception(f"Unexpected error syncing folder '{f_path}': {ex}")
-                cycle_had_errors = True
-                with self._lock:
-                    self.last_error = str(ex)
 
         with self._lock:
             self.state = "error" if cycle_had_errors else "idle"
@@ -666,8 +1173,7 @@ class SyncEngine(threading.Thread):
         """Background thread execution loop."""
         logger.info(f"SyncEngine thread started (interval: {self.sync_interval}s)")
 
-        # Initial delay on startup before first cycle
-        if self._stop_event.wait(timeout=3.0):
+        if self._stop_event.wait(timeout=2.0):
             return
 
         while not self._stop_event.is_set():
@@ -684,7 +1190,6 @@ class SyncEngine(threading.Thread):
                     self.state = "error"
                     self.last_error = str(e)
 
-            # Sleep until next sync interval or wake up immediately on trigger
             self._trigger_event.wait(timeout=self.sync_interval)
 
         logger.info("SyncEngine thread exiting.")
@@ -720,7 +1225,7 @@ class SyncEngine(threading.Thread):
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
-    parser = argparse.ArgumentParser(description="Google Drive Linux - Pure Python Sync Engine")
+    parser = argparse.ArgumentParser(description="Google Drive Linux - Pure Python Two-Way Sync Engine")
     parser.add_argument("--account", help="Optional account ID filter")
     parser.add_argument("--db", help="Path to daemon_state.db")
     parser.add_argument("--once", action="store_true", help="Run a single sync pass and exit")

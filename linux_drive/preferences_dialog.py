@@ -640,9 +640,10 @@ class PreferencesWindow(Gtk.Window):
     def _update_mount_status_label(self, mount_point: str):
         p = Path(mount_point).expanduser()
         my_drive = p / "My Drive"
-        if my_drive.exists():
+        shared_drives = p / "Shared drives"
+        if my_drive.exists() or shared_drives.exists():
             self.lbl_mount_status.set_markup(
-                f"<span foreground='#137333'>✓ Mount directory active at: <tt>{my_drive}</tt></span>"
+                f"<span foreground='#137333'>✓ Mount active at: <tt>{p}</tt> (My Drive &amp; Shared drives)</span>"
             )
         elif p.exists():
             self.lbl_mount_status.set_markup(
@@ -674,9 +675,8 @@ class PreferencesWindow(Gtk.Window):
         mp = self.entry_mount.get_text().strip()
         if mp:
             p = Path(mp).expanduser()
-            my_drive = p / "My Drive"
-            target = str(my_drive if my_drive.exists() else p)
-            ensure_mount_point_exists(target)
+            ensure_mount_point_exists(str(p))
+            target = str(p)
             try:
                 subprocess.Popen(["xdg-open", target])
             except Exception:
