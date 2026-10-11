@@ -48,6 +48,11 @@ from linux_drive.ipc_wire import (
     read_framed_message
 )
 from linux_drive.oauth import oauth_manager, sanitize_account_id, TOKENS_FILE
+try:
+    from linux_drive import __version__, __deploy_date__
+except ImportError:
+    __version__ = "1.12"
+    __deploy_date__ = "10/11/2026 19:10"
 
 def get_socket_path() -> str:
     return f"/tmp/drivefs_ipc.{os.getuid()}"
@@ -165,12 +170,21 @@ def cmd_status(args):
 
     print("=" * 60)
     print(" Google Drive for Linux - Status")
+    print(f" Version          : {__version__} (Deployed: {__deploy_date__})")
     print("=" * 60)
     if running:
         state_str = "🟢 RUNNING (auto-started)" if auto_started else "🟢 RUNNING"
     else:
         state_str = "🔴 STOPPED"
     print(f" Daemon State     : {state_str}")
+    tray_running = False
+    try:
+        from linux_drive.tray_indicator import is_tray_running
+        tray_running = is_tray_running()
+    except Exception:
+        pass
+    tray_str = "🟢 RUNNING" if tray_running else "🔴 STOPPED (run 'drivectl tray start')"
+    print(f" Tray Indicator   : {tray_str}")
     print(f" IPC Socket       : {get_socket_path()}")
     print(f" Config File      : {CONFIG_FILE}")
     print(f" Active Account   : {active_id}")
@@ -533,6 +547,72 @@ def cmd_stop(args):
             pass
     print("Google Drive daemon stopped.")
 
+def cmd_tray(args):
+    action = getattr(args, "action", "status") or "status"
+    from linux_drive.tray_indicator import is_tray_running, TRAY_PID_FILE
+    running = is_tray_running()
+
+    if action == "status":
+        if running:
+            try:
+                pid = Path(TRAY_PID_FILE).read_text().strip()
+                print(f"Tray Indicator    : 🟢 RUNNING (PID: {pid})")
+            except Exception:
+                print("Tray Indicator    : 🟢 RUNNING")
+        else:
+            print("Tray Indicator    : 🔴 STOPPED")
+            print(" (Start tray with 'drivectl tray start' or 'google-drive --tray')")
+
+    elif action == "start":
+        if running:
+            print("Tray indicator is already running.")
+            return
+        print("Starting Google Drive Tray Indicator...")
+        cmd = [sys.executable, "-m", "linux_drive.tray_indicator"]
+        if getattr(args, "pill", False):
+            cmd.append("--pill")
+        subprocess.Popen(cmd, start_new_session=True)
+        time.sleep(0.5)
+        if is_tray_running():
+            print("✓ Google Drive Tray Indicator started successfully.")
+        else:
+            print("Tray indicator launched.")
+
+    elif action == "stop":
+        if not running:
+            print("Tray indicator is not running.")
+            return
+        try:
+            pid = int(Path(TRAY_PID_FILE).read_text().strip())
+            os.kill(pid, 15)  # SIGTERM
+            time.sleep(0.3)
+            if os.path.exists(TRAY_PID_FILE):
+                os.unlink(TRAY_PID_FILE)
+            print("✓ Google Drive Tray Indicator stopped.")
+        except Exception:
+            subprocess.run(["pkill", "-f", "linux_drive.tray_indicator"], capture_output=True)
+            if os.path.exists(TRAY_PID_FILE):
+                try:
+                    os.unlink(TRAY_PID_FILE)
+                except Exception:
+                    pass
+            print("✓ Tray process terminated.")
+
+    elif action == "restart":
+        if running:
+            try:
+                pid = int(Path(TRAY_PID_FILE).read_text().strip())
+                os.kill(pid, 15)
+                time.sleep(0.5)
+            except Exception:
+                pass
+        cmd = [sys.executable, "-m", "linux_drive.tray_indicator"]
+        if getattr(args, "pill", False):
+            cmd.append("--pill")
+        subprocess.Popen(cmd, start_new_session=True)
+        time.sleep(0.5)
+        print("✓ Google Drive Tray Indicator restarted.")
+
 def cmd_selective_sync(args):
     action = getattr(args, "action", "list") or "list"
     target_account = getattr(args, "account", None)
@@ -711,6 +791,11 @@ def main():
         prog="drivectl",
         description="Google Drive Linux - CLI Control & Configuration Tool"
     )
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version=f"Google Drive for Linux - Version {__version__} (Deployed: {__deploy_date__})"
+    )
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # status
@@ -840,6 +925,16 @@ def main():
 
     p_stop = subparsers.add_parser("stop", help="Stop the background daemon")
     p_stop.set_defaults(func=cmd_stop)
+
+    # tray
+    p_tray = subparsers.add_parser("tray", help="Control or query system tray indicator")
+    p_tray.add_argument("action", nargs="?", choices=["start", "stop", "status", "restart"], default="status", help="Tray action")
+    p_tray.add_argument("--pill", action="store_true", help="Enable companion floating desktop status pill")
+    p_tray.set_defaults(func=cmd_tray)
+
+    # version
+    p_version = subparsers.add_parser("version", help="Print version and deployment information")
+    p_version.set_defaults(func=lambda args: print(f"Google Drive for Linux - Version {__version__}\nDeployment Date & Time: {__deploy_date__}"))
 
     args = parser.parse_args()
     if not args.command:

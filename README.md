@@ -1,5 +1,7 @@
 # Google Drive Desktop & MCP Server for Linux
 
+[![Version: 1.12](https://img.shields.io/badge/version-1.12-brightgreen.svg)](https://aisgit.armellini.net/aelmark/google-drive)
+[![Deployment: 10/11/2026 19:10](https://img.shields.io/badge/deployment-10%2F11%2F2026%2019%3A10-blue.svg)](https://aisgit.armellini.net/aelmark/google-drive)
 [![Platform: Linux](https://img.shields.io/badge/platform-Linux-blue.svg)](https://aisgit.armellini.net/aelmark/google-drive)
 [![Python: 3.10+](https://img.shields.io/badge/python-3.10+-brightgreen.svg)](https://www.python.org/)
 [![GUI: GTK 3](https://img.shields.io/badge/gui-GTK%203-red.svg)](https://www.gtk.org/)
@@ -12,6 +14,7 @@ A native Linux desktop client, background synchronization engine, and Model Cont
 
 ## Highlights
 
+- **Persistent System Tray AppIndicator**: Native panel tray icon displaying live synchronization status (`🟢 Up to date`, `🔄 Synchronizing...`, `🔴 Stopped`), active account email, quick folder launcher, immediate sync trigger, and deployment metadata (Version 1.12, Deployed: 10/11/2026 19:10).
 - **Multi-Account Concurrency**: Connect multiple Google Accounts (e.g., Google Workspace + personal Gmail) simultaneously on the same machine, each with independent sync modes (Stream vs Mirror), isolated mount points (`~/GoogleDrive`, `~/GoogleDrive - user@domain.com`), and dedicated token storage.
 - **Pure-Python Sync Engine**: Background file sync engine built strictly with the Python standard library; compares MD5/mtime/size hashes in SQLite, uploads changes via Drive API v3 multipart upload, and provides live sync progress tracking.
 - **Modernized Desktop Interface**: Polished GTK 3 interface following Google Material and GNOME Adwaita design language, featuring instant sync mode auto-saving, account switching, dynamic folder removal, and quick file manager shortcuts.
@@ -84,7 +87,7 @@ If you have cloned the repository or downloaded the `.deb` directly:
 ```bash
 # Install via apt to resolve any system dependencies automatically
 sudo apt-get update
-sudo apt-get install -y --fix-broken ./dist/google-drive-desktop_1.0.0_all.deb
+sudo apt-get install -y --fix-broken ./dist/google-drive-desktop_1.12_all.deb
 
 # Enable and start the user background service
 systemctl --user daemon-reload
@@ -226,6 +229,8 @@ The `drivectl` utility provides complete command-line control:
 | `drivectl settings` | - | Open native GTK 3 Preferences configuration dialog |
 | `drivectl start` | - | Launch background IPC daemon & sync engine |
 | `drivectl stop` | - | Terminate running IPC daemon & sync engine |
+| `drivectl tray` | `[status\|start\|stop\|restart] [--pill]` | Control or query system tray indicator status |
+| `drivectl version` / `-v` | - | Display version (1.12) and deployment timestamp (10/11/2026 19:10) |
 | `drivectl config show` | - | Print entire active JSON configuration |
 | `drivectl config set` | `<KEY> <VALUE>` | Update specific setting (e.g. `storage.sync_mode`) |
 

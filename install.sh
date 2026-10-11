@@ -19,7 +19,7 @@ CYAN="\033[36m"
 RESET="\033[0m"
 
 REPO_BASE_URL="https://aisgit.armellini.net/aelmark/google-drive/raw/branch/main"
-DEB_FILENAME="google-drive-desktop_1.0.0_all.deb"
+DEB_FILENAME="google-drive-desktop_1.12_all.deb"
 DEB_REMOTE_URL="${REPO_BASE_URL}/dist/${DEB_FILENAME}"
 
 echo -e "${BLUE}${BOLD}======================================================${RESET}"
@@ -162,8 +162,9 @@ install_user() {
     USER_APPS="${HOME}/.local/share/applications"
     USER_ICONS="${HOME}/.local/share/icons/hicolor"
     USER_SYSTEMD="${HOME}/.config/systemd/user"
+    USER_TYPELIBS="${HOME}/.local/lib/girepository-1.0"
 
-    mkdir -p "${USER_BIN}" "${USER_LIB}" "${USER_APPS}" "${USER_SYSTEMD}"
+    mkdir -p "${USER_BIN}" "${USER_LIB}" "${USER_APPS}" "${USER_SYSTEMD}" "${USER_TYPELIBS}"
 
     # Find source files
     SRC_DIR=""
@@ -184,6 +185,7 @@ install_user() {
         
         cp -r "${TEMP_DIR}/extracted/usr/lib/python3/dist-packages/linux_drive/"* "${USER_LIB}/"
         cp -r "${TEMP_DIR}/extracted/usr/share/icons/"* "${HOME}/.local/share/icons/" 2>/dev/null || true
+        cp -r "${TEMP_DIR}/extracted/usr/share/google-drive/typelibs/"* "${USER_TYPELIBS}/" 2>/dev/null || true
     else
         # Copy Python files from source
         echo -e "-> Copying Python package files..."
@@ -197,6 +199,11 @@ install_user() {
                 fi
             done
         fi
+        # Copy GObject typelibs
+        if [ -d "${SRC_DIR}/assets/typelibs" ]; then
+            echo -e "-> Copying GObject typelibs..."
+            cp -r "${SRC_DIR}/assets/typelibs/"* "${USER_TYPELIBS}/" 2>/dev/null || true
+        fi
     fi
 
     # Create wrappers in ~/.local/bin
@@ -206,6 +213,7 @@ install_user() {
 #!/usr/bin/env python3
 import sys
 import os
+import subprocess
 from pathlib import Path
 
 # Add user lib to path
@@ -222,9 +230,22 @@ def main():
         daemon.start()
         return
 
+    if len(sys.argv) > 1 and sys.argv[1] == "--tray":
+        from linux_drive.tray_indicator import main as tray_main
+        tray_main()
+        return
+
     # Check if daemon is running, if not start it in background
     if not is_daemon_running():
         ensure_daemon_running(timeout=4.0)
+
+    # Ensure tray indicator is running in the background for active desktop
+    try:
+        from linux_drive.tray_indicator import is_tray_running
+        if not is_tray_running():
+            subprocess.Popen([sys.executable, "-m", "linux_drive.tray_indicator"], start_new_session=True)
+    except Exception:
+        pass
 
     if len(sys.argv) > 1 and sys.argv[1] == "--status":
         from linux_drive.drivectl import cmd_status
@@ -313,8 +334,8 @@ EOF
 [Desktop Entry]
 Type=Application
 Name=Google Drive
-Comment=Google Drive Desktop Background Sync Daemon
-Exec=${USER_BIN}/google-drive --daemon
+Comment=Google Drive Desktop Background Sync Daemon & System Tray Indicator
+Exec=${USER_BIN}/google-drive --tray
 Terminal=false
 NoDisplay=true
 X-GNOME-Autostart-enabled=true
@@ -326,6 +347,12 @@ EOF
         echo -e "${GREEN}-> Enabling Google Drive user service in systemd...${RESET}"
         systemctl --user daemon-reload || true
         systemctl --user enable --now google-drive || true
+    fi
+
+    # Activate System Tray Indicator for current graphical desktop session
+    if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then
+        echo -e "${GREEN}-> Activating Google Drive System Tray Indicator...${RESET}"
+        "${USER_BIN}/drivectl" tray start >/dev/null 2>&1 || true
     fi
 
     # Update desktop database
@@ -352,6 +379,7 @@ echo -e "${GREEN}${BOLD}✓ Google Drive Desktop successfully installed!${RESET}
 echo ""
 echo -e "${BOLD}Quick Usage Guide:${RESET}"
 echo -e "  • ${BLUE}Launch GUI Preferences:${RESET}      google-drive  (or from GNOME App Menu)"
+echo -e "  • ${BLUE}System Tray Indicator:${RESET}       drivectl tray [status|start|stop|restart]"
 echo -e "  • ${BLUE}CLI Status & Quota:${RESET}          drivectl status"
 echo -e "  • ${BLUE}Authenticate Account:${RESET}        drivectl auth login"
 echo -e "  • ${BLUE}Track a local folder:${RESET}        drivectl add ~/Documents"

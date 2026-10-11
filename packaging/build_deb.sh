@@ -8,7 +8,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 PKG_NAME="google-drive-desktop"
-PKG_VERSION="1.0.0"
+PKG_VERSION="1.12"
 PKG_ARCH="all"
 BUILD_DIR="${REPO_ROOT}/dist/${PKG_NAME}_${PKG_VERSION}_${PKG_ARCH}"
 DEB_FILE="${REPO_ROOT}/dist/${PKG_NAME}_${PKG_VERSION}_${PKG_ARCH}.deb"
@@ -20,6 +20,8 @@ rm -rf "${BUILD_DIR}"
 mkdir -p "${BUILD_DIR}/DEBIAN"
 mkdir -p "${BUILD_DIR}/usr/bin"
 mkdir -p "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive"
+mkdir -p "${BUILD_DIR}/usr/lib/x86_64-linux-gnu/girepository-1.0"
+mkdir -p "${BUILD_DIR}/usr/share/google-drive/typelibs"
 mkdir -p "${BUILD_DIR}/usr/lib/systemd/user/default.target.wants"
 mkdir -p "${BUILD_DIR}/etc/xdg/autostart"
 mkdir -p "${BUILD_DIR}/usr/share/applications"
@@ -42,6 +44,14 @@ cp "${REPO_ROOT}/linux_drive/drivectl.py" "${BUILD_DIR}/usr/lib/python3/dist-pac
 cp "${REPO_ROOT}/linux_drive/preferences_dialog.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
 cp "${REPO_ROOT}/linux_drive/oauth.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
 cp "${REPO_ROOT}/linux_drive/sync_engine.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
+cp "${REPO_ROOT}/linux_drive/tray_indicator.py" "${BUILD_DIR}/usr/lib/python3/dist-packages/linux_drive/"
+
+# 1b. Copy bundled GObject Typelibs
+if [ -d "${REPO_ROOT}/assets/typelibs" ]; then
+    echo "-> Copying GObject typelibs..."
+    cp -r "${REPO_ROOT}/assets/typelibs/"* "${BUILD_DIR}/usr/lib/x86_64-linux-gnu/girepository-1.0/" 2>/dev/null || true
+    cp -r "${REPO_ROOT}/assets/typelibs/"* "${BUILD_DIR}/usr/share/google-drive/typelibs/" 2>/dev/null || true
+fi
 
 # 2. Create Executable CLI & GUI wrappers in /usr/bin
 echo "-> Creating binary wrappers in /usr/bin..."
@@ -49,6 +59,7 @@ echo "-> Creating binary wrappers in /usr/bin..."
 cat << 'EOF' > "${BUILD_DIR}/usr/bin/google-drive"
 #!/usr/bin/env python3
 import sys
+import subprocess
 from linux_drive.drivectl import is_daemon_running, ensure_daemon_running
 
 def main():
@@ -58,9 +69,22 @@ def main():
         daemon.start()
         return
 
+    if len(sys.argv) > 1 and sys.argv[1] == "--tray":
+        from linux_drive.tray_indicator import main as tray_main
+        tray_main()
+        return
+
     # Check if daemon is running, if not start it in background
     if not is_daemon_running():
         ensure_daemon_running(timeout=4.0)
+
+    # Ensure tray indicator is running in the background for active desktop
+    try:
+        from linux_drive.tray_indicator import is_tray_running
+        if not is_tray_running():
+            subprocess.Popen([sys.executable, "-m", "linux_drive.tray_indicator"], start_new_session=True)
+    except Exception:
+        pass
 
     if len(sys.argv) > 1 and sys.argv[1] == "--status":
         from linux_drive.drivectl import cmd_status
@@ -122,8 +146,8 @@ cat << 'EOF' > "${BUILD_DIR}/etc/xdg/autostart/google-drive-autostart.desktop"
 [Desktop Entry]
 Type=Application
 Name=Google Drive
-Comment=Google Drive Desktop Background Sync Daemon
-Exec=/usr/bin/google-drive --daemon
+Comment=Google Drive Desktop Background Sync Daemon & System Tray Indicator
+Exec=/usr/bin/google-drive --tray
 Terminal=false
 NoDisplay=true
 X-GNOME-Autostart-enabled=true
@@ -187,6 +211,16 @@ EOF
 chmod 644 "${BUILD_DIR}/usr/share/doc/${PKG_NAME}/copyright"
 
 cat << 'EOF' | gzip -9cn > "${BUILD_DIR}/usr/share/doc/${PKG_NAME}/changelog.gz"
+google-drive-desktop (1.12) unstable; urgency=medium
+
+  * Add persistent System Tray AppIndicator with live sync state, version (Version 1.12), and deployment date (10/11/2026 19:10).
+  * Add drivectl tray [status|start|stop|restart] commands and --pill desktop companion.
+  * Add bundled AyatanaAppIndicator3 typelib for seamless Wayland/GNOME support.
+  * Two-way sync engine and selective sync for Google Workspace Shared Drives.
+  * Multi-account management and modernization of preferences UI.
+
+ -- Google Drive Linux Community <marksterling@armellini.net>  Sun, 11 Oct 2026 19:10:00 -0400
+
 google-drive-desktop (1.0.0) unstable; urgency=medium
 
   * Initial release for Linux.
@@ -206,17 +240,18 @@ echo "-> Writing DEBIAN control scripts..."
 
 cat << 'EOF' > "${BUILD_DIR}/DEBIAN/control"
 Package: google-drive-desktop
-Version: 1.0.0
+Version: 1.12
 Section: utils
 Priority: optional
 Architecture: all
 Maintainer: Google Drive Linux Community <marksterling@armellini.net>
 Depends: python3 (>= 3.10), python3-gi, gir1.2-gtk-3.0
+Recommends: gir1.2-ayatanaappindicator3-0.1
 Suggests: libfuse3-3, fuse3
-Description: Google Drive Desktop & Model Context Protocol (MCP) Server for Linux
+Description: Google Drive Desktop, System Tray & Model Context Protocol (MCP) Server for Linux
  Native Linux client for Google Drive Desktop supporting file streaming/mirroring,
- desktop configuration GUI, CLI control utility (drivectl), systemd integration,
- and the reverse-engineered Model Context Protocol (dfd_mcp_server) for AI pair programming.
+ system tray indicator (StatusNotifierItem), desktop configuration GUI, CLI control utility (drivectl),
+ systemd integration, and the reverse-engineered Model Context Protocol (dfd_mcp_server) for AI pair programming.
 EOF
 chmod 644 "${BUILD_DIR}/DEBIAN/control"
 
@@ -295,7 +330,9 @@ if [ "$1" = "remove" ]; then
     done
     pkill -f "linux_drive.ipc_daemon" || true
     pkill -f "linux_drive/ipc_daemon.py" || true
+    pkill -f "linux_drive.tray_indicator" || true
     pkill -f "/usr/bin/google-drive --daemon" || true
+    pkill -f "/usr/bin/google-drive --tray" || true
 fi
 
 exit 0

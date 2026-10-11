@@ -57,6 +57,11 @@ from linux_drive.drivectl import (
 )
 from linux_drive.ipc_wire import McpIpcRequest
 from linux_drive.oauth import oauth_manager
+try:
+    from linux_drive import __version__, __deploy_date__
+except ImportError:
+    __version__ = "1.12"
+    __deploy_date__ = "10/11/2026 19:10"
 
 ICON_PATH = ROOT_DIR / "assets" / "icons" / "google-drive.png"
 
@@ -315,7 +320,7 @@ class PreferencesWindow(Gtk.Window):
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         header.props.title = "Google Drive"
-        header.props.subtitle = "Preferences & Synchronization"
+        header.props.subtitle = f"Version {__version__} • Deployed: {__deploy_date__}"
         self.set_titlebar(header)
 
         # Left side: Daemon status indicator pill
@@ -1199,10 +1204,73 @@ class PreferencesWindow(Gtk.Window):
 
         box.pack_start(sys_card, False, False, 0)
 
-        # Section 5: Custom Google Cloud Credentials Expander
+        # Section 5: Application & Deployment Information Card
+        app_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        app_card.get_style_context().add_class("card")
+
+        lbl_app_sec = Gtk.Label()
+        lbl_app_sec.set_markup("<b>Application &amp; Deployment Information</b>")
+        lbl_app_sec.set_xalign(0)
+        app_card.pack_start(lbl_app_sec, False, False, 0)
+
+        grid_app = Gtk.Grid()
+        grid_app.set_column_spacing(16)
+        grid_app.set_row_spacing(8)
+        app_card.pack_start(grid_app, False, False, 0)
+
+        grid_app.attach(Gtk.Label(label="Application Version:", xalign=0), 0, 0, 1, 1)
+        lbl_v = Gtk.Label(xalign=0)
+        lbl_v.set_markup(f"<b>Version {__version__}</b>")
+        grid_app.attach(lbl_v, 1, 0, 1, 1)
+
+        grid_app.attach(Gtk.Label(label="Deployment Timestamp:", xalign=0), 0, 1, 1, 1)
+        lbl_d = Gtk.Label(xalign=0)
+        lbl_d.set_markup(f"<tt>{__deploy_date__}</tt>")
+        grid_app.attach(lbl_d, 1, 1, 1, 1)
+
+        grid_app.attach(Gtk.Label(label="System Tray Indicator:", xalign=0), 0, 2, 1, 1)
+        hbox_tray = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        self.lbl_tray_status = Gtk.Label(xalign=0)
+        self._update_tray_label()
+        hbox_tray.pack_start(self.lbl_tray_status, False, False, 0)
+
+        btn_tray_toggle = Gtk.Button(label="Restart Tray")
+        btn_tray_toggle.connect("clicked", self._on_restart_tray_clicked)
+        hbox_tray.pack_start(btn_tray_toggle, False, False, 0)
+        grid_app.attach(hbox_tray, 1, 2, 1, 1)
+
+        box.pack_start(app_card, False, False, 0)
+
+        # Section 6: Custom Google Cloud Credentials Expander
         box.pack_start(self._create_custom_creds_expander(), False, False, 0)
 
         return scrolled
+
+    def _update_tray_label(self):
+        try:
+            from linux_drive.tray_indicator import is_tray_running
+            running = is_tray_running()
+            if running:
+                self.lbl_tray_status.set_markup("<span foreground='#137333'><b>● Active in Notification Area</b></span>")
+            else:
+                self.lbl_tray_status.set_markup("<span foreground='#d93025'><b>● Not Running</b></span>")
+        except Exception:
+            self.lbl_tray_status.set_text("Unknown")
+
+    def _on_restart_tray_clicked(self, _widget):
+        try:
+            from linux_drive.tray_indicator import TRAY_PID_FILE, is_tray_running
+            if is_tray_running():
+                try:
+                    pid = int(Path(TRAY_PID_FILE).read_text().strip())
+                    os.kill(pid, 15)
+                    time.sleep(0.3)
+                except Exception:
+                    pass
+            subprocess.Popen([sys.executable, "-m", "linux_drive.tray_indicator"], start_new_session=True)
+            GLib.timeout_add(1000, lambda: self._update_tray_label() or False)
+        except Exception as e:
+            print(f"Error restarting tray: {e}")
 
     def _create_account_card(self) -> Gtk.Widget:
         card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
